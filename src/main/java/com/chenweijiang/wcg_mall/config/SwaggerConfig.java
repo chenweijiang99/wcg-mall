@@ -52,6 +52,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     String [] excludePaths = new String[]{
             "/user/user/login",
             "/user/user/register",
+            "/user/user/activate/**",
             "/doc.html/**",
             "/swagger-resources/**",
             "/api-docs/**",

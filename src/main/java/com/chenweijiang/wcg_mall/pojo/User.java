@@ -31,4 +31,5 @@ public class User implements Serializable {
     private String phone;
     private String avatar;
     private Integer status;
+    private Integer state;
 }

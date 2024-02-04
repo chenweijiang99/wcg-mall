@@ -1,6 +1,8 @@
 package com.chenweijiang.wcg_mall.controller.user;
 
 import com.chenweijiang.wcg_mall.pojo.User;
+import com.chenweijiang.wcg_mall.pojo.dto.UserLoginDTO;
+import com.chenweijiang.wcg_mall.pojo.dto.UserRegisterDTO;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.UserService;
 import com.chenweijiang.wcg_mall.utils.JwtUtil;
@@ -35,18 +37,23 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Result<String> login(String email, String password){
-        log.info("用户登录，邮箱 = {}", email, password);
-        User loginUser = userService.findUserByEmail(email);
+    @Operation(summary = "用户登录")
+    public Result<String> login(@RequestBody UserLoginDTO userLoginDTO){
+        log.info("用户登录{}", userLoginDTO);
+        User loginUser = userService.findUserByEmail(userLoginDTO.getEmail());
         if(loginUser == null) {
             return Result.error("用户不存在");
         }
+        if(loginUser.getState() == 0){
+            return Result.error("用户未激活");
+        }
 
-        if(userService.checkPassword(password,loginUser)){
+        if(userService.checkPassword(userLoginDTO.getPassword(), loginUser)){
             Map<String, Object> claims = new HashMap<>();
             claims.put("id", loginUser.getId());
             claims.put("username", loginUser.getUsername());
             String token = JwtUtil.genToken(claims);
+            //把token放到redis中，并设置1小时有效期
             ValueOperations<String,String> operations = stringRedisTemplate.opsForValue();
             operations.set(token,token,1, TimeUnit.HOURS);
             return Result.success(token);
@@ -57,14 +64,23 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public Result<String> register(String email, String password){
-        log.info("用户注册，邮箱 = {}", email, password);
-        User user = userService.findUserByEmail(email);
+    @Operation(summary = "用户注册")
+    public Result<String> register(@RequestBody UserRegisterDTO userRegisterDTO){
+        log.info("用户注册 {}", userRegisterDTO);
+        User user = userService.findUserByEmail(userRegisterDTO.getEmail());
         if( user == null){
-            userService.saveUser(email, password);
-            return Result.success("注册成功");
+            userService.saveUser(userRegisterDTO);
+            return Result.success("注册成功，请激活后登陆");
         }else {
             return Result.error("用户已存在");
         }
+    }
+
+    @GetMapping ("/activate/{email}")
+    @Operation(summary = "激活用户")
+    public Result<String> activateUser(@PathVariable String email){
+        log.info("激活用户{}", email);
+        userService.activateUser(email);
+        return Result.success("激活成功");
     }
 }

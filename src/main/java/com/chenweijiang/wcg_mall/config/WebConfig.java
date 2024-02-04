@@ -17,6 +17,7 @@ public class WebConfig implements WebMvcConfigurer {  // 定义WebConfig类并�
     String [] excludePaths = new String[]{
             "/user/user/login",
             "/user/user/register",
+            "/user/user/activate/**",
             "/doc.html/**",
             "/swagger-resources/**",
             "/api-docs/**",

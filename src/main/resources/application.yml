@@ -8,10 +8,37 @@ spring:
     redis:
       host: localhost
       port: 6379
+  mail:
+    host: smtp.qq.com
+    port: 465
+    username: 1774532899@qq.com
+    password: matlgqstvuzzbjgg
+    default-encoding: utf-8
+    properties:
+      mail:
+        debug: true
+        smtp:
+          timeout: 10000
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+
+
+
+
+
+
 
 springdoc:
   swagger-ui:
