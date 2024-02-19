@@ -4,10 +4,8 @@ import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.exception.BaseException;
 import com.chenweijiang.wcg_mall.result.Result;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
@@ -24,27 +22,12 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(Exception.class)
-    public Result exceptionHandler(BaseException ex){
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Result exceptionHandler(Exception ex){
         log.error("异常信息：{}", ex.getMessage());
         return Result.error(ex.getMessage());
     }
 
-    /**
-     * 处理SQL异常
-     * @param ex
-     * @return
-     */
-    @ExceptionHandler
-    public Result exceptionHandler(SQLIntegrityConstraintViolationException ex){
-        //Duplicate entry 'zhangsan' for key 'employee.idx_username'
-        String message = ex.getMessage();
-        if(message.contains("Duplicate entry")){
-            String[] split = message.split(" ");
-            String username = split[2];
-            String msg = username + MessageConstant.ALREADY_EXISTS;
-            return Result.error(msg);
-        }else{
-            return Result.error(MessageConstant.UNKNOWN_ERROR);
-        }
-    }
+
 }

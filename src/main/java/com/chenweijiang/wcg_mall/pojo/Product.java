@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product  {
+public class Product implements Serializable {
 
     private Long id;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

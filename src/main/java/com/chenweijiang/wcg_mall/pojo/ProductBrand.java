@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductBrand {
+public class ProductBrand implements Serializable{
 
     private Long id;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

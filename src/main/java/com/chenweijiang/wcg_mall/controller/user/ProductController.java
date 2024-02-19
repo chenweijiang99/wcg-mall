@@ -1,6 +1,9 @@
 package com.chenweijiang.wcg_mall.controller.user;
 
+import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
+import com.chenweijiang.wcg_mall.exception.AddToWishListException;
+import com.chenweijiang.wcg_mall.exception.ProductNotFoundException;
 import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductFilterDTO;
 import com.chenweijiang.wcg_mall.result.Result;
@@ -9,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +24,8 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @PostMapping("/filter")
     @Operation(summary = "商品筛选")
@@ -33,10 +39,18 @@ public class ProductController {
     @Operation(summary = "商品列表")
     public Result<List<Product>> userGetList(){
         log.info("获取商品列表");
+        //从redis中获取商品列表
+        String key = "product_list";
+        List<Product> list = (List<Product>) redisTemplate.opsForValue().get(key);
+        if(list != null && list.size() > 0){
+            return Result.success(list);
+        }
+        //从数据库中获取商品列表
         List<Product> productList = productService.userGetList();
         if(productList == null || productList.size() == 0){
-            return Result.error("暂无商品");
+            throw new ProductNotFoundException(MessageConstant.PRODUCT_LIST_NOT_FOUND);
         }
+        redisTemplate.opsForValue().set(key,productList);
         return Result.success(productList);
     }
 
@@ -46,7 +60,7 @@ public class ProductController {
         log.info("获取商品详情:{}", id);
         Product product = productService.getById(id);
         if(product == null){
-            return Result.error("商品不存在");
+            throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_FOUND);
         }
         return Result.success(product);
     }
@@ -55,12 +69,13 @@ public class ProductController {
     @Operation(summary = "添加商品到心愿单")
     public Result<String> addToWishList(@PathVariable Long id){
         log.info("添加商品到心愿单:{}", id);
+
         Long userId = BaseContext.getCurrentId();
         int result = productService.addToWishList(userId,id);
         if (result == 0){
-            return Result.error("添加失败");
+            throw new AddToWishListException(MessageConstant.ADD_TO_WISH_LIST_FAILED);
         }else {
-            return Result.success("添加成功");
+            return Result.success(MessageConstant.ADD_TO_WISH_LIST_SUCCESS);
         }
     }
 }

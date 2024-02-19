@@ -7,9 +7,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController("adminProductController")
 @Slf4j
@@ -19,13 +21,15 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
-
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @PostMapping("/addProduct")
     @Operation(summary = "添加商品")
     public Result<String> addProduct(@RequestBody Product product) {
         log.info("添加商品");
         if(productService.addProduct(product) ==1){
+            cleanCache("product_list");
             return Result.success("添加成功");
         }
         return Result.error("添加失败");
@@ -44,6 +48,7 @@ public class ProductController {
     public Result<String> deleteProduct(@PathVariable Long id) {
         log.info("删除商品");
         if(productService.deleteProductById(id) == 1){
+            cleanCache("product_list");
             return Result.success("删除成功");
         }
         return Result.error("删除失败");
@@ -54,6 +59,7 @@ public class ProductController {
     public Result<String> updateProduct(@RequestBody Product product) {
         log.info("修改商品");
         if(productService.updateProduct(product) == 1){
+            cleanCache("product_list");
             return Result.success("修改成功");
         }
         return Result.error("修改失败");
@@ -64,8 +70,18 @@ public class ProductController {
     public Result<String> stopOrStartProduct(@PathVariable Long id) {
         log.info("停用或启用商品");
         if(productService.stopOrStart(id) == 1){
+            cleanCache("product_list");
             return Result.success("操作成功");
         }
         return Result.error("操作失败");
+    }
+
+    /**
+     * 删除缓存
+     * @param pattern
+     */
+    private void cleanCache(String pattern){
+        Set keys = redisTemplate.keys(pattern);
+        redisTemplate.delete(keys);
     }
 }

@@ -2,6 +2,7 @@ package com.chenweijiang.wcg_mall.controller.user;
 
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
+import com.chenweijiang.wcg_mall.exception.*;
 import com.chenweijiang.wcg_mall.pojo.User;
 import com.chenweijiang.wcg_mall.pojo.dto.UserLoginDTO;
 import com.chenweijiang.wcg_mall.pojo.dto.UserRegisterDTO;
@@ -54,10 +55,10 @@ public class UserController {
         log.info("用户登录{}", email, password);
         User loginUser = userService.findUserByEmail(email);
         if(loginUser == null) {
-            return Result.error("用户不存在");
+            throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
         }
         if(loginUser.getState() == 0){
-            return Result.error("用户未激活");
+            throw new AccountLockedException(MessageConstant.ACCOUNT_NOT_ACTIVE);
         }
         if(userService.checkPassword(password, loginUser)){
             Map<String, Object> claims = new HashMap<>();
@@ -67,13 +68,13 @@ public class UserController {
                     jwtProperties.getUserSecretKey(),
                     jwtProperties.getUserTtl(),
                     claims);
-            //把token放到redis中，并设置1小时有效期
+            //把token放到redis中，并设置2小时有效期
             ValueOperations<String,String> operations = stringRedisTemplate.opsForValue();
-            operations.set(token,token,1, TimeUnit.HOURS);
+            operations.set(token,token,2, TimeUnit.HOURS);
             return Result.success(token);
         }
 
-        return Result.error("密码错误");
+        throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
     }
 
 
@@ -86,7 +87,7 @@ public class UserController {
             userService.saveUser(userRegisterDTO);
             return Result.success("注册成功，请激活后登陆");
         }else {
-            return Result.error("用户已存在");
+            throw new AccountAlreadyExistsException(MessageConstant.ALREADY_EXISTS);
         }
     }
 
@@ -139,7 +140,7 @@ public class UserController {
     public Result<String> upload(MultipartFile file){
         // 判断文件是否为空
         if(file.isEmpty() || file == null){
-            System.out.println("文件为空");
+            throw new FileIsNullException(MessageConstant.FILE_IS_NULL);
         }
         log.info("文件上传：{}",file);
 

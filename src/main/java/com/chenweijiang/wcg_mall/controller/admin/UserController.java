@@ -60,9 +60,9 @@ public class UserController {
                     jwtProperties.getAdminSecretKey(),
                     jwtProperties.getAdminTtl(),
                     claims);
-            //把token放到redis中，并设置1小时有效期
+            //把token放到redis中，并设置2小时有效期
             ValueOperations<String,String> operations = stringRedisTemplate.opsForValue();
-            operations.set(token,token,1, TimeUnit.HOURS);
+            operations.set(token,token,2, TimeUnit.HOURS);
 //            BaseContext.setCurrentId(user.getId());
             return Result.success(token);
         }
