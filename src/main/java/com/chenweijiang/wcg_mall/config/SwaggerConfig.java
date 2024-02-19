@@ -1,6 +1,7 @@
 package com.chenweijiang.wcg_mall.config;
 
 
+import com.chenweijiang.wcg_mall.interceptor.JwtAdminTokenInterceptor;
 import com.chenweijiang.wcg_mall.interceptor.JwtTokenInterceptor;
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -23,7 +24,8 @@ import java.util.Map;
 public class SwaggerConfig extends WebMvcConfigurationSupport {
     @Autowired  // 自动装配LoginInterceptor实例
     private JwtTokenInterceptor jwtTokenInterceptor;  // 声明一个名为loginInterceptor的LoginInterceptor类型的私有变量
-
+    @Autowired
+    private JwtAdminTokenInterceptor jwtAdminTokenInterceptor;
 
     @Bean
     public OpenAPI customOpenAPI() {
@@ -52,7 +54,10 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     String [] excludePaths = new String[]{
             "/user/user/login",
             "/user/user/register",
-            "/user/user/activate/**",
+            "/user/user/activate",
+            "/user/user/activateCode",
+            "/user/user/getCode",
+            "/user/user/upload",
             "/doc.html/**",
             "/swagger-resources/**",
             "/api-docs/**",
@@ -67,6 +72,10 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
         resolvers.addInterceptor(jwtTokenInterceptor)
                 .addPathPatterns("/user/**")
                 .excludePathPatterns(excludePaths);
+
+        resolvers.addInterceptor(jwtAdminTokenInterceptor)
+                .addPathPatterns("/admin/**")
+                .excludePathPatterns("/admin/user/login");
     }
 
 }

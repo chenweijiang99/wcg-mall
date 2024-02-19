@@ -11,8 +11,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OfficialCollection implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class OfficialCollection {
     private Long id;
     private Long productId;
 }

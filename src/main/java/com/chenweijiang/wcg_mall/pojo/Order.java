@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Order{
+
     /**
      * 订单状态 1待付款 2待接单 3已接单 4派送中 5已完成 6已取消
      */

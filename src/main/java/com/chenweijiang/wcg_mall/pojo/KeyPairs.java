@@ -12,8 +12,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class KeyPairs implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class KeyPairs  {
     private Long id;
     private Long userId;
     private String publicKey;

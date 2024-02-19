@@ -1,5 +1,6 @@
 package com.chenweijiang.wcg_mall.config;
 
+import com.chenweijiang.wcg_mall.interceptor.JwtAdminTokenInterceptor;
 import com.chenweijiang.wcg_mall.interceptor.JwtTokenInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {  // 定义WebConfig类并实现WebMvcConfigurer接口
     @Autowired
     private JwtTokenInterceptor jwtTokenInterceptor;
-
+    @Autowired
+    private JwtAdminTokenInterceptor jwtAdminTokenInterceptor;
 
     String [] excludePaths = new String[]{
             "/user/user/login",
             "/user/user/register",
-            "/user/user/activate/**",
+            "/user/user/activate",
+            "/user/user/activateCode",
+            "/user/user/getCode",
+            "/user/user/upload",
             "/doc.html/**",
             "/swagger-resources/**",
             "/api-docs/**",
@@ -32,5 +37,9 @@ public class WebConfig implements WebMvcConfigurer {  // 定义WebConfig类并�
         resolvers.addInterceptor(jwtTokenInterceptor)
                 .addPathPatterns("/user/**")
                 .excludePathPatterns(excludePaths);
+
+        resolvers.addInterceptor(jwtAdminTokenInterceptor)
+                .addPathPatterns("/admin/**")
+                .excludePathPatterns("/admin/user/login");
     }
 }

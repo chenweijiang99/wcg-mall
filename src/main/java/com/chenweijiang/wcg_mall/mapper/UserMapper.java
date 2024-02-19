@@ -17,4 +17,6 @@ public interface UserMapper {
     void saveUser(User user);
     @Update("update user set state = 1 where email = #{email}")
     void activateUser(String email);
+    @Update("update user set username = #{username},phone = #{phone},avatar = #{avatar},state = 1 where email = #{email}")
+    void updateUserByEmail(String email, String username, String phone, String avatar);
 }

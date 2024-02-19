@@ -12,8 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressBook implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class AddressBook  {
     private Long id;
     private LocalDateTime createTime;
     private  LocalDateTime updateTime;

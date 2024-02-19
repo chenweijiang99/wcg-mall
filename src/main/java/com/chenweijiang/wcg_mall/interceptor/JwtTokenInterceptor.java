@@ -1,7 +1,10 @@
 package com.chenweijiang.wcg_mall.interceptor;
 
+import com.chenweijiang.wcg_mall.context.BaseContext;
+import com.chenweijiang.wcg_mall.properties.JwtProperties;
 import com.chenweijiang.wcg_mall.utils.JwtUtil;
 import com.chenweijiang.wcg_mall.utils.ThreadLocalUtil;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +27,8 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
-
+    @Autowired
+    private JwtProperties jwtProperties;
     /**
      * 校验jwt
      *
@@ -42,19 +46,22 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
         }
 
         //令牌验证
-        String token = request.getHeader("Authorization");
+        String token = request.getHeader(jwtProperties.getUserTokenName());
 
         try{
             //从redis中获取token
+            log.info("jwt校验:{}", token);
             ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
             String redisToken = operations.get(token);
             if (redisToken == null){
                 throw new RuntimeException();
             }
-            Map<String, Object> claims = JwtUtil.parseToken(token);
-
+            Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);
             //把业务数据存储到ThreadLocal中
-            ThreadLocalUtil.set(claims);
+            Long userId = Long.valueOf(claims.get("id").toString());
+            log.info("当前用户id:{}", userId);
+            BaseContext.setCurrentId(userId);
+//            ThreadLocalUtil.set(claims);
             //放行
             return true;
         }catch (Exception e){
@@ -67,6 +74,6 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         //执行完后，清空ThreadLocal中的数据
-        ThreadLocalUtil.remove();
+        BaseContext.removeCurrentId();
     }
 }

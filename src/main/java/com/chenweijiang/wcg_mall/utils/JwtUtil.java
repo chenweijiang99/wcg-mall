@@ -1,31 +1,59 @@
 package com.chenweijiang.wcg_mall.utils;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Map;
 
 public class JwtUtil {
+    /**
+     * 生成jwt
+     * 使用Hs256算法, 私匙使用固定秘钥
+     *
+     * @param secretKey jwt秘钥
+     * @param ttlMillis jwt过期时间(毫秒)
+     * @param claims    设置的信息
+     * @return
+     */
+    public static String createJWT(String secretKey, long ttlMillis, Map<String, Object> claims) {
+        // 指定签名的时候使用的签名算法，也就是header那部分
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
-    private static final String KEY = "com.cwj.wcg.mall";  // 定义私有静态常量KEY，用于生成token的密钥
+        // 生成JWT的时间
+        long expMillis = System.currentTimeMillis() + ttlMillis;
+        Date exp = new Date(expMillis);
 
-    // 接收业务数据,生成token并返回
-    public static String genToken(Map<String, Object> claims) {
-        return JWT.create()  // 创建JWT实例
-                .withClaim("claims", claims)  // 设置payload中的claims字段
-                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 ))  // 设置token的过期时间为当前时间加1小时
-                .sign(Algorithm.HMAC256(KEY));  // 使用HMAC256算法和密钥KEY对token进行签名
+        // 设置jwt的body
+        JwtBuilder builder = Jwts.builder()
+                // 如果有私有声明，一定要先设置这个自己创建的私有的声明，这个是给builder的claim赋值，一旦写在标准的声明赋值之后，就是覆盖了那些标准的声明的
+                .setClaims(claims)
+                // 设置签名使用的签名算法和签名使用的秘钥
+                .signWith(signatureAlgorithm, secretKey.getBytes(StandardCharsets.UTF_8))
+                // 设置过期时间
+                .setExpiration(exp);
+
+        return builder.compact();
     }
 
-    // 接收token,验证token,并返回业务数据
-    public static Map<String, Object> parseToken(String token) {
-        return JWT.require(Algorithm.HMAC256(KEY))  // 创建JWTVerifier实例，使用HMAC256算法和密钥KEY进行验证
-                .build()  // 构建JWTVerifier实例
-                .verify(token)  // 验证token的签名
-                .getClaim("claims")  // 获取payload中的claims字段
-                .asMap();  // 将claims字段转换为Map类型并返回
+    /**
+     * Token解密
+     *
+     * @param secretKey jwt秘钥 此秘钥一定要保留好在服务端, 不能暴露出去, 否则sign就可以被伪造, 如果对接多个客户端建议改造成多个
+     * @param token     加密后的token
+     * @return
+     */
+    public static Claims parseJWT(String secretKey, String token) {
+        // 得到DefaultJwtParser
+        Claims claims = Jwts.parser()
+                // 设置签名的秘钥
+                .setSigningKey(secretKey.getBytes(StandardCharsets.UTF_8))
+                // 设置需要解析的jwt
+                .parseClaimsJws(token).getBody();
+        return claims;
     }
 
 }

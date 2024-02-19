@@ -12,8 +12,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDiscount implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class ProductDiscount  {
 
     private Long id;
     private Long createUser;

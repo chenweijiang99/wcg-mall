@@ -4,7 +4,9 @@ import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.exception.BaseException;
 import com.chenweijiang.wcg_mall.result.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -12,7 +14,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 /**
  * 全局异常处理器，处理项目中抛出的业务异常
  */
-@RestControllerAdvice
+@ControllerAdvice(basePackages = {"com.chenweijiang.wcg_mall.controller"})
 @Slf4j
 public class GlobalExceptionHandler {
 
@@ -21,7 +23,7 @@ public class GlobalExceptionHandler {
      * @param ex
      * @return
      */
-    @ExceptionHandler
+    @ExceptionHandler(Exception.class)
     public Result exceptionHandler(BaseException ex){
         log.error("异常信息：{}", ex.getMessage());
         return Result.error(ex.getMessage());

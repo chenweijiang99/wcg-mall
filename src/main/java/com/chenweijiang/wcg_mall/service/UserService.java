@@ -12,5 +12,9 @@ public interface UserService {
 
     public boolean checkPassword(String loginPwd,User loginUser);
 
-    void activateUser(String email);
+    void activateUser(String email, String username, String phone, String avatar);
+
+    int activateCode(String email,String code);
+
+    void getCode(String email);
 }

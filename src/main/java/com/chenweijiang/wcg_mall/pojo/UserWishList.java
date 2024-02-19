@@ -12,12 +12,8 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserWishList implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class UserWishList  {
     private Long id;
-    private LocalDateTime createTime;
-    private LocalDateTime updateTime;
     private Long userId;
     private Long productId;
 }

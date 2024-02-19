@@ -11,8 +11,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShoppingCart implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class ShoppingCart  {
 
     private Long id;
     private Long userId;

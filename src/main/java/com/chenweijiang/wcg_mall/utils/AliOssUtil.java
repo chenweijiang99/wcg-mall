@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 @Data
 @AllArgsConstructor
@@ -18,23 +19,18 @@ public class AliOssUtil {
     private String endpoint;
     private String accessKeyId;
     private String accessKeySecret;
-    private String bucketName;
+    private  String bucketName;
 
-    /**
-     * 文件上传
-     *
-     * @param bytes
-     * @param objectName
-     * @return
-     */
-    public String upload(byte[] bytes, String objectName) {
-
+    public String upload(String objectName, InputStream inputStream){
         // 创建OSSClient实例。
-        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
-
+        OSS ossClient = new OSSClientBuilder().build(endpoint,accessKeyId,accessKeySecret);
+        //公文访问地址
+        String url = "";
         try {
-            // 创建PutObject请求。
-            ossClient.putObject(bucketName, objectName, new ByteArrayInputStream(bytes));
+            // 创建存储空间。
+            ossClient.createBucket(bucketName);  // 创建存储空间
+            ossClient.putObject(bucketName, objectName, inputStream);  // 上传文件
+            url = "https://"+bucketName+"."+endpoint.substring(endpoint.lastIndexOf("/")+1)+"/"+objectName;  // 获取文件的公网访问地址
         } catch (OSSException oe) {
             System.out.println("Caught an OSSException, which means your request made it to OSS, "
                     + "but was rejected with an error response for some reason.");
@@ -49,21 +45,9 @@ public class AliOssUtil {
             System.out.println("Error Message:" + ce.getMessage());
         } finally {
             if (ossClient != null) {
-                ossClient.shutdown();
+                ossClient.shutdown();  // 关闭OSSClient
             }
         }
-
-        //文件访问路径规则 https://BucketName.Endpoint/ObjectName
-        StringBuilder stringBuilder = new StringBuilder("https://");
-        stringBuilder
-                .append(bucketName)
-                .append(".")
-                .append(endpoint)
-                .append("/")
-                .append(objectName);
-
-        log.info("文件上传到:{}", stringBuilder.toString());
-
-        return stringBuilder.toString();
+        return url;  // 返回文件的公网访问地址
     }
 }

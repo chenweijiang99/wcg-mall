@@ -11,9 +11,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductColor implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class ProductColor  {
     private Long id;
     private Long productId;
     private String value;

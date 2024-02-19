@@ -4,7 +4,7 @@
 <mapper namespace="com.chenweijiang.wcg_mall.mapper.UserMapper">
 
     <insert id="saveUser" useGeneratedKeys="true" keyProperty="id">
-        insert into user(email, password) values(#{email}, #{password})
+        insert into user(nick_name,email, password) values(#{nickName},#{email}, #{password})
     </insert>
 
 

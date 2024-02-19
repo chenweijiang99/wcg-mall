@@ -1,5 +1,6 @@
 package com.chenweijiang.wcg_mall.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,8 +13,8 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class User  {
+
     /**
      * 用户身份 1:普通用户  2：卖家  3：管理员
      */
@@ -25,11 +26,14 @@ public class User implements Serializable {
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
     private String username;
-    private String nickname;
+    private String nickName;
+    @JsonIgnore
     private String password;
     private String email;
     private String phone;
     private String avatar;
+    @JsonIgnore
     private Integer status;
+    @JsonIgnore
     private Integer state;
 }
