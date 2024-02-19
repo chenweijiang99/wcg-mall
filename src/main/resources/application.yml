@@ -39,6 +39,13 @@ springdoc:
     operations-sorter: alpha
   api-docs:
     path: /v3/api-docs
+  group-configs:
+    - group: 管理端
+      packages-to-scan:
+        - com.chenweijiang.wcg_mall.controller.admin
+    - group: 用户端
+      packages-to-scan:
+        - com.chenweijiang.wcg_mall.controller.user
 
 mall:
   alioss:
