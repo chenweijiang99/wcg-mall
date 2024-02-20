@@ -1,0 +1,61 @@
+package com.chenweijiang.wcg_mall.service.impl;
+
+import com.chenweijiang.wcg_mall.constant.MessageConstant;
+import com.chenweijiang.wcg_mall.exception.ProductNotFoundException;
+import com.chenweijiang.wcg_mall.mapper.ProductMapper;
+import com.chenweijiang.wcg_mall.mapper.ShoppingCartMapper;
+import com.chenweijiang.wcg_mall.pojo.Product;
+import com.chenweijiang.wcg_mall.pojo.ShoppingCart;
+import com.chenweijiang.wcg_mall.pojo.vo.ShoppingCartVO;
+import com.chenweijiang.wcg_mall.service.ShoppingCartService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ShoppingCartServiceImpl implements ShoppingCartService {
+    @Autowired
+    private ShoppingCartMapper shoppingCartMapper;
+    @Autowired
+    private ProductMapper productMapper;
+    @Override
+    public List<ShoppingCartVO> listByUserId(Long userId) {
+        return shoppingCartMapper.listByUserId(userId);
+    }
+
+    @Override
+    public void addShoppingCart(Long userId, Long productId) {
+        ShoppingCart shoppingCart = shoppingCartMapper.getShoppingCartByUserIdAndProductId(userId, productId);
+        Product product = productMapper.getById(productId);
+        if (shoppingCart == null) {
+            if(product == null ){
+                throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_ON_SALE);
+            }
+            ShoppingCart addShoppingCart = ShoppingCart.builder()
+                    .userId(userId)
+                    .productId(productId)
+                    .number(1)
+                    .build();
+            shoppingCartMapper.addShoppingCart(addShoppingCart);
+        } else {
+            shoppingCart.setNumber(shoppingCart.getNumber() + 1);
+            shoppingCartMapper.updateShoppingCart(shoppingCart);
+        }
+    }
+
+    @Override
+    public void deleteShoppingCart(Long userId, Long productId) {
+        ShoppingCart shoppingCart = shoppingCartMapper.getShoppingCartByUserIdAndProductId(userId, productId);
+        if (shoppingCart != null) {
+            shoppingCart.setNumber(shoppingCart.getNumber() - 1);
+            if (shoppingCart.getNumber() <= 0) {
+                shoppingCartMapper.deleteShoppingCart(shoppingCart.getId());
+            } else {
+                shoppingCartMapper.updateShoppingCart(shoppingCart);
+            }
+        }else {
+            throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_IN_CART);
+        }
+    }
+}

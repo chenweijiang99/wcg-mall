@@ -1,6 +1,7 @@
 package com.chenweijiang.wcg_mall.controller.user;
 
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
+import com.chenweijiang.wcg_mall.constant.RedisConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
 import com.chenweijiang.wcg_mall.exception.AddToWishListException;
 import com.chenweijiang.wcg_mall.exception.ProductNotFoundException;
@@ -40,8 +41,7 @@ public class ProductController {
     public Result<List<Product>> userGetList(){
         log.info("获取商品列表");
         //从redis中获取商品列表
-        String key = "product_list";
-        List<Product> list = (List<Product>) redisTemplate.opsForValue().get(key);
+        List<Product> list = (List<Product>) redisTemplate.opsForValue().get(RedisConstant.PRODUCT_LIST);
         if(list != null && list.size() > 0){
             return Result.success(list);
         }
@@ -50,7 +50,7 @@ public class ProductController {
         if(productList == null || productList.size() == 0){
             return Result.error(MessageConstant.PRODUCT_LIST_NOT_FOUND);
         }
-        redisTemplate.opsForValue().set(key,productList);
+        redisTemplate.opsForValue().set(RedisConstant.PRODUCT_LIST,productList);
         return Result.success(productList);
     }
 

@@ -1,6 +1,7 @@
 package com.chenweijiang.wcg_mall.controller.admin;
 
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
+import com.chenweijiang.wcg_mall.constant.RedisConstant;
 import com.chenweijiang.wcg_mall.pojo.ProductCategory;
 import com.chenweijiang.wcg_mall.pojo.dto.CategoryDTO;
 import com.chenweijiang.wcg_mall.result.Result;
@@ -9,9 +10,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController("adminCategoryController")
 @Slf4j
@@ -21,7 +24,8 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
-
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @GetMapping
     @Operation(summary = "分类列表")
@@ -42,6 +46,7 @@ public class CategoryController {
         if(result == 0){
             return Result.error(MessageConstant.CATEGORY_UPDATE_FAILED);
         }
+        redisTemplate.delete(RedisConstant.CATEGORY_LIST);
         return Result.success(MessageConstant.CATEGORY_UPDATE_SUCCESS);
     }
 
@@ -53,6 +58,7 @@ public class CategoryController {
         if(result == 0){
             return Result.error(MessageConstant.CATEGORY_ADD_FAILED);
         }
+        redisTemplate.delete(RedisConstant.CATEGORY_LIST);
         return Result.success(MessageConstant.CATEGORY_ADD_SUCCESS);
     }
 
@@ -64,6 +70,11 @@ public class CategoryController {
         if(result == 0){
             return Result.error(MessageConstant.CATEGORY_DELETE_FAILED);
         }
+        redisTemplate.delete(RedisConstant.CATEGORY_LIST);
         return Result.success(MessageConstant.CATEGORY_DELETE_SUCCESS);
+    }
+    private void cleanCache(String pattern){
+        Set keys = redisTemplate.keys(pattern);
+        redisTemplate.delete(keys);
     }
 }

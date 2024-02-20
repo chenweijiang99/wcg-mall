@@ -1,6 +1,7 @@
 package com.chenweijiang.wcg_mall.controller.admin;
 
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
+import com.chenweijiang.wcg_mall.constant.RedisConstant;
 import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.ProductService;
@@ -30,7 +31,7 @@ public class ProductController {
     public Result<String> addProduct(@RequestBody Product product) {
         log.info("添加商品");
         if(productService.addProduct(product) ==1){
-            cleanCache("product_list");
+            cleanCache(RedisConstant.PRODUCT_LIST);
             return Result.success(MessageConstant.PRODUCT_ADD_SUCCESS);
         }
         return Result.error(MessageConstant.PRODUCT_ADD_FAILED);
@@ -41,6 +42,9 @@ public class ProductController {
     public Result<List<Product>> list() {
         log.info("商品列表");
         List<Product> products = productService.list();
+        if(products == null || products.size() == 0){
+            return Result.error(MessageConstant.PRODUCT_LIST_NOT_FOUND);
+        }
         return Result.success(products);
     }
 
@@ -49,7 +53,7 @@ public class ProductController {
     public Result<String> deleteProduct(@PathVariable Long id) {
         log.info("删除商品");
         if(productService.deleteProductById(id) == 1){
-            cleanCache("product_list");
+            cleanCache(RedisConstant.PRODUCT_LIST);
             return Result.success(MessageConstant.PRODUCT_DELETE_FAILED);
         }
         return Result.error(MessageConstant.PRODUCT_DELETE_FAILED);
@@ -60,7 +64,7 @@ public class ProductController {
     public Result<String> updateProduct(@RequestBody Product product) {
         log.info("修改商品");
         if(productService.updateProduct(product) == 1){
-            cleanCache("product_list");
+            cleanCache(RedisConstant.PRODUCT_LIST);
             return Result.success(MessageConstant.PRODUCT_UPDATE_FAILED);
         }
         return Result.error(MessageConstant.PRODUCT_UPDATE_FAILED);
@@ -71,7 +75,7 @@ public class ProductController {
     public Result<String> stopOrStartProduct(@PathVariable Long id) {
         log.info("停用或启用商品");
         if(productService.stopOrStart(id) == 1){
-            cleanCache("product_list");
+            cleanCache(RedisConstant.PRODUCT_LIST);
             return Result.success(MessageConstant.SUCCESS);
         }
         return Result.error(MessageConstant.FAIL);

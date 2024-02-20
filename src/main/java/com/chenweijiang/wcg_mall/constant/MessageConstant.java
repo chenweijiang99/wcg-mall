@@ -14,7 +14,7 @@ public class MessageConstant {
     public static final String USER_NOT_LOGIN = "用户未登录";
     public static final String CATEGORY_BE_RELATED_BY_SETMEAL = "当前分类关联了套餐,不能删除";
     public static final String CATEGORY_BE_RELATED_BY_DISH = "当前分类关联了菜品,不能删除";
-    public static final String SHOPPING_CART_IS_NULL = "购物车数据为空，不能下单";
+    public static final String SHOPPING_CART_IS_NULL = "购物车数据为空";
     public static final String ADDRESS_BOOK_IS_NULL = "用户地址为空，不能下单";
     public static final String LOGIN_FAILED = "登录失败";
     public static final String UPLOAD_FAILED = "文件上传失败";
@@ -84,4 +84,8 @@ public class MessageConstant {
     public static final String WISH_LIST_UPDATE_SUCCESS = "修改心愿单成功";
     public static final String WISH_LIST_UPDATE_FAILED = "修改心愿单失败";
     public static final String WISH_LIST_ADD_SUCCESS = "添加心愿单成功";
+    public static final String ADD_PRODUCT_TO_CART_SUCCESS = "添加到购物车成功";
+    public static final String PRODUCT_NOT_IN_CART = "购物车中没有该商品";
+
+    public static final String ADD_PRODUCT_TO_CART_FAIL = "添加到购物车失败";
 }

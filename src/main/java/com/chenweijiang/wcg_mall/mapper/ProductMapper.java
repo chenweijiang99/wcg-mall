@@ -14,7 +14,7 @@ public interface ProductMapper {
     List<Product> filter(ProductFilterDTO productFilterDTO);
 
     @Insert("insert into product (create_time,update_time,create_user,update_user,name, category_id,brand_id,price, inventory, image, description,label,status) " +
-            "values (#{createTime},#{updateTime},#{createUser},#{updateUser},#{name},#{categoryId},#{brandId},#{price},#{inventory},#{image},#{description},#{label}.#{status})")
+            "values (#{createTime},#{updateTime},#{createUser},#{updateUser},#{name},#{categoryId},#{brandId},#{price},#{inventory},#{image},#{description},#{label},#{status})")
     @AutoFill(value = OperationType.INSERT)
     int addProduct(Product product);
 

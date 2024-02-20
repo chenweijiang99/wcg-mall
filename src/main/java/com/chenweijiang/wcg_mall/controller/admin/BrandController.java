@@ -1,6 +1,7 @@
 package com.chenweijiang.wcg_mall.controller.admin;
 
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
+import com.chenweijiang.wcg_mall.constant.RedisConstant;
 import com.chenweijiang.wcg_mall.pojo.ProductBrand;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.BrandService;
@@ -8,9 +9,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController("adminBrandController")
 @Slf4j
@@ -19,7 +22,8 @@ import java.util.List;
 public class BrandController {
     @Autowired
     private BrandService brandService;
-
+    @Autowired
+    private RedisTemplate redisTemplate;
     @GetMapping
     @Operation(summary = "品牌列表")
     public Result<List<ProductBrand>> list() {
@@ -38,6 +42,7 @@ public class BrandController {
         if(update == 0){
             return Result.error(MessageConstant.BRAND_UPDATE_FAILED);
         }
+        cleanCache(RedisConstant.BRAND_LIST);
         return Result.success(MessageConstant.BRAND_UPDATE_SUCCESS);
     }
 
@@ -49,6 +54,7 @@ public class BrandController {
         if(add == 0){
             return Result.error(MessageConstant.BRAND_ADD_FAILED);
         }
+        cleanCache(RedisConstant.BRAND_LIST);
         return Result.success(MessageConstant.BRAND_ADD_SUCCESS);
     }
 
@@ -60,6 +66,12 @@ public class BrandController {
         if(delete == 0){
             return Result.error(MessageConstant.BRAND_DELETE_FAILED);
         }
+        cleanCache(RedisConstant.BRAND_LIST);
         return Result.success(MessageConstant.BRAND_DELETE_SUCCESS);
+    }
+
+    private void cleanCache(String pattern){
+        Set keys = redisTemplate.keys(pattern);
+        redisTemplate.delete(keys);
     }
 }

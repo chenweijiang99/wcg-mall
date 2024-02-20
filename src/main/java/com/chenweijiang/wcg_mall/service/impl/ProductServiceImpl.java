@@ -9,6 +9,7 @@ import com.chenweijiang.wcg_mall.mapper.WishListMapper;
 import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.pojo.UserWishList;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductFilterDTO;
+import com.chenweijiang.wcg_mall.pojo.vo.WishListVO;
 import com.chenweijiang.wcg_mall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,7 +96,7 @@ public class ProductServiceImpl implements ProductService {
          if(product.getStatus() == 0){
              throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_ON_SALE);
          }
-        List<UserWishList> userWishLists = wishListMapper.getListByUserId(userId);
+        List<WishListVO> userWishLists = wishListMapper.getListByUserId(userId);
         userWishLists.forEach(userWishList -> {
             if(userWishList.getProductId().equals(id)){
                 throw new WishListAlreadyExistsException(MessageConstant.WISH_LIST_IS_ALREADY_EXISTS);

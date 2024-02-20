@@ -26,13 +26,13 @@
     <select id="filter" resultType="com.chenweijiang.wcg_mall.pojo.Product">
         select p.*,pc.name as categoryName,pb.name as brandName from product as p,product_category as pc,product_brand as pb
         where p.category_id = pc.id and p.brand_id = pb.id
-            <if test="category != null">
+            <if test="category != null and category.length > 0">
                 and pc.name in
                 <foreach collection="category" item="item" open="(" separator="," close=")">
                     #{item}
                 </foreach>
             </if>
-            <if test="brand != null">
+            <if test="brand != null and brand.length > 0 ">
                 and pb.name in
                 <foreach collection="brand" item="item" open="(" separator="," close=")">
                     #{item}
