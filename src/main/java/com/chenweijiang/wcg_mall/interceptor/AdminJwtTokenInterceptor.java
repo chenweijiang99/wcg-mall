@@ -1,9 +1,9 @@
 package com.chenweijiang.wcg_mall.interceptor;
 
+import com.chenweijiang.wcg_mall.constant.JwtClaimsConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
 import com.chenweijiang.wcg_mall.properties.JwtProperties;
 import com.chenweijiang.wcg_mall.utils.JwtUtil;
-import com.chenweijiang.wcg_mall.utils.ThreadLocalUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,15 +15,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import java.util.Map;
-
 
 /**
  * jwt令牌校验的拦截器
  */
 @Component
 @Slf4j
-public class JwtTokenInterceptor implements HandlerInterceptor {
+public class AdminJwtTokenInterceptor implements HandlerInterceptor {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -46,7 +44,7 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
         }
 
         //令牌验证
-        String token = request.getHeader(jwtProperties.getUserTokenName());
+        String token = request.getHeader(jwtProperties.getAdminTokenName());
 
         try{
             //从redis中获取token
@@ -56,10 +54,10 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
             if (redisToken == null){
                 throw new RuntimeException();
             }
-            Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);
+            Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
             //把业务数据存储到ThreadLocal中
-            Long userId = Long.valueOf(claims.get("id").toString());
-            log.info("当前用户id:{}", userId);
+            Long userId = Long.valueOf(claims.get(JwtClaimsConstant.ADMIN_ID).toString());
+            log.info("当前管理员id:{}", userId);
             BaseContext.setCurrentId(userId);
 //            ThreadLocalUtil.set(claims);
             //放行

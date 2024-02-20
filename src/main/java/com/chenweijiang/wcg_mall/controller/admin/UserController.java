@@ -1,5 +1,6 @@
 package com.chenweijiang.wcg_mall.controller.admin;
 
+import com.chenweijiang.wcg_mall.constant.JwtClaimsConstant;
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
 import com.chenweijiang.wcg_mall.pojo.User;
@@ -44,18 +45,18 @@ public class UserController {
         log.info("管理员登录{}",email);
         User user = userService.findUserByEmail(email);
         if(user == null){
-            return Result.error("用户不存在");
+            return Result.error(MessageConstant.ACCOUNT_NOT_FOUND);
         }
         if(user.getStatus() != User.ADMIN){
-            return Result.error("用户不是管理员");
+            return Result.error(MessageConstant.ACCOUNT_NOT_ADMIN);
         }
         if (user.getState() == 0){
-            return Result.error("用户未激活");
+            return Result.error(MessageConstant.ACCOUNT_NOT_ACTIVE);
         }
         if(userService.checkPassword(password,user)){
+            //生成token
             Map<String, Object> claims = new HashMap<>();
-            claims.put("id", user.getId());
-            claims.put("email", user.getEmail());
+            claims.put(JwtClaimsConstant.ADMIN_ID, user.getId());
             String token = JwtUtil.createJWT(
                     jwtProperties.getAdminSecretKey(),
                     jwtProperties.getAdminTtl(),
@@ -63,10 +64,9 @@ public class UserController {
             //把token放到redis中，并设置2小时有效期
             ValueOperations<String,String> operations = stringRedisTemplate.opsForValue();
             operations.set(token,token,2, TimeUnit.HOURS);
-//            BaseContext.setCurrentId(user.getId());
             return Result.success(token);
         }
-        return Result.error("密码错误");
+        return Result.error(MessageConstant.PASSWORD_ERROR);
     }
 
     // 上传文件的接口
@@ -75,7 +75,7 @@ public class UserController {
     public Result<String> upload(MultipartFile file){
         // 判断文件是否为空
         if(file.isEmpty() || file == null){
-            System.out.println("文件为空");
+            return Result.error(MessageConstant.FILE_IS_NULL);
         }
         log.info("文件上传：{}",file);
 

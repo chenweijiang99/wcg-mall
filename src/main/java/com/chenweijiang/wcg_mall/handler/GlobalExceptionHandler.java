@@ -21,13 +21,32 @@ public class GlobalExceptionHandler {
      * @param ex
      * @return
      */
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(BaseException.class)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Result exceptionHandler(Exception ex){
+    public Result exceptionHandler(BaseException ex){
         log.error("异常信息：{}", ex.getMessage());
         return Result.error(ex.getMessage());
     }
 
+
+    /**
+     * 处理SQL异常
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public Result exceptionHandler(SQLIntegrityConstraintViolationException ex){
+        //Duplicate entry 'zhangsan' for key 'employee.idx_username'
+        String message = ex.getMessage();
+        if(message.contains("Duplicate entry")){
+            String[] split = message.split(" ");
+            String username = split[2];
+            String msg = username + MessageConstant.ALREADY_EXISTS;
+            return Result.error(msg);
+        }else{
+            return Result.error(MessageConstant.UNKNOWN_ERROR);
+        }
+    }
 
 }

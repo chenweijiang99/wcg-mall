@@ -48,7 +48,7 @@ public class ProductController {
         //从数据库中获取商品列表
         List<Product> productList = productService.userGetList();
         if(productList == null || productList.size() == 0){
-            throw new ProductNotFoundException(MessageConstant.PRODUCT_LIST_NOT_FOUND);
+            return Result.error(MessageConstant.PRODUCT_LIST_NOT_FOUND);
         }
         redisTemplate.opsForValue().set(key,productList);
         return Result.success(productList);
@@ -60,7 +60,7 @@ public class ProductController {
         log.info("获取商品详情:{}", id);
         Product product = productService.getById(id);
         if(product == null){
-            throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_FOUND);
+            return Result.error(MessageConstant.PRODUCT_NOT_FOUND);
         }
         return Result.success(product);
     }
@@ -73,7 +73,7 @@ public class ProductController {
         Long userId = BaseContext.getCurrentId();
         int result = productService.addToWishList(userId,id);
         if (result == 0){
-            throw new AddToWishListException(MessageConstant.ADD_TO_WISH_LIST_FAILED);
+            return Result.error(MessageConstant.ADD_TO_WISH_LIST_FAILED);
         }else {
             return Result.success(MessageConstant.ADD_TO_WISH_LIST_SUCCESS);
         }

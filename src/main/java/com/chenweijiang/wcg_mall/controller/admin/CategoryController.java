@@ -1,5 +1,6 @@
 package com.chenweijiang.wcg_mall.controller.admin;
 
+import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.pojo.ProductCategory;
 import com.chenweijiang.wcg_mall.pojo.dto.CategoryDTO;
 import com.chenweijiang.wcg_mall.result.Result;
@@ -28,7 +29,7 @@ public class CategoryController {
         log.info("获取分类列表{}");
         List<ProductCategory> list = categoryService.list();
         if(list == null || list.size() == 0){
-            return Result.error("未查询到数据");
+            return Result.error(MessageConstant.CATEGORY_NOT_FOUND);
         }
         return Result.success(list);
     }
@@ -39,9 +40,9 @@ public class CategoryController {
         log.info("修改分类{}",productCategory);
         int result = categoryService.update(productCategory);
         if(result == 0){
-            return Result.error("修改失败");
+            return Result.error(MessageConstant.CATEGORY_UPDATE_FAILED);
         }
-        return Result.success("修改成功");
+        return Result.success(MessageConstant.CATEGORY_UPDATE_SUCCESS);
     }
 
     @PostMapping
@@ -50,9 +51,9 @@ public class CategoryController {
         log.info("添加分类{}",productCategory);
         int result = categoryService.add(productCategory);
         if(result == 0){
-            return Result.error("添加失败");
+            return Result.error(MessageConstant.CATEGORY_ADD_FAILED);
         }
-        return Result.success("添加成功");
+        return Result.success(MessageConstant.CATEGORY_ADD_SUCCESS);
     }
 
     @DeleteMapping
@@ -61,8 +62,8 @@ public class CategoryController {
         log.info("删除分类{}",id);
         int result = categoryService.deleteById(id);
         if(result == 0){
-            return Result.error("删除失败");
+            return Result.error(MessageConstant.CATEGORY_DELETE_FAILED);
         }
-        return Result.success("删除成功");
+        return Result.success(MessageConstant.CATEGORY_DELETE_SUCCESS);
     }
 }

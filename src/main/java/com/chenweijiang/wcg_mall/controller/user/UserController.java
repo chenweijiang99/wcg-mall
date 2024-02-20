@@ -1,20 +1,17 @@
 package com.chenweijiang.wcg_mall.controller.user;
 
+import com.chenweijiang.wcg_mall.constant.JwtClaimsConstant;
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
-import com.chenweijiang.wcg_mall.exception.*;
 import com.chenweijiang.wcg_mall.pojo.User;
-import com.chenweijiang.wcg_mall.pojo.dto.UserLoginDTO;
 import com.chenweijiang.wcg_mall.pojo.dto.UserRegisterDTO;
 import com.chenweijiang.wcg_mall.properties.JwtProperties;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.UserService;
 import com.chenweijiang.wcg_mall.utils.AliOssUtil;
 import com.chenweijiang.wcg_mall.utils.JwtUtil;
-import com.chenweijiang.wcg_mall.utils.ThreadLocalUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.constraints.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -55,15 +52,14 @@ public class UserController {
         log.info("用户登录{}", email, password);
         User loginUser = userService.findUserByEmail(email);
         if(loginUser == null) {
-            throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+            return Result.error(MessageConstant.ACCOUNT_NOT_FOUND);
         }
         if(loginUser.getState() == 0){
-            throw new AccountLockedException(MessageConstant.ACCOUNT_NOT_ACTIVE);
+            return Result.error(MessageConstant.ACCOUNT_NOT_ACTIVE);
         }
         if(userService.checkPassword(password, loginUser)){
             Map<String, Object> claims = new HashMap<>();
-            claims.put("id", loginUser.getId());
-            claims.put("email", loginUser.getEmail());
+            claims.put(JwtClaimsConstant.USER_ID, loginUser.getId());
             String token = JwtUtil.createJWT(
                     jwtProperties.getUserSecretKey(),
                     jwtProperties.getUserTtl(),
@@ -74,7 +70,7 @@ public class UserController {
             return Result.success(token);
         }
 
-        throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
+        return Result.error(MessageConstant.PASSWORD_ERROR);
     }
 
 
@@ -85,9 +81,9 @@ public class UserController {
         User user = userService.findUserByEmail(userRegisterDTO.getEmail());
         if( user == null){
             userService.saveUser(userRegisterDTO);
-            return Result.success("注册成功，请激活后登陆");
+            return Result.success(MessageConstant.REGISTER_SUCCESS_PLEASE_ACTIVATE);
         }else {
-            throw new AccountAlreadyExistsException(MessageConstant.ALREADY_EXISTS);
+            return Result.error(MessageConstant.ALREADY_EXISTS);
         }
     }
 
@@ -96,7 +92,7 @@ public class UserController {
     public Result<String> activateUser(String email,String username,String phone,String avatar){
         log.info("激活用户{}", email);
         userService.activateUser(email, username, phone, avatar);
-        return Result.success("激活成功");
+        return Result.success(MessageConstant.ACCOUNT_ACTIVE_SUCCESS);
     }
 
     @PostMapping("/activateCode")
@@ -104,9 +100,9 @@ public class UserController {
     public Result<String> activateCode(String email,String code){
         log.info("验证激活码{},{}", email,code);
         if(userService.activateCode(email,code) == 1){
-            return Result.success("激活成功");
+            return Result.success(MessageConstant.ACCOUNT_ACTIVE_SUCCESS);
         }
-        return Result.error("验证码已过期, 激活失败");
+        return Result.error(MessageConstant.CODE_OUT_OF_TIME);
     }
 
     @GetMapping("/getCode")
@@ -131,7 +127,7 @@ public class UserController {
         log.info("用户登出");
         ValueOperations<String,String> operations = stringRedisTemplate.opsForValue();
         operations.getOperations().delete(token);
-        return Result.success("登出成功");
+        return Result.success(MessageConstant.SUCCESS_LOGOUT);
     }
 
     // 上传文件的接口
@@ -140,7 +136,7 @@ public class UserController {
     public Result<String> upload(MultipartFile file){
         // 判断文件是否为空
         if(file.isEmpty() || file == null){
-            throw new FileIsNullException(MessageConstant.FILE_IS_NULL);
+            return Result.error(MessageConstant.FILE_IS_NULL);
         }
         log.info("文件上传：{}",file);
 

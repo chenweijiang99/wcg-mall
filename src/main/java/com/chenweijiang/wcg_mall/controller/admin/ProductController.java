@@ -1,5 +1,6 @@
 package com.chenweijiang.wcg_mall.controller.admin;
 
+import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.ProductService;
@@ -30,9 +31,9 @@ public class ProductController {
         log.info("添加商品");
         if(productService.addProduct(product) ==1){
             cleanCache("product_list");
-            return Result.success("添加成功");
+            return Result.success(MessageConstant.PRODUCT_ADD_SUCCESS);
         }
-        return Result.error("添加失败");
+        return Result.error(MessageConstant.PRODUCT_ADD_FAILED);
     }
 
     @GetMapping
@@ -49,9 +50,9 @@ public class ProductController {
         log.info("删除商品");
         if(productService.deleteProductById(id) == 1){
             cleanCache("product_list");
-            return Result.success("删除成功");
+            return Result.success(MessageConstant.PRODUCT_DELETE_FAILED);
         }
-        return Result.error("删除失败");
+        return Result.error(MessageConstant.PRODUCT_DELETE_FAILED);
     }
 
     @PutMapping
@@ -60,9 +61,9 @@ public class ProductController {
         log.info("修改商品");
         if(productService.updateProduct(product) == 1){
             cleanCache("product_list");
-            return Result.success("修改成功");
+            return Result.success(MessageConstant.PRODUCT_UPDATE_FAILED);
         }
-        return Result.error("修改失败");
+        return Result.error(MessageConstant.PRODUCT_UPDATE_FAILED);
     }
 
     @PutMapping("/stopOrStart/{id}")
@@ -71,9 +72,9 @@ public class ProductController {
         log.info("停用或启用商品");
         if(productService.stopOrStart(id) == 1){
             cleanCache("product_list");
-            return Result.success("操作成功");
+            return Result.success(MessageConstant.SUCCESS);
         }
-        return Result.error("操作失败");
+        return Result.error(MessageConstant.FAIL);
     }
 
     /**

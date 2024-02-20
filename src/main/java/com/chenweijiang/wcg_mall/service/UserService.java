@@ -10,7 +10,7 @@ public interface UserService {
 
     Long saveUser(UserRegisterDTO userRegisterDTO);
 
-    public boolean checkPassword(String loginPwd,User loginUser);
+     boolean checkPassword(String loginPwd,User loginUser);
 
     void activateUser(String email, String username, String phone, String avatar);
 

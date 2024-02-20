@@ -1,14 +1,13 @@
 package com.chenweijiang.wcg_mall.config;
 
 
-import com.chenweijiang.wcg_mall.interceptor.JwtAdminTokenInterceptor;
-import com.chenweijiang.wcg_mall.interceptor.JwtTokenInterceptor;
+import com.chenweijiang.wcg_mall.interceptor.AdminJwtTokenInterceptor;
+import com.chenweijiang.wcg_mall.interceptor.UserJwtTokenInterceptor;
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import lombok.extern.slf4j.Slf4j;
-import org.springdoc.core.customizers.GlobalOpenApiCustomizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,16 +15,13 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Configuration
 @Slf4j
 public class SwaggerConfig extends WebMvcConfigurationSupport {
     @Autowired  // 自动装配LoginInterceptor实例
-    private JwtTokenInterceptor jwtTokenInterceptor;  // 声明一个名为loginInterceptor的LoginInterceptor类型的私有变量
+    private UserJwtTokenInterceptor jwtTokenInterceptor;  // 声明一个名为loginInterceptor的LoginInterceptor类型的私有变量
     @Autowired
-    private JwtAdminTokenInterceptor jwtAdminTokenInterceptor;
+    private AdminJwtTokenInterceptor jwtAdminTokenInterceptor;
 
     @Bean
     public OpenAPI customOpenAPI() {

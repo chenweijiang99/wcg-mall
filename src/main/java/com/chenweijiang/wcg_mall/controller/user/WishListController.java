@@ -1,5 +1,6 @@
 package com.chenweijiang.wcg_mall.controller.user;
 
+import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
 import com.chenweijiang.wcg_mall.pojo.UserWishList;
 import com.chenweijiang.wcg_mall.result.Result;
@@ -32,7 +33,7 @@ public class WishListController {
         Long userId = BaseContext.getCurrentId();
         List<UserWishList> wishList = wishListService.getListByUserId(userId);
         if (wishList == null || wishList.size() == 0) {
-            return Result.error("心愿单为空");
+            return Result.error(MessageConstant.WISH_LIST_IS_NULL);
         }
         return Result.success(wishList);
     }
@@ -44,8 +45,8 @@ public class WishListController {
         Long userId = BaseContext.getCurrentId();
         int result = wishListService.delete(productId,userId);
         if (result == 0) {
-            return Result.error("删除心愿单失败");
+            return Result.error(MessageConstant.WISH_LIST_DELETE_FAILED);
         }
-        return Result.success("删除心愿单成功");
+        return Result.success(MessageConstant.WISH_LIST_DELETE_SUCCESS);
     }
 }

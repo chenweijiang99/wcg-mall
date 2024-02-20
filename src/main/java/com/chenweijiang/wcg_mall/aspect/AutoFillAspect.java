@@ -4,7 +4,6 @@ import com.chenweijiang.wcg_mall.annotation.AutoFill;
 import com.chenweijiang.wcg_mall.constant.AutoFillConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
 import com.chenweijiang.wcg_mall.enumeration.OperationType;
-import com.chenweijiang.wcg_mall.utils.ThreadLocalUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
-import java.util.Map;
 
 /**
  * 自定义切面，实现公共字段自动填充处理逻辑

@@ -1,6 +1,7 @@
 package com.chenweijiang.wcg_mall.service.impl;
 
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
+import com.chenweijiang.wcg_mall.constant.StatusConstant;
 import com.chenweijiang.wcg_mall.exception.ProductNotFoundException;
 import com.chenweijiang.wcg_mall.exception.WishListAlreadyExistsException;
 import com.chenweijiang.wcg_mall.mapper.ProductMapper;
@@ -9,14 +10,10 @@ import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.pojo.UserWishList;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductFilterDTO;
 import com.chenweijiang.wcg_mall.service.ProductService;
-import com.chenweijiang.wcg_mall.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -32,6 +29,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int addProduct(Product product) {
+        product.setStatus(StatusConstant.ENABLE);
         if(productMapper.addProduct(product) == 1){
             return 1;
         }
@@ -62,7 +60,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int stopOrStart(Long id) {
-        if(productMapper.stopOrStart(id) == 1){
+        Product product = productMapper.getByIdNotStatus(id);
+        if(product == null){
+            throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_FOUND);
+        }
+        if(product.getStatus() == 1){
+            product.setStatus(StatusConstant.DISABLE);
+        }else{
+            product.setStatus(StatusConstant.ENABLE);
+        }
+        if(productMapper.updateProduct(product) > 0){
             return 1;
         }
         return 0;
