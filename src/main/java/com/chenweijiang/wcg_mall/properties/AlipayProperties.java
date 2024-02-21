@@ -1,0 +1,20 @@
+package com.chenweijiang.wcg_mall.properties;
+
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Component
+@ConfigurationProperties(prefix = "mall.alipay")
+@Data
+public class AlipayProperties {
+    private String appId;
+    private String privateKey;
+    private String alipayPublicKey;
+    private String notifyUrl;
+    private String returnUrl;
+    private String charset;
+    private String signType;
+    private String gatewayUrl;
+    private String format;
+}

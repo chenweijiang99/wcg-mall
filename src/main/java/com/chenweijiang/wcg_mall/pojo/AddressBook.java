@@ -13,11 +13,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressBook  implements Serializable{
+    public static final Integer DEFAULT = 1;
+    public static final Integer NOT_DEFAULT = 0;
     private Long id;
-    private LocalDateTime createTime;
-    private  LocalDateTime updateTime;
     private Long userId;
     private String consignee;
     private String consigneeAddress;
     private String consigneePhone;
+    private Integer Default;
 }

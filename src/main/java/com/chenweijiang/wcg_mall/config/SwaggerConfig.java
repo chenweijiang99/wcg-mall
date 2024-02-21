@@ -48,6 +48,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     }
 
     String [] excludePaths = new String[]{
+            "/user/alipay/**",
             "/user/user/login",
             "/user/user/register",
             "/user/user/activate",

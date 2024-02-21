@@ -88,4 +88,6 @@ public class MessageConstant {
     public static final String PRODUCT_NOT_IN_CART = "购物车中没有该商品";
 
     public static final String ADD_PRODUCT_TO_CART_FAIL = "添加到购物车失败";
+    public static final String ADD_ADDRESS_SUCCESS = "添加地址成功";
+    public static final String ADDRESS_DELETE_SUCCESS  = "删除地址成功";
 }

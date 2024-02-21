@@ -17,6 +17,7 @@ public class WebConfig implements WebMvcConfigurer {  // 定义WebConfig类并�
     private AdminJwtTokenInterceptor jwtAdminTokenInterceptor;
 
     String [] excludePaths = new String[]{
+            "/user/alipay/**",
             "/user/user/login",
             "/user/user/register",
             "/user/user/activate",
