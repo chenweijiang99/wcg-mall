@@ -11,4 +11,12 @@ public interface ShoppingCartService {
     void addShoppingCart(Long userId, Long productId);
 
     void deleteShoppingCart(Long userId, Long productId);
+
+    void reduceProduct(Long userId, Long productId);
+
+    void deleteShoppingCartData(Long userId, Long productId);
+
+    void addProduct(Long userId, Long productId);
+
+    void emptyShoppingCartData(Long userId);
 }

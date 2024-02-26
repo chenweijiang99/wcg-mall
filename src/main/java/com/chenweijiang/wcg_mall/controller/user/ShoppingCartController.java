@@ -28,11 +28,8 @@ public class ShoppingCartController {
         log.info("获取购物车数据");
         Long userId = BaseContext.getCurrentId();
         List<ShoppingCartVO> shoppingCartList = shoppingCartService.listByUserId(userId);
-        if(shoppingCartList == null || shoppingCartList.size() == 0){
-            return Result.error(MessageConstant.SHOPPING_CART_IS_NULL);
-        }else{
-            return Result.success(shoppingCartList);
-        }
+        return Result.success(shoppingCartList);
+
     }
 
     @PostMapping
@@ -52,4 +49,34 @@ public class ShoppingCartController {
         shoppingCartService.deleteShoppingCart(userId,productId);
         return Result.success(MessageConstant.SUCCESS);
     }
+
+
+    @DeleteMapping("/delete")
+    @Operation(summary = "删除数据")
+    public Result<String> deleteShoppingCartData(Long productId){
+        log.info("删除购物车{}",productId);
+        Long userId = BaseContext.getCurrentId();
+        shoppingCartService.deleteShoppingCartData(userId,productId);
+        return Result.success(MessageConstant.SUCCESS);
+    }
+
+
+    @PostMapping("/reduceProduct")
+    @Operation(summary = "减少购物车数据")
+    public Result<String> reduceProduct(Long productId){
+        log.info("减少购物车数据{}",productId);
+        Long userId = BaseContext.getCurrentId();
+        shoppingCartService.reduceProduct(userId,productId);
+        return Result.success(MessageConstant.SUCCESS);
+    }
+
+    @PostMapping("/addProduct")
+    @Operation(summary = "增加购物车数据")
+    public Result<String> addProduct(Long productId){
+        log.info("增加购物车数据{}",productId);
+        Long userId = BaseContext.getCurrentId();
+        shoppingCartService.addProduct(userId,productId);
+        return Result.success(MessageConstant.SUCCESS);
+    }
+
 }

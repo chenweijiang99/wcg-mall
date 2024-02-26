@@ -16,4 +16,21 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> list(Long userId) {
         return orderMapper.listByUserId(userId);
     }
+
+    @Override
+    public void save(Order order) {
+        orderMapper.save(order);
+    }
+
+    @Override
+    public Order getByOrderNumber(String orderNumber) {
+        return orderMapper.getByOrderNumber(orderNumber);
+    }
+
+    @Override
+    public void update(Order order) {
+         orderMapper.update(order);
+    }
+
+
 }

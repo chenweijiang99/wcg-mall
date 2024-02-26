@@ -1,5 +1,6 @@
 package com.chenweijiang.wcg_mall.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 public class Order{
 
     /**
-     * 订单状态 1待付款 2待接单 3已接单 4派送中 5已完成 6已取消
+     * 订单状态 1待付款 2已付款 3已接单 4派送中 5已完成 6已取消
      */
     public static final Integer PENDING_PAYMENT = 1;
     public static final Integer TO_BE_CONFIRMED = 2;
@@ -33,8 +34,6 @@ public class Order{
     public static final Integer REFUND = 2;
 
     private Long id;
-    private LocalDateTime createTime;
-    private LocalDateTime updateTime;
     private String orderNumber;
     private Integer status;
     private Long userId;
@@ -45,6 +44,8 @@ public class Order{
     private Integer payMethod;
     private Integer payStatus;
     private BigDecimal amount;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime orderTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime checkoutTime;
 }

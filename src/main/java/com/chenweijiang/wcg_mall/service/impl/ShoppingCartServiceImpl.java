@@ -58,4 +58,45 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_IN_CART);
         }
     }
+
+    @Override
+    public void reduceProduct(Long userId, Long productId) {
+        ShoppingCart shoppingCart = shoppingCartMapper.getShoppingCartByUserIdAndProductId(userId, productId);
+        if (shoppingCart != null) {
+            shoppingCart.setNumber(shoppingCart.getNumber() - 1);
+            if (shoppingCart.getNumber() <= 0) {
+                shoppingCartMapper.deleteShoppingCart(shoppingCart.getId());
+            } else {
+                shoppingCartMapper.updateShoppingCart(shoppingCart);
+            }
+        }else {
+            throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_IN_CART);
+        }
+    }
+
+    @Override
+    public void deleteShoppingCartData(Long userId, Long productId) {
+        ShoppingCart shoppingCart = shoppingCartMapper.getShoppingCartByUserIdAndProductId(userId, productId);
+        if (shoppingCart != null) {
+            shoppingCartMapper.deleteShoppingCart(shoppingCart.getId());
+        }else {
+            throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_IN_CART);
+        }
+    }
+
+    @Override
+    public void addProduct(Long userId, Long productId) {
+        ShoppingCart shoppingCart = shoppingCartMapper.getShoppingCartByUserIdAndProductId(userId, productId);
+        if (shoppingCart != null) {
+            shoppingCart.setNumber(shoppingCart.getNumber() + 1);
+            shoppingCartMapper.updateShoppingCart(shoppingCart);
+        }else {
+            throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_IN_CART);
+        }
+    }
+
+    @Override
+    public void emptyShoppingCartData(Long userId) {
+        shoppingCartMapper.deleteShoppingCartByUserId(userId);
+    }
 }

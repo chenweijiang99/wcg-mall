@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenweijiang.wcg_mall.mapper.OrderMapper">
+
+
+    <insert id="save">
+        insert into `order` ( order_number,status,user_id, consignee, consignee_address,consignee_phone, email , pay_method, pay_status, amount, order_time)
+            values (#{orderNumber},#{status},#{userId},#{consignee},#{consigneeAddress},#{consigneePhone},#{email},#{payMethod},#{payStatus},#{amount},#{orderTime})
+    </insert>
+    <update id="update">
+        update `order`
+        set status = #{status}, pay_status = #{payStatus}, pay_method = #{payMethod}, amount = #{amount}, checkout_time = #{checkoutTime}
+        where id = #{id}
+    </update>
+</mapper>
