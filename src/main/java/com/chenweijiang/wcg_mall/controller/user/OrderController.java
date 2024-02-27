@@ -7,6 +7,8 @@ import com.chenweijiang.wcg_mall.pojo.OrderDetail;
 import com.chenweijiang.wcg_mall.pojo.ShoppingCart;
 import com.chenweijiang.wcg_mall.pojo.User;
 import com.chenweijiang.wcg_mall.pojo.dto.OrderDTO;
+import com.chenweijiang.wcg_mall.pojo.vo.OrderDetailProductList;
+import com.chenweijiang.wcg_mall.pojo.vo.OrderDetailVO;
 import com.chenweijiang.wcg_mall.pojo.vo.ShoppingCartVO;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.OrderDetailService;
@@ -95,5 +97,28 @@ public class OrderController {
         return Result.success(order);
     }
 
+
+    @GetMapping("/getOrderDetail")
+    @Operation(summary = "获取订单详情")
+    public Result<OrderDetailVO> getOrderDetail(String orderNumber) {
+        log.info("获取订单详情{}",orderNumber);
+        Order order = orderService.getByOrderNumber(orderNumber);
+        List<OrderDetailProductList> OrderDetailProductList = orderDetailService.getByOrderNumber(orderNumber);
+        OrderDetailVO orderDetailVO = OrderDetailVO.builder()
+                .orderNumber(orderNumber)
+                .status(order.getStatus())
+                .consignee(order.getConsignee())
+                .consigneeAddress(order.getConsigneeAddress())
+                .consigneePhone(order.getConsigneePhone())
+                .email(order.getEmail())
+                .payMethod(order.getPayMethod())
+                .payStatus(order.getPayStatus())
+                .amount(order.getAmount())
+                .orderTime(order.getOrderTime())
+                .checkoutTime(order.getCheckoutTime())
+                .productLists(OrderDetailProductList)
+                .build();
+        return Result.success(orderDetailVO);
+    }
 }
 
