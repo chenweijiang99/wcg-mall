@@ -1,4 +1,4 @@
-
+![输入图片说明](images/blog.png)
 
 前端页面：https://gitee.com/CWJ991203/vue-wcg-mall-user
 
