@@ -1,8 +1,16 @@
-![输入图片说明](images/blog.png)
 
 前端页面：https://gitee.com/CWJ991203/vue-wcg-mall-user
 
 目前已经实现以下功能，后续功能正在慢慢实现
+
+
+
+
+
+
+
+
+
 
 登录页面
 ![输入图片说明](images/login.png))
