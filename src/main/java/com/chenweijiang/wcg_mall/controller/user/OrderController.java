@@ -1,5 +1,6 @@
 package com.chenweijiang.wcg_mall.controller.user;
 
+import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
 import com.chenweijiang.wcg_mall.pojo.Order;
 import com.chenweijiang.wcg_mall.pojo.OrderDetail;
@@ -44,6 +45,20 @@ public class OrderController {
         Long userId = BaseContext.getCurrentId();
         List<Order> orderList = orderService.list(userId);
         return Result.success(orderList);
+    }
+
+    @GetMapping("/getOrderStatus")
+    @Operation(summary = "获取订单是否支付")
+    public Result<String> getOrderStatus(String orderNumber) {
+        log.info("获取订单是否支付{}",orderNumber);
+        Order order = orderService.getByOrderNumber(orderNumber);
+        if(order == null){
+            return Result.error(MessageConstant.ORDER_NOT_FOUND);
+        }
+       if(order.getPayStatus() == Order.PAID){
+           return Result.success(MessageConstant.ORDER_PAID);
+       }
+        return Result.error(MessageConstant.ORDER_NOT_PAID);
     }
 
 

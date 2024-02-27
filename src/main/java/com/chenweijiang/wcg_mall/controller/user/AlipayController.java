@@ -59,7 +59,7 @@ public class AlipayController {
      * @return
      * @throws Exception
      */
-    @GetMapping("/success")
+    @PostMapping("/success")
     @Operation(summary = "支付宝支付回调")
     public Result<String> alipayNotify(String out_trade_no) throws Exception {
         log.info("支付宝支付回调{}",out_trade_no);
@@ -72,8 +72,8 @@ public class AlipayController {
         order.setCheckoutTime(LocalDateTime.now());
         orderService.update(order);
 
-        log.info("发送支付成功消息到前端");
-        webSocketServer.sendToAllClient(out_trade_no);
+//        log.info("发送支付成功消息到前端");
+//        webSocketServer.sendToAllClient(out_trade_no);
         return Result.success("支付成功:\n" +
                 "订单号为:"+out_trade_no);
     }

@@ -1,5 +1,7 @@
 package com.chenweijiang.wcg_mall.constant;
 
+import com.chenweijiang.wcg_mall.pojo.OrderDetail;
+
 /**
  * 信息提示常量类
  */
@@ -90,4 +92,6 @@ public class MessageConstant {
     public static final String ADD_PRODUCT_TO_CART_FAIL = "添加到购物车失败";
     public static final String ADD_ADDRESS_SUCCESS = "添加地址成功";
     public static final String ADDRESS_DELETE_SUCCESS  = "删除地址成功";
+    public static final String ORDER_PAID = "订单已经支付";
+    public static final String ORDER_NOT_PAID = "订单未支付";
 }
