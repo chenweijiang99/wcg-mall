@@ -6,6 +6,27 @@
     <insert id="saveUser" useGeneratedKeys="true" keyProperty="id">
         insert into user(nick_name,email, password) values(#{nickName},#{email}, #{password})
     </insert>
+    <update id="updateUser">
+        update user
+        <set>
+            <if test="username!=null">
+                username = #{username},
+            </if>
+            <if test="phone!=null">
+                phone = #{phone},
+            </if>
+            <if test="avatar!=null">
+                avatar = #{avatar},
+            </if>
+            <if test="email !=null">
+                email = #{email},
+            </if>
+            <if test="nickName!=null">
+                nick_name = #{nickName}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
 
 </mapper>

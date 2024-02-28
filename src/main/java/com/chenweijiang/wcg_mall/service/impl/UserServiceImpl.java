@@ -1,6 +1,7 @@
 package com.chenweijiang.wcg_mall.service.impl;
 
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
+import com.chenweijiang.wcg_mall.context.BaseContext;
 import com.chenweijiang.wcg_mall.mapper.KeyPairsMapper;
 import com.chenweijiang.wcg_mall.mapper.UserMapper;
 import com.chenweijiang.wcg_mall.pojo.KeyPairs;
@@ -115,5 +116,21 @@ public class UserServiceImpl implements UserService {
         ValueOperations<String,String> operations = stringRedisTemplate.opsForValue();
         operations.set(email,code,5, TimeUnit.MINUTES);
         mailUtils.sendAcactivateMail(code,email);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userMapper.updateUser(user);
+    }
+
+    @Override
+    public void updatePassword(String newPassword) {
+        String publicKey = keyPairsMapper.getPublicKey(BaseContext.getCurrentId());
+        try{
+            String RSAPassword = RSAEncryptionUtil.encryptData(newPassword, publicKey);
+            userMapper.updateUserPassword(RSAPassword,BaseContext.getCurrentId());
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -11,4 +11,6 @@ public interface KeyPairsMapper {
     void addKeyPairs(KeyPairs keyPairs);
     @Select("select private_key from key_pairs where user_id = #{userId}")
     String getPrivateKey(Long userId);
+     @Select("select public_key from key_pairs where user_id = #{userId}")
+    String getPublicKey(Long userId);
 }

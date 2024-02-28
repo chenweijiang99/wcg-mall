@@ -44,7 +44,7 @@ public class AddressController {
     @PutMapping
     @Operation(summary = "修改用户地址数据")
     public Result<String> editAddress(@RequestBody AddressBook addressBook) {
-        log.info("修改用户地址数据");
+        log.info("修改用户地址数据{}",addressBook);
         addressService.update(addressBook);
         return Result.success(MessageConstant.SUCCESS_EDIT_ADDRESS_BOOK);
     }

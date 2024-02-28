@@ -156,4 +156,24 @@ public class UserController {
 
         return Result.error(MessageConstant.UPLOAD_FAILED);
     }
+
+    @PostMapping("/update")
+    @Operation(summary = "更新用户信息")
+    public Result<String> update(@RequestBody User user){
+        log.info("更新用户信息{}", user);
+        userService.updateUser(user);
+        return Result.success(MessageConstant.UPDATE_SUCCESS);
+    }
+
+    @PostMapping("/editPassword")
+    @Operation(summary = "修改密码")
+    public Result<String> editPassword(String oldPassword,String newPassword){
+        log.info("修改密码{},{}", oldPassword,newPassword);
+        User user = userService.getById(BaseContext.getCurrentId());
+        if(userService.checkPassword(oldPassword, user)){
+            userService.updatePassword(newPassword);
+            return Result.success(MessageConstant.SUCCESS_EDIT_PASSWORD);
+        }
+        return Result.error(MessageConstant.PASSWORD_ERROR);
+    }
 }

@@ -19,4 +19,8 @@ public interface UserMapper {
     void activateUser(String email);
     @Update("update user set username = #{username},phone = #{phone},avatar = #{avatar},state = 1 where email = #{email}")
     void updateUserByEmail(String email, String username, String phone, String avatar);
+
+    void updateUser(User user);
+    @Update("update user set password = #{rsaPassword} where id = #{currentId}")
+    void updateUserPassword(String rsaPassword, Long currentId);
 }

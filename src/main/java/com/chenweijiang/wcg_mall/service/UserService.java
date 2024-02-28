@@ -17,4 +17,8 @@ public interface UserService {
     int activateCode(String email,String code);
 
     void getCode(String email);
+
+    void updateUser(User user);
+
+    void updatePassword(String newPassword);
 }

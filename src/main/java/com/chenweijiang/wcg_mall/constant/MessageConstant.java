@@ -94,4 +94,5 @@ public class MessageConstant {
     public static final String ADDRESS_DELETE_SUCCESS  = "删除地址成功";
     public static final String ORDER_PAID = "订单已经支付";
     public static final String ORDER_NOT_PAID = "订单未支付";
+    public static final String UPDATE_SUCCESS = "更新成功";
 }
