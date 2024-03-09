@@ -3,7 +3,9 @@ package com.chenweijiang.wcg_mall.mapper;
 import com.chenweijiang.wcg_mall.annotation.AutoFill;
 import com.chenweijiang.wcg_mall.enumeration.OperationType;
 import com.chenweijiang.wcg_mall.pojo.Blog;
+import com.chenweijiang.wcg_mall.pojo.Comments;
 import com.chenweijiang.wcg_mall.pojo.vo.BlogDetailVO;
+import com.chenweijiang.wcg_mall.pojo.vo.CommentsVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -34,8 +36,16 @@ public interface BlogMapper {
     void updateBlog(Blog blog);
 
     List<Blog> getLatestBlog();
-    @Select("select * from blog where create_user = #{userId} order by update_time limit 2")
-    List<Blog> getRelatedBlog(Long userId);
+    @Select("select * from blog where create_user = #{userId} and id !=#{id} order by create_time limit 2 ")
+    List<Blog> getRelatedBlog(Long userId,Long id);
 
     BlogDetailVO getBlogDetail(Long id);
+
+    @Insert("insert into blog_comments(blog_id,create_user,create_time,comment) values(#{blogId},#{createUser},#{createTime},#{comment})")
+    void addComments(Comments comments);
+
+    @Select("select b.id as id,b.blog_id as blog_id,u.id as create_user,u.username as create_user_name,u.avatar as user_image,b.create_time as createTime,b.comment as comment from blog_comments as b,`user` as u where b.blog_id = #{blogId} and b.create_user = u.id order by b.create_time")
+    List<CommentsVO> getComments(Long blogId);
+    @Delete("delete from blog_comments where id = #{id} and blog_id=#{blogId}")
+    void deleteComments(Long blogId,Long id);
 }

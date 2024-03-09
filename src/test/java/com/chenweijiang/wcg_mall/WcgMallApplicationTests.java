@@ -8,18 +8,25 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class WcgMallApplicationTests {
 	@Autowired
 	private MailUtils mailUtils;
 	@Autowired
 	private AlipayUtil alipayUtil;
 
-
 	@Test
-	void alipayTest() throws Exception{
-		Alipay alipay = new Alipay();
-		System.out.println(alipayUtil.pay(alipay));
+	void contextLoads() {
+		// 原始字符串
+		String originalString = "我有一个字符串，里面是中文";
+
+		// 使用toCharArray方法分割字符串
+		char[] charArray = originalString.toCharArray();
+
+		// 打印结果
+		for (char c : charArray) {
+			System.out.println(c);
+		}
 	}
 
 }

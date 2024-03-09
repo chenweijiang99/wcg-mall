@@ -4,8 +4,10 @@ import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.constant.RedisConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
 import com.chenweijiang.wcg_mall.pojo.Blog;
+import com.chenweijiang.wcg_mall.pojo.Comments;
 import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.pojo.vo.BlogDetailVO;
+import com.chenweijiang.wcg_mall.pojo.vo.CommentsVO;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.BlogService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -71,12 +74,12 @@ public class BlogController {
 
     @GetMapping("/getRelatedBlog")
     @Operation(summary = "获取相关博客")
-    public Result<List<Blog>> getRelatedBlog(){
+    public Result<List<Blog>> getRelatedBlog(Long id){
         log.info("获取相关博客");
         Long userId = BaseContext.getCurrentId();
-        List<Blog> blogList = blogService.getRelatedBlog(userId);
+        List<Blog> blogList = blogService.getRelatedBlog(userId,id);
         if(blogList == null || blogList.size() == 0){
-            return Result.error(MessageConstant.BLOG_LIST_NOT_FOUND);
+            return Result.error(MessageConstant.BLOG_NOT_FOUND);
         }
         return Result.success(blogList);
     }
@@ -126,6 +129,33 @@ public class BlogController {
         return Result.success();
     }
 
+    @GetMapping("/getComments")
+    @Operation(summary = "获取评论")
+    public Result<List<CommentsVO>> getComments(Long blogId){
+        log.info("获取评论{}",blogId);
+        List<CommentsVO> commentsList = blogService.getComments(blogId);
+        return Result.success(commentsList);
+    }
+    @PostMapping("/addComments")
+    @Operation(summary = "发表评论")
+    public Result<String> addComments(Long blogId,String content){
+        log.info("发表评论{}",content);
+        Comments comments = Comments.builder()
+                .blogId(blogId)
+                .comment(content)
+                .createUser(BaseContext.getCurrentId())
+                .createTime(LocalDateTime.now())
+                .build();
+        blogService.addComments(comments);
+        return Result.success(MessageConstant.SUCCESS);
+    }
+    @DeleteMapping("/deleteComments")
+    @Operation(summary = "删除评论")
+    public Result<String> deleteComments(Long blogId,Long id){
+        log.info("删除评论{}",id);
+        blogService.deleteComments(blogId,id);
+        return Result.success(MessageConstant.SUCCESS);
+    }
     /**
      * 删除缓存
      * @param pattern

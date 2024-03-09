@@ -2,7 +2,9 @@ package com.chenweijiang.wcg_mall.service.impl;
 
 import com.chenweijiang.wcg_mall.mapper.BlogMapper;
 import com.chenweijiang.wcg_mall.pojo.Blog;
+import com.chenweijiang.wcg_mall.pojo.Comments;
 import com.chenweijiang.wcg_mall.pojo.vo.BlogDetailVO;
+import com.chenweijiang.wcg_mall.pojo.vo.CommentsVO;
 import com.chenweijiang.wcg_mall.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,12 +52,27 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<Blog> getRelatedBlog(Long userId) {
-        return blogMapper.getRelatedBlog(userId);
+    public List<Blog> getRelatedBlog(Long userId,Long id) {
+        return blogMapper.getRelatedBlog(userId,id);
     }
 
     @Override
     public BlogDetailVO getBlogDetail(Long id) {
         return blogMapper.getBlogDetail(id);
+    }
+
+    @Override
+    public void addComments(Comments comments) {
+        blogMapper.addComments(comments);
+    }
+
+    @Override
+    public List<CommentsVO> getComments(Long blogId) {
+        return blogMapper.getComments(blogId);
+    }
+
+    @Override
+    public void deleteComments(Long blogId,Long id) {
+        blogMapper.deleteComments(blogId,id);
     }
 }

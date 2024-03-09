@@ -41,4 +41,5 @@
         from blog as b,`user` as u
         where b.id = #{id} and b.create_user = u.id
     </select>
+
 </mapper>

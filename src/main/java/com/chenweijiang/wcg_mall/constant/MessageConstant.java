@@ -98,4 +98,5 @@ public class MessageConstant {
     public static final String BLOG_LIST_NOT_FOUND = "博客列表为空";
     public static final String BLOG_NOT_FOUND = "博客不存在";
     public static final String BLOG_DELETE_FAILED = "删除博客失败";
+    public static final String COMMENTS_NOT_FOUND = "评论不存在";
 }
