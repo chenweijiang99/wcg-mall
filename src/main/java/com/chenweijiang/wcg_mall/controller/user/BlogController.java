@@ -36,16 +36,15 @@ public class BlogController {
     @Operation(summary = "获取博客列表")
     public Result<List<Blog>> list(){
         log.info("获取文章列表");
-        //TODO  redis缓存，业务代码完成后开启，测试阶段为了方便暂时关闭
-//        List<Blog> list = (List<Blog>) redisTemplate.opsForValue().get(RedisConstant.BLOG_LIST);
-//        if(list != null && list.size() > 0){
-//            return Result.success(list);
-//        }
+        List<Blog> list = (List<Blog>) redisTemplate.opsForValue().get(RedisConstant.BLOG_LIST);
+        if(list != null && list.size() > 0){
+            return Result.success(list);
+        }
         List<Blog> blogList = blogService.userGetList();
         if(blogList == null || blogList.size() == 0){
             return Result.error(MessageConstant.BLOG_LIST_NOT_FOUND);
         }
-//        redisTemplate.opsForValue().set(RedisConstant.BLOG_LIST,blogList);
+        redisTemplate.opsForValue().set(RedisConstant.BLOG_LIST,blogList);
         return Result.success(blogList);
     }
 
@@ -103,7 +102,7 @@ public class BlogController {
                 .image(image)
                 .build();
         blogService.addBlog(blog);
-//        cleanCache(RedisConstant.BLOG_LIST);
+        cleanCache(RedisConstant.BLOG_LIST);
         return Result.success();
     }
     @DeleteMapping
@@ -118,6 +117,7 @@ public class BlogController {
             return Result.error(MessageConstant.BLOG_DELETE_FAILED);
         }
         blogService.deleteBlog(id);
+        cleanCache(RedisConstant.BLOG_LIST);
         return Result.success();
     }
 
@@ -126,6 +126,7 @@ public class BlogController {
     public Result<String> updateBlog(@RequestBody Blog blog){
         log.info("修改博客{}",blog);
         blogService.updateBlog(blog);
+        cleanCache(RedisConstant.BLOG_LIST);
         return Result.success();
     }
 
