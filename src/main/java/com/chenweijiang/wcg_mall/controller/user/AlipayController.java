@@ -3,8 +3,12 @@ package com.chenweijiang.wcg_mall.controller.user;
 import com.chenweijiang.wcg_mall.context.BaseContext;
 import com.chenweijiang.wcg_mall.pojo.Alipay;
 import com.chenweijiang.wcg_mall.pojo.Order;
+import com.chenweijiang.wcg_mall.pojo.OrderDetail;
+import com.chenweijiang.wcg_mall.pojo.vo.OrderDetailProductList;
 import com.chenweijiang.wcg_mall.result.Result;
+import com.chenweijiang.wcg_mall.service.OrderDetailService;
 import com.chenweijiang.wcg_mall.service.OrderService;
+import com.chenweijiang.wcg_mall.service.ProductService;
 import com.chenweijiang.wcg_mall.service.ShoppingCartService;
 import com.chenweijiang.wcg_mall.utils.AlipayUtil;
 import com.chenweijiang.wcg_mall.websocket.WebSocketServer;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import static java.lang.Thread.sleep;
 
@@ -30,6 +35,10 @@ public class AlipayController {
     private AlipayUtil alipayUtil;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderDetailService orderDetailService;
+    @Autowired
+    private ProductService productService;
     @Autowired
     private WebSocketServer webSocketServer;
     @Autowired
@@ -67,6 +76,13 @@ public class AlipayController {
         if(order == null){
             return Result.error("订单不存在");
         }
+        List<OrderDetailProductList> orderDetailProductListList = orderDetailService.getByOrderNumber(out_trade_no);
+        if(orderDetailProductListList == null){
+            return Result.error("订单详情不存在");
+        }
+        orderDetailProductListList.forEach(orderDetailProductList -> {
+            productService.updateProductInventory(orderDetailProductList.getId(), orderDetailProductList.getProductNumber());
+        });
         order.setPayStatus(Order.PAID);
         order.setStatus(Order.TO_BE_CONFIRMED);
         order.setCheckoutTime(LocalDateTime.now());

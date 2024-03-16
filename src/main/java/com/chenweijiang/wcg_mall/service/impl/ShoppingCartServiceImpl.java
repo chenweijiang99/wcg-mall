@@ -27,10 +27,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public void addShoppingCart(Long userId, Long productId) {
         ShoppingCart shoppingCart = shoppingCartMapper.getShoppingCartByUserIdAndProductId(userId, productId);
-        Product product = productMapper.getById(productId);
+        Product product = productMapper.getProductById(productId);
         if (shoppingCart == null) {
             if(product == null ){
                 throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_ON_SALE);
+            }
+            if(product.getInventory() <= shoppingCart.getNumber()){
+                throw new ProductNotFoundException(MessageConstant.PRODUCT_INVENTORY_NOT_ENOUGH);
             }
             ShoppingCart addShoppingCart = ShoppingCart.builder()
                     .userId(userId)

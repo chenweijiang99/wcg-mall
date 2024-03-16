@@ -29,7 +29,8 @@ public class ProductController {
     @PostMapping("/addProduct")
     @Operation(summary = "添加商品")
     public Result<String> addProduct(@RequestBody Product product) {
-        log.info("添加商品");
+        log.info("添加商品{}",product);
+        product.setDescription(product.getDescription().replace("<p>", "").replace("</p>", ""));
         if(productService.addProduct(product) ==1){
             cleanCache(RedisConstant.PRODUCT_LIST);
             return Result.success(MessageConstant.PRODUCT_ADD_SUCCESS);
@@ -51,7 +52,7 @@ public class ProductController {
     @DeleteMapping("/delete{id}")
     @Operation(summary = "删除商品")
     public Result<String> deleteProduct(@PathVariable Long id) {
-        log.info("删除商品");
+        log.info("删除商品{}",id);
         if(productService.deleteProductById(id) == 1){
             cleanCache(RedisConstant.PRODUCT_LIST);
             return Result.success(MessageConstant.PRODUCT_DELETE_FAILED);
@@ -62,7 +63,8 @@ public class ProductController {
     @PutMapping
     @Operation(summary = "修改商品")
     public Result<String> updateProduct(@RequestBody Product product) {
-        log.info("修改商品");
+        log.info("修改商品{}", product);
+        product.setDescription(product.getDescription().replace("<p>", "").replace("</p>", ""));
         if(productService.updateProduct(product) == 1){
             cleanCache(RedisConstant.PRODUCT_LIST);
             return Result.success(MessageConstant.PRODUCT_UPDATE_FAILED);
@@ -73,7 +75,7 @@ public class ProductController {
     @PutMapping("/stopOrStart/{id}")
     @Operation(summary = "停用或启用商品")
     public Result<String> stopOrStartProduct(@PathVariable Long id) {
-        log.info("停用或启用商品");
+        log.info("停用或启用商品{}",id);
         if(productService.stopOrStart(id) == 1){
             cleanCache(RedisConstant.PRODUCT_LIST);
             return Result.success(MessageConstant.SUCCESS);

@@ -1,6 +1,7 @@
 package com.chenweijiang.wcg_mall.service;
 
 import com.chenweijiang.wcg_mall.pojo.Product;
+import com.chenweijiang.wcg_mall.pojo.dto.ProductDetailDTO;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductFilterDTO;
 
 import java.util.List;
@@ -20,7 +21,11 @@ public interface ProductService {
 
     List<Product> userGetList();
 
-    Product getById(Long id);
+    ProductDetailDTO getById(Long id);
 
     int addToWishList(Long userId, Long id);
+
+    void updateProductInventory(Long id, Integer productNumber);
+
+    Product getProductById(Long productId);
 }

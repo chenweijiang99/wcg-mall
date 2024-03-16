@@ -6,6 +6,7 @@ import com.chenweijiang.wcg_mall.context.BaseContext;
 import com.chenweijiang.wcg_mall.exception.AddToWishListException;
 import com.chenweijiang.wcg_mall.exception.ProductNotFoundException;
 import com.chenweijiang.wcg_mall.pojo.Product;
+import com.chenweijiang.wcg_mall.pojo.dto.ProductDetailDTO;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductFilterDTO;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.ProductService;
@@ -54,11 +55,11 @@ public class ProductController {
         return Result.success(productList);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/getProductDetail")
     @Operation(summary = "商品详情")
-    public Result<Product> userGetProduct(@PathVariable Long id){
+    public Result<ProductDetailDTO> userGetProduct(Long id){
         log.info("获取商品详情:{}", id);
-        Product product = productService.getById(id);
+        ProductDetailDTO product = productService.getById(id);
         if(product == null){
             return Result.error(MessageConstant.PRODUCT_NOT_FOUND);
         }

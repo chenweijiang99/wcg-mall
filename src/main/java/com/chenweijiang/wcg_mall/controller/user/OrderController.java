@@ -2,19 +2,13 @@ package com.chenweijiang.wcg_mall.controller.user;
 
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
-import com.chenweijiang.wcg_mall.pojo.Order;
-import com.chenweijiang.wcg_mall.pojo.OrderDetail;
-import com.chenweijiang.wcg_mall.pojo.ShoppingCart;
-import com.chenweijiang.wcg_mall.pojo.User;
+import com.chenweijiang.wcg_mall.pojo.*;
 import com.chenweijiang.wcg_mall.pojo.dto.OrderDTO;
 import com.chenweijiang.wcg_mall.pojo.vo.OrderDetailProductList;
 import com.chenweijiang.wcg_mall.pojo.vo.OrderDetailVO;
 import com.chenweijiang.wcg_mall.pojo.vo.ShoppingCartVO;
 import com.chenweijiang.wcg_mall.result.Result;
-import com.chenweijiang.wcg_mall.service.OrderDetailService;
-import com.chenweijiang.wcg_mall.service.OrderService;
-import com.chenweijiang.wcg_mall.service.ShoppingCartService;
-import com.chenweijiang.wcg_mall.service.UserService;
+import com.chenweijiang.wcg_mall.service.*;
 import com.chenweijiang.wcg_mall.utils.AlipayUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -40,6 +34,8 @@ public class OrderController {
     private UserService userService;
     @Autowired
     private ShoppingCartService shoppingCartService;
+    @Autowired
+    private ProductService productService;
     @GetMapping
     @Operation(summary = "获取订单数据")
     public Result<List<Order>> listByUserId() {
@@ -67,6 +63,7 @@ public class OrderController {
     @PostMapping
     @Operation(summary = "生成订单")
     public Result<Order> createOrder(@RequestBody OrderDTO orderDTO) {
+
         Order order = Order.builder()
                 .consignee(orderDTO.getConsignee())
                 .consigneeAddress(orderDTO.getConsigneeAddress())
@@ -83,9 +80,13 @@ public class OrderController {
         order.setEmail(user.getEmail());
         order.setOrderTime(LocalDateTime.now());
         log.info("生成订单{}",order);
-        orderService.save(order);
+        //将购物车数据添加到订单详情
         List<ShoppingCartVO> cartVOS = shoppingCartService.listByUserId(userId);
         cartVOS.forEach(cartVO -> {
+            Product product = productService.getProductById(cartVO.getProductId());
+            if(product.getInventory() <= cartVO.getNumber()){
+                return ;
+            }
             OrderDetail orderDetail = OrderDetail.builder()
                     .orderNumber(order.getOrderNumber())
                     .productId(cartVO.getProductId())
@@ -93,7 +94,11 @@ public class OrderController {
                     .build();
             orderDetailService.add(orderDetail);
         });
+        //清空购物车数据
         shoppingCartService.emptyShoppingCartData(userId);
+        //生成订单
+        orderService.save(order);
+
         return Result.success(order);
     }
 

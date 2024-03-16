@@ -8,6 +8,7 @@ import com.chenweijiang.wcg_mall.mapper.ProductMapper;
 import com.chenweijiang.wcg_mall.mapper.WishListMapper;
 import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.pojo.UserWishList;
+import com.chenweijiang.wcg_mall.pojo.dto.ProductDetailDTO;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductFilterDTO;
 import com.chenweijiang.wcg_mall.pojo.vo.WishListVO;
 import com.chenweijiang.wcg_mall.service.ProductService;
@@ -83,13 +84,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getById(Long id) {
+    public ProductDetailDTO getById(Long id) {
         return productMapper.getById(id);
     }
 
     @Override
     public int addToWishList(Long userId, Long id) {
-         Product product = productMapper.getById(id);
+         Product product = productMapper.getProductById(id);
          if(product == null){
              throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_FOUND);
          }
@@ -106,5 +107,15 @@ public class ProductServiceImpl implements ProductService {
             return 1;
         }
         return 0;
+    }
+
+    @Override
+    public void updateProductInventory(Long id, Integer productNumber) {
+        productMapper.updateProductInventory(id, productNumber);
+    }
+
+    @Override
+    public Product getProductById(Long productId) {
+       return  productMapper.getProductById(productId);
     }
 }
