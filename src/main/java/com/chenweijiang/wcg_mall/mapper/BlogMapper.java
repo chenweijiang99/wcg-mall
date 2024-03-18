@@ -20,7 +20,7 @@ public interface BlogMapper {
             "values(#{createTime},#{updateTime},#{createUser},#{updateUser},#{title},#{content},#{image})")
     void addBlog(Blog blog);
 
-    @Select("select * from blog")
+    @Select("select * from blog order by create_time desc")
     List<Blog> userGetList();
 
     @Select("select * from blog where create_user= #{userId}")
@@ -36,7 +36,7 @@ public interface BlogMapper {
     void updateBlog(Blog blog);
 
     List<Blog> getLatestBlog();
-    @Select("select * from blog where create_user = #{userId} and id !=#{id} order by create_time limit 2 ")
+    @Select("select * from blog where create_user = #{userId} and id !=#{id} order by create_time desc limit 2 ")
     List<Blog> getRelatedBlog(Long userId,Long id);
 
     BlogDetailVO getBlogDetail(Long id);
@@ -48,4 +48,11 @@ public interface BlogMapper {
     List<CommentsVO> getComments(Long blogId);
     @Delete("delete from blog_comments where id = #{id} and blog_id=#{blogId}")
     void deleteComments(Long blogId,Long id);
+    @Select("SELECT c.blog_id, COUNT(c.blog_id) AS COUNT, b.* " +
+            "FROM blog_comments as c " +
+            "JOIN blog as b ON c.blog_id = b.id " +
+            "GROUP BY c.blog_id " +
+            "ORDER BY count DESC " +
+            "LIMIT 3")
+    List<Blog> getHotBlogWithComment();
 }

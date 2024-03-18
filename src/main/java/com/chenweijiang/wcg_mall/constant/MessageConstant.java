@@ -100,4 +100,6 @@ public class MessageConstant {
     public static final String BLOG_DELETE_FAILED = "删除博客失败";
     public static final String COMMENTS_NOT_FOUND = "评论不存在";
     public static final String PRODUCT_INVENTORY_NOT_ENOUGH = "库存不足";
+    public static final String OFFICIAL_COLLECTION_ALREADY_EXISTS = "该商品已经存在官方收藏";
+    public static final String OFFICIAL_COLLECTION_NOT_EXISTS = "该商品不存在官方收藏";
 }

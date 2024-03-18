@@ -32,7 +32,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             if(product == null ){
                 throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_ON_SALE);
             }
-            if(product.getInventory() <= shoppingCart.getNumber()){
+            if(product.getInventory() <= 1){
                 throw new ProductNotFoundException(MessageConstant.PRODUCT_INVENTORY_NOT_ENOUGH);
             }
             ShoppingCart addShoppingCart = ShoppingCart.builder()
@@ -41,7 +41,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                     .number(1)
                     .build();
             shoppingCartMapper.addShoppingCart(addShoppingCart);
+
         } else {
+            if(product.getInventory() <= shoppingCart.getNumber()){
+                throw new ProductNotFoundException(MessageConstant.PRODUCT_INVENTORY_NOT_ENOUGH);
+            }
             shoppingCart.setNumber(shoppingCart.getNumber() + 1);
             shoppingCartMapper.updateShoppingCart(shoppingCart);
         }

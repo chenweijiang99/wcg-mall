@@ -75,4 +75,9 @@ public class BlogServiceImpl implements BlogService {
     public void deleteComments(Long blogId,Long id) {
         blogMapper.deleteComments(blogId,id);
     }
+
+    @Override
+    public List<Blog> getHotBlogWithComment() {
+        return blogMapper.getHotBlogWithComment();
+    }
 }

@@ -48,6 +48,13 @@ public class BlogController {
         return Result.success(blogList);
     }
 
+    @GetMapping("/getHotBlog")
+    @Operation(summary = "获取热门博客")
+    public Result<List<Blog>> getHotBlog(){
+        log.info("获取热门博客");
+        List<Blog> blogList = blogService.getHotBlogWithComment();
+        return Result.success(blogList);
+    }
     @GetMapping("/userBlog")
     @Operation(summary = "获取用户博客")
     public Result<List<Blog>> userBlog(){

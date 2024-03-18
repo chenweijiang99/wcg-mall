@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +40,15 @@ public class UserController {
     private JwtProperties jwtProperties;
     @Autowired
     private AliOssUtil aliOssUtil;
+
+
+    @GetMapping
+    @Operation(summary = "获取用户信息")
+    public Result<User> login(){
+        log.info("获取用户信息");
+        User user = userService.getById(BaseContext.getCurrentId());
+        return Result.success(user);
+    }
     @PostMapping("/login")
     @Operation(summary = "管理员登录")
     public Result<String> login(String email,String password){
