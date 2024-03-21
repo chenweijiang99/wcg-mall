@@ -12,17 +12,16 @@ import com.chenweijiang.wcg_mall.utils.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -44,7 +43,7 @@ public class UserController {
 
     @GetMapping
     @Operation(summary = "获取用户信息")
-    public Result<User> login(){
+    public Result<User> getUserInfo(){
         log.info("获取用户信息");
         User user = userService.getById(BaseContext.getCurrentId());
         return Result.success(user);
@@ -104,5 +103,28 @@ public class UserController {
         }
 
         return Result.error(MessageConstant.UPLOAD_FAILED);
+    }
+
+    @GetMapping("/getUserList")
+    @Operation(summary = "获取用户列表")
+    public Result<List<User>> getUserList(){
+        log.info("获取用户列表");
+        List<User> userList = userService.getUserList();
+        return Result.success(userList);
+    }
+
+    @PostMapping("/resetPassword")
+    @Operation(summary = "重置密码")
+    public Result<String> resetPassword(Long id){
+        log.info("重置密码{}",id);
+        userService.resetPassword(id);
+        return Result.success();
+    }
+    @DeleteMapping("")
+    @Operation(summary = "删除用户")
+    public Result<String> deleteUser(Long id){
+        log.info("删除用户{}",id);
+        userService.deleteById(id);
+        return Result.success();
     }
 }

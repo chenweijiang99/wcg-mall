@@ -13,4 +13,8 @@ public interface OrderService {
     Order getByOrderNumber(String orderNumber);
 
     void update(Order order);
+
+    List<Order> getOrderList();
+
+
 }

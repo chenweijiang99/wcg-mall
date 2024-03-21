@@ -84,7 +84,7 @@ public class AlipayController {
             productService.updateProductInventory(orderDetailProductList.getId(), orderDetailProductList.getProductNumber());
         });
         order.setPayStatus(Order.PAID);
-        order.setStatus(Order.TO_BE_CONFIRMED);
+        order.setStatus(Order.UN_DELIVERED);
         order.setCheckoutTime(LocalDateTime.now());
         orderService.update(order);
 

@@ -55,4 +55,6 @@ public interface BlogMapper {
             "ORDER BY count DESC " +
             "LIMIT 3")
     List<Blog> getHotBlogWithComment();
+
+    List<BlogDetailVO> getBlogDetailList();
 }

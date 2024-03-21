@@ -3,6 +3,7 @@ package com.chenweijiang.wcg_mall.mapper;
 import com.chenweijiang.wcg_mall.pojo.Order;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -17,4 +18,9 @@ public interface OrderMapper {
     Order getByOrderNumber(String orderNumber);
 
     void update(Order order);
+    @Select("select * from `order`")
+    List<Order> getOrderList();
+    @Update("update `order` set status = 3 where order_number = #{orderNumber}")
+    void updateOrderShipping(String orderNumber);
+
 }

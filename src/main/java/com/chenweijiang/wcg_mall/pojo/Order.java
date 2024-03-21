@@ -17,14 +17,13 @@ import java.time.LocalDateTime;
 public class Order{
 
     /**
-     * 订单状态 1待付款 2已付款 3已接单 4派送中 5已完成 6已取消
+     *  订单状态  1待付款 2待发货 3已发货 4已完成  5已取消
      */
-    public static final Integer PENDING_PAYMENT = 1;
-    public static final Integer TO_BE_CONFIRMED = 2;
-    public static final Integer CONFIRMED = 3;
-    public static final Integer DELIVERY_IN_PROGRESS = 4;
-    public static final Integer COMPLETED = 5;
-    public static final Integer CANCELLED = 6;
+    public static final Integer PENDING = 1;
+    public static final Integer UN_DELIVERED = 2;
+    public static final Integer DELIVERED = 3;
+    public static final Integer COMPLETED = 4;
+    public static final Integer CANCELED = 5;
 
     /**
      * 支付状态 0未支付 1已支付 2退款

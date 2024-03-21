@@ -10,7 +10,29 @@
     </insert>
     <update id="update">
         update `order`
-        set status = #{status}, pay_status = #{payStatus}, pay_method = #{payMethod}, amount = #{amount}, checkout_time = #{checkoutTime}
-        where id = #{id}
+        <set>
+         <if test="status != null">
+            status = #{status},
+        </if>
+            <if test="consignee != null">
+            consignee = #{consignee},
+        </if>
+            <if test="consigneeAddress != null">
+            consignee_address = #{consigneeAddress},
+        </if>
+            <if test="consigneePhone != null">
+            consignee_phone = #{consigneePhone},
+        </if>
+            <if test="email != null">
+            email = #{email},
+        </if>
+
+            <if test="amount != null">
+            amount = #{amount},
+        </if>
+
+        </set>
+            where order_number = #{orderNumber} and id = #{id}
+
     </update>
 </mapper>

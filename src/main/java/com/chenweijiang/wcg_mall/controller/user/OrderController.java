@@ -75,7 +75,7 @@ public class OrderController {
         User user = userService.getById(userId);
         order.setUserId(userId);
         order.setOrderNumber(LocalDateTime.now().toString());
-        order.setStatus(Order.PENDING_PAYMENT);
+        order.setStatus(Order.PENDING);
         order.setPayStatus(Order.UN_PAID);
         order.setEmail(user.getEmail());
         order.setOrderTime(LocalDateTime.now());

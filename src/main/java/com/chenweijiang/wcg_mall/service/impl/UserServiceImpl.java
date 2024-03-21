@@ -20,6 +20,7 @@ import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -130,6 +131,27 @@ public class UserServiceImpl implements UserService {
             String RSAPassword = RSAEncryptionUtil.encryptData(newPassword, publicKey);
             userMapper.updateUserPassword(RSAPassword,BaseContext.getCurrentId());
         }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<User> getUserList() {
+        return userMapper.getUserList();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        userMapper.deleteById(id);
+    }
+
+    @Override
+    public void resetPassword(Long id) {
+        String publicKey = keyPairsMapper.getPublicKey(id);
+        try {
+            String RSAPassword = RSAEncryptionUtil.encryptData(User.DEFAULT_PASSWORD, publicKey);
+            userMapper.updateUserPassword(RSAPassword, id);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

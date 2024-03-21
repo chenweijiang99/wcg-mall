@@ -14,7 +14,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User  {
-
+    /**
+     * 默认密码：123456
+     */
+    public static final String DEFAULT_PASSWORD = "123456";
+    /**
+     * 状态 1：已激活 0：待激活
+     */
+    public static final Integer ACTIVATED = 1;
+    public static final Integer UN_ACTIVATED = 0;
     /**
      * 用户身份 1:普通用户  2：卖家  3：管理员
      */
@@ -32,8 +40,6 @@ public class User  {
     private String email;
     private String phone;
     private String avatar;
-    @JsonIgnore
     private Integer status;
-    @JsonIgnore
     private Integer state;
 }

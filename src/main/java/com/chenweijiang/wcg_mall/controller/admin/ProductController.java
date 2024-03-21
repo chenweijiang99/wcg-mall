@@ -33,6 +33,8 @@ public class ProductController {
         product.setDescription(product.getDescription().replace("<p>", "").replace("</p>", ""));
         if(productService.addProduct(product) ==1){
             cleanCache(RedisConstant.PRODUCT_LIST);
+            List<Product> productList = productService.userGetList();
+            redisTemplate.opsForValue().set(RedisConstant.PRODUCT_LIST,productList);
             return Result.success(MessageConstant.PRODUCT_ADD_SUCCESS);
         }
         return Result.error(MessageConstant.PRODUCT_ADD_FAILED);
@@ -55,6 +57,8 @@ public class ProductController {
         log.info("删除商品{}",id);
         if(productService.deleteProductById(id) == 1){
             cleanCache(RedisConstant.PRODUCT_LIST);
+            List<Product> productList = productService.userGetList();
+            redisTemplate.opsForValue().set(RedisConstant.PRODUCT_LIST,productList);
             return Result.success(MessageConstant.PRODUCT_DELETE_FAILED);
         }
         return Result.error(MessageConstant.PRODUCT_DELETE_FAILED);
@@ -67,6 +71,8 @@ public class ProductController {
         product.setDescription(product.getDescription().replace("<p>", "").replace("</p>", ""));
         if(productService.updateProduct(product) == 1){
             cleanCache(RedisConstant.PRODUCT_LIST);
+            List<Product> productList = productService.userGetList();
+            redisTemplate.opsForValue().set(RedisConstant.PRODUCT_LIST,productList);
             return Result.success(MessageConstant.PRODUCT_UPDATE_FAILED);
         }
         return Result.error(MessageConstant.PRODUCT_UPDATE_FAILED);

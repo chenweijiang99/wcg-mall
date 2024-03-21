@@ -32,5 +32,12 @@ public class OrderServiceImpl implements OrderService {
          orderMapper.update(order);
     }
 
+    @Override
+    public List<Order> getOrderList() {
+        return orderMapper.getOrderList();
+    }
+
+
+
 
 }

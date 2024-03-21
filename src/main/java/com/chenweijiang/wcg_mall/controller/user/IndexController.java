@@ -7,7 +7,9 @@ import com.chenweijiang.wcg_mall.pojo.OfficialCollection;
 import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.pojo.vo.OfficialCollectionVO;
 import com.chenweijiang.wcg_mall.result.Result;
+import com.chenweijiang.wcg_mall.service.BlogService;
 import com.chenweijiang.wcg_mall.service.IndexService;
+import com.chenweijiang.wcg_mall.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,10 @@ public class IndexController {
     @Autowired
     private IndexService indexService;
     @Autowired
+    private ProductService productService;
+    @Autowired
+    private BlogService blogService;
+    @Autowired
     private RedisTemplate redisTemplate;
 
 
@@ -49,8 +55,10 @@ public class IndexController {
     @Operation(summary = "获取首页最新商品数据")
     public Result<List<Product>> getNewProduct() {
         log.info("获取首页最新商品数据");
-//        List<Product> products = indexService.userGetNewProduct();
         List<Product> products = (List<Product>) redisTemplate.opsForValue().get(RedisConstant.PRODUCT_LIST);
+        if(products == null ){
+           products = productService.userGetList();
+        }
         List<Product> newProducts = products.stream()
                 .sorted(Comparator.comparing(Product::getCreateTime).reversed())
                 .limit(6)
@@ -63,6 +71,9 @@ public class IndexController {
     public Result<List<Blog>> getNewBlog() {
         log.info("获取首页最新博客数据");
         List<Blog> blogs = (List<Blog>) redisTemplate.opsForValue().get(RedisConstant.BLOG_LIST);
+        if(blogs == null ){
+            blogs = blogService.userGetList();
+        }
         List<Blog> newBlogs = blogs.stream()
                 .sorted(Comparator.comparing(Blog::getCreateTime).reversed())
                 .limit(3)

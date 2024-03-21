@@ -80,4 +80,9 @@ public class BlogServiceImpl implements BlogService {
     public List<Blog> getHotBlogWithComment() {
         return blogMapper.getHotBlogWithComment();
     }
+
+    @Override
+    public List<BlogDetailVO> getBlogList() {
+        return blogMapper.getBlogDetailList();
+    }
 }

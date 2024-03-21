@@ -33,4 +33,6 @@ public interface BlogService {
     void deleteComments(Long blogId,Long id);
 
     List<Blog> getHotBlogWithComment();
+
+    List<BlogDetailVO> getBlogList();
 }

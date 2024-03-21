@@ -3,6 +3,8 @@ package com.chenweijiang.wcg_mall.service;
 import com.chenweijiang.wcg_mall.pojo.User;
 import com.chenweijiang.wcg_mall.pojo.dto.UserRegisterDTO;
 
+import java.util.List;
+
 public interface UserService {
     User getById(Long id);
 
@@ -21,4 +23,10 @@ public interface UserService {
     void updateUser(User user);
 
     void updatePassword(String newPassword);
+
+    List<User> getUserList();
+
+    void deleteById(Long id);
+
+    void resetPassword(Long id);
 }

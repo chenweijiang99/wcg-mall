@@ -1,8 +1,11 @@
 package com.chenweijiang.wcg_mall.service.impl;
 
+import com.alipay.api.domain.OrderVO;
 import com.chenweijiang.wcg_mall.mapper.OrderDetailMapper;
 import com.chenweijiang.wcg_mall.pojo.OrderDetail;
+import com.chenweijiang.wcg_mall.pojo.vo.AdminOrderDetailVO;
 import com.chenweijiang.wcg_mall.pojo.vo.OrderDetailProductList;
+import com.chenweijiang.wcg_mall.pojo.vo.OrderDetailVO;
 import com.chenweijiang.wcg_mall.service.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +25,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     @Override
     public List<OrderDetailProductList> getByOrderNumber(String orderNumber) {
         return orderDetailMapper.getByOrderNumber(orderNumber);
+    }
+
+    @Override
+    public List<AdminOrderDetailVO> getOrderDetail() {
+        return orderDetailMapper.getOrderDetailList();
     }
 }

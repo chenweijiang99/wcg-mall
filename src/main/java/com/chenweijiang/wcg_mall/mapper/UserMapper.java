@@ -1,10 +1,9 @@
 package com.chenweijiang.wcg_mall.mapper;
 
 import com.chenweijiang.wcg_mall.pojo.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 @Mapper
 public interface UserMapper {
@@ -23,4 +22,10 @@ public interface UserMapper {
     void updateUser(User user);
     @Update("update user set password = #{rsaPassword} where id = #{currentId}")
     void updateUserPassword(String rsaPassword, Long currentId);
+
+    @Select("select * from user")
+    List<User> getUserList();
+
+    @Delete("delete from user where id = #{id}")
+    void deleteById(Long id);
 }
