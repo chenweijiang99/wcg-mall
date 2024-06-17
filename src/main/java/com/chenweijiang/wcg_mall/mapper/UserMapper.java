@@ -1,12 +1,14 @@
 package com.chenweijiang.wcg_mall.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.chenweijiang.wcg_mall.pojo.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 @Mapper
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User> {
+
     @Select("select * from user where id = #{id}")
     User getById(Long id);
 

@@ -1,7 +1,6 @@
 package com.chenweijiang.wcg_mall.controller.admin;
 
 import com.chenweijiang.wcg_mall.constant.RedisConstant;
-import com.chenweijiang.wcg_mall.pojo.Blog;
 import com.chenweijiang.wcg_mall.pojo.vo.BlogDetailVO;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.BlogService;

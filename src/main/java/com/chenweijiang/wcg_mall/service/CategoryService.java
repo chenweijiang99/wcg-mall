@@ -1,7 +1,6 @@
 package com.chenweijiang.wcg_mall.service;
 
 import com.chenweijiang.wcg_mall.pojo.ProductCategory;
-import com.chenweijiang.wcg_mall.pojo.dto.CategoryDTO;
 
 import java.util.List;
 

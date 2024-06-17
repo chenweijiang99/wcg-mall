@@ -2,7 +2,6 @@ package com.chenweijiang.wcg_mall.controller.user;
 
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
-import com.chenweijiang.wcg_mall.pojo.UserWishList;
 import com.chenweijiang.wcg_mall.pojo.vo.WishListVO;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.ShoppingCartService;

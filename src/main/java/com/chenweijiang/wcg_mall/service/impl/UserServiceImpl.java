@@ -1,6 +1,5 @@
 package com.chenweijiang.wcg_mall.service.impl;
 
-import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
 import com.chenweijiang.wcg_mall.mapper.KeyPairsMapper;
 import com.chenweijiang.wcg_mall.mapper.UserMapper;
@@ -10,16 +9,12 @@ import com.chenweijiang.wcg_mall.pojo.dto.UserRegisterDTO;
 import com.chenweijiang.wcg_mall.service.UserService;
 import com.chenweijiang.wcg_mall.utils.MailUtils;
 import com.chenweijiang.wcg_mall.utils.RSAEncryptionUtil;
-import com.wf.captcha.SpecCaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
-import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;

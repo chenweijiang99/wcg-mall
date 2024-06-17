@@ -3,7 +3,6 @@ package com.chenweijiang.wcg_mall.controller.admin;
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.constant.RedisConstant;
 import com.chenweijiang.wcg_mall.pojo.ProductCategory;
-import com.chenweijiang.wcg_mall.pojo.dto.CategoryDTO;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;

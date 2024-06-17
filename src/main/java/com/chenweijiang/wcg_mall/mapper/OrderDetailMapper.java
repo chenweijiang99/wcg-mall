@@ -1,13 +1,10 @@
 package com.chenweijiang.wcg_mall.mapper;
 
-import com.alipay.api.domain.OrderVO;
 import com.chenweijiang.wcg_mall.pojo.OrderDetail;
 import com.chenweijiang.wcg_mall.pojo.vo.AdminOrderDetailVO;
 import com.chenweijiang.wcg_mall.pojo.vo.OrderDetailProductList;
-import com.chenweijiang.wcg_mall.pojo.vo.OrderDetailVO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package com.chenweijiang.wcg_mall.service.impl;
 
 import com.chenweijiang.wcg_mall.mapper.WishListMapper;
-import com.chenweijiang.wcg_mall.pojo.UserWishList;
 import com.chenweijiang.wcg_mall.pojo.vo.WishListVO;
 import com.chenweijiang.wcg_mall.service.WishListService;
 import org.springframework.beans.factory.annotation.Autowired;

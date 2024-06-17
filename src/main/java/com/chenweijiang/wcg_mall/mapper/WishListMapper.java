@@ -1,6 +1,5 @@
 package com.chenweijiang.wcg_mall.mapper;
 
-import com.chenweijiang.wcg_mall.pojo.UserWishList;
 import com.chenweijiang.wcg_mall.pojo.vo.WishListVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;

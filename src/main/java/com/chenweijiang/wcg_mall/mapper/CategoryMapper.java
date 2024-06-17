@@ -3,7 +3,6 @@ package com.chenweijiang.wcg_mall.mapper;
 import com.chenweijiang.wcg_mall.annotation.AutoFill;
 import com.chenweijiang.wcg_mall.enumeration.OperationType;
 import com.chenweijiang.wcg_mall.pojo.ProductCategory;
-import com.chenweijiang.wcg_mall.pojo.dto.CategoryDTO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;

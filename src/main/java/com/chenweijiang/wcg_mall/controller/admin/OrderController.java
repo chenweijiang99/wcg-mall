@@ -1,9 +1,7 @@
 package com.chenweijiang.wcg_mall.controller.admin;
 
-import com.alipay.api.domain.OrderVO;
 import com.chenweijiang.wcg_mall.pojo.Order;
 import com.chenweijiang.wcg_mall.pojo.vo.AdminOrderDetailVO;
-import com.chenweijiang.wcg_mall.pojo.vo.OrderDetailVO;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.OrderDetailService;
 import com.chenweijiang.wcg_mall.service.OrderService;

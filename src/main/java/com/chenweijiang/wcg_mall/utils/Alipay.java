@@ -1,4 +1,4 @@
-package com.chenweijiang.wcg_mall.pojo;
+package com.chenweijiang.wcg_mall.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

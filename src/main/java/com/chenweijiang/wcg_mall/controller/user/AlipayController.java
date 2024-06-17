@@ -1,9 +1,8 @@
 package com.chenweijiang.wcg_mall.controller.user;
 
 import com.chenweijiang.wcg_mall.context.BaseContext;
-import com.chenweijiang.wcg_mall.pojo.Alipay;
+import com.chenweijiang.wcg_mall.utils.Alipay;
 import com.chenweijiang.wcg_mall.pojo.Order;
-import com.chenweijiang.wcg_mall.pojo.OrderDetail;
 import com.chenweijiang.wcg_mall.pojo.vo.OrderDetailProductList;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.OrderDetailService;
@@ -16,11 +15,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static java.lang.Thread.sleep;

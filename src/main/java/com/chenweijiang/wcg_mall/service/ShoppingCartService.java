@@ -1,6 +1,5 @@
 package com.chenweijiang.wcg_mall.service;
 
-import com.chenweijiang.wcg_mall.pojo.ShoppingCart;
 import com.chenweijiang.wcg_mall.pojo.vo.ShoppingCartVO;
 
 import java.util.List;

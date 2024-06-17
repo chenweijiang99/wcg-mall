@@ -7,7 +7,6 @@ import com.chenweijiang.wcg_mall.exception.WishListAlreadyExistsException;
 import com.chenweijiang.wcg_mall.mapper.ProductMapper;
 import com.chenweijiang.wcg_mall.mapper.WishListMapper;
 import com.chenweijiang.wcg_mall.pojo.Product;
-import com.chenweijiang.wcg_mall.pojo.UserWishList;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductDetailDTO;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductFilterDTO;
 import com.chenweijiang.wcg_mall.pojo.vo.WishListVO;

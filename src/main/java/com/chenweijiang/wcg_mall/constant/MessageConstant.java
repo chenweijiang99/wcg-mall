@@ -1,7 +1,5 @@
 package com.chenweijiang.wcg_mall.constant;
 
-import com.chenweijiang.wcg_mall.pojo.OrderDetail;
-
 /**
  * 信息提示常量类
  */

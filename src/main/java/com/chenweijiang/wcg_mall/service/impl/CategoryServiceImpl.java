@@ -2,7 +2,6 @@ package com.chenweijiang.wcg_mall.service.impl;
 
 import com.chenweijiang.wcg_mall.mapper.CategoryMapper;
 import com.chenweijiang.wcg_mall.pojo.ProductCategory;
-import com.chenweijiang.wcg_mall.pojo.dto.CategoryDTO;
 import com.chenweijiang.wcg_mall.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

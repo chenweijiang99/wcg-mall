@@ -1,6 +1,5 @@
 package com.chenweijiang.wcg_mall.mapper;
 
-import com.alibaba.fastjson.JSONPatch;
 import com.chenweijiang.wcg_mall.annotation.AutoFill;
 import com.chenweijiang.wcg_mall.enumeration.OperationType;
 import com.chenweijiang.wcg_mall.pojo.Product;

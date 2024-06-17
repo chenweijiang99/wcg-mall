@@ -2,8 +2,6 @@ package com.chenweijiang.wcg_mall.controller.user;
 
 import com.chenweijiang.wcg_mall.constant.RedisConstant;
 import com.chenweijiang.wcg_mall.pojo.Blog;
-import com.chenweijiang.wcg_mall.pojo.IndexData;
-import com.chenweijiang.wcg_mall.pojo.OfficialCollection;
 import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.pojo.vo.OfficialCollectionVO;
 import com.chenweijiang.wcg_mall.result.Result;

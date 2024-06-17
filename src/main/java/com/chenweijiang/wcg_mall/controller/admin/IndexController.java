@@ -1,9 +1,6 @@
 package com.chenweijiang.wcg_mall.controller.admin;
 
-import com.alipay.api.msg.MsgAck;
-import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.constant.RedisConstant;
-import com.chenweijiang.wcg_mall.pojo.IndexData;
 import com.chenweijiang.wcg_mall.pojo.OfficialCollection;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.IndexService;

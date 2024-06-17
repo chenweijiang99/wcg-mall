@@ -1,14 +1,11 @@
 package com.chenweijiang.wcg_mall.utils;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.response.AlipayTradePagePayResponse;
-import com.chenweijiang.wcg_mall.pojo.Alipay;
-import com.chenweijiang.wcg_mall.pojo.Order;
 import com.chenweijiang.wcg_mall.properties.AlipayProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

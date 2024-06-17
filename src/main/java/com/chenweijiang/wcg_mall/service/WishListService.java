@@ -1,6 +1,5 @@
 package com.chenweijiang.wcg_mall.service;
 
-import com.chenweijiang.wcg_mall.pojo.UserWishList;
 import com.chenweijiang.wcg_mall.pojo.vo.WishListVO;
 
 import java.util.List;

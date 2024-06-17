@@ -3,8 +3,6 @@ package com.chenweijiang.wcg_mall.controller.user;
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.constant.RedisConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
-import com.chenweijiang.wcg_mall.exception.AddToWishListException;
-import com.chenweijiang.wcg_mall.exception.ProductNotFoundException;
 import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductDetailDTO;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductFilterDTO;
