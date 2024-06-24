@@ -85,8 +85,9 @@ public class AlipayController {
         order.setCheckoutTime(LocalDateTime.now());
         orderService.update(order);
 
-//        log.info("发送支付成功消息到前端");
-//        webSocketServer.sendToAllClient(out_trade_no);
+        log.info("发送支付成功消息到前端");
+        webSocketServer.sendToAllClient(out_trade_no);
+        webSocketServer.clo
         return Result.success("支付成功:\n" +
                 "订单号为:"+out_trade_no);
     }

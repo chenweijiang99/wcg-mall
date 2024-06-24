@@ -42,10 +42,13 @@ public class AlipayUtil {
         bizContent.put("timeout_express", alipay.getTimeout_express());
         //电脑网站支付场景固定传值FAST_INSTANT_TRADE_PAY
         bizContent.put("product_code", "FAST_INSTANT_TRADE_PAY");
+        bizContent.put("qr_pay_mode",4);
         alipayTradePagePayRequest.setBizContent(bizContent.toJSONString());
 //        alipayTradePagePayRequest.setBizContent(JSON.toJSONString(alipay));
-        AlipayTradePagePayResponse response = alipayClient.pageExecute(alipayTradePagePayRequest,"GET");
+//        AlipayTradePagePayResponse response = alipayClient.pageExecute(alipayTradePagePayRequest,"GET");
+        AlipayTradePagePayResponse response = alipayClient.pageExecute(alipayTradePagePayRequest,"POST");
         String pageRedirectionData = response.getBody();
+        //System.out.println(pageRedirectionData);
         return pageRedirectionData;
     }
 }

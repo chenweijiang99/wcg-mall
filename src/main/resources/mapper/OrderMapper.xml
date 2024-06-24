@@ -26,10 +26,18 @@
             <if test="email != null">
             email = #{email},
         </if>
-
+            <if test="payMethod != null">
+                pay_method = #{payMethod},
+            </if>
+            <if test="payStatus != null">
+                pay_status= #{payStatus},
+            </if>
             <if test="amount != null">
             amount = #{amount},
-        </if>
+            </if>
+            <if test="checkoutTime != null">
+                checkout_time = #{checkoutTime}
+            </if>
 
         </set>
             where order_number = #{orderNumber} and id = #{id}
