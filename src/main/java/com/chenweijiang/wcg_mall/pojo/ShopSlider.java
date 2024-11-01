@@ -11,8 +11,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductColor  {
-    private Long id;
-    private Long productId;
-    private String value;
+public class ShopSlider implements Serializable {
+    private  Long id;
+    private String url;
 }

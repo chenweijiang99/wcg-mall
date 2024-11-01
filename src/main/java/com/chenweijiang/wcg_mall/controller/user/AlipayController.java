@@ -87,8 +87,7 @@ public class AlipayController {
 
         log.info("发送支付成功消息到前端");
         webSocketServer.sendToAllClient(out_trade_no);
-        return Result.success("支付成功:\n" +
-                "订单号为:"+out_trade_no);
+        return Result.success();
     }
 
 //    @Scheduled(cron = "0/5 * * * * ?")

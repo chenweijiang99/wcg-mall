@@ -49,4 +49,6 @@ public interface ProductMapper {
 
     @Update("update product set inventory = inventory - #{productNumber} where id = #{id}")
     void updateProductInventory(Long id, Integer productNumber);
+    @Select("SELECT * FROM product WHERE name LIKE #{searchQuery}")
+    List<Product> search(String searchQuery);
 }

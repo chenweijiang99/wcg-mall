@@ -18,4 +18,6 @@ public interface ShoppingCartService {
     void addProduct(Long userId, Long productId);
 
     void emptyShoppingCartData(Long userId);
+
+    void addCarProductToWishList(Long userId, Long productId);
 }

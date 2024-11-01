@@ -157,6 +157,7 @@ public class UserController {
         return Result.error(MessageConstant.UPLOAD_FAILED);
     }
 
+
     @PostMapping("/update")
     @Operation(summary = "更新用户信息")
     public Result<String> update(@RequestBody User user){

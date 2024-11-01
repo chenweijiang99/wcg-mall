@@ -78,4 +78,13 @@ public class ShoppingCartController {
         return Result.success(MessageConstant.SUCCESS);
     }
 
+
+    @PostMapping("/addCarProductToWishList")
+    @Operation(summary = "购物车商品添加到心愿单")
+    public Result<String> addCarProductToWishList(Long productId){
+        log.info("购物车商品添加到心愿单{}",productId);
+        Long userId = BaseContext.getCurrentId();
+        shoppingCartService.addCarProductToWishList(userId,productId);
+        return Result.success(MessageConstant.SUCCESS);
+    }
 }

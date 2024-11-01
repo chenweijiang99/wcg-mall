@@ -3,10 +3,13 @@ package com.chenweijiang.wcg_mall.controller.user;
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.constant.RedisConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
+import com.chenweijiang.wcg_mall.pojo.IndexSlider;
 import com.chenweijiang.wcg_mall.pojo.Product;
+import com.chenweijiang.wcg_mall.pojo.ShopSlider;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductDetailDTO;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductFilterDTO;
 import com.chenweijiang.wcg_mall.result.Result;
+import com.chenweijiang.wcg_mall.service.IndexService;
 import com.chenweijiang.wcg_mall.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,7 +29,21 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private IndexService indexService;
 
+    @GetMapping("/getShopSlider")
+    @Operation(summary = "获取轮播图数据")
+    public Result<List<ShopSlider>> getShopSlider(){
+        log.info("获取轮播图数据");
+        List<ShopSlider> list = (List<ShopSlider>) redisTemplate.opsForValue().get(RedisConstant.SHOP_SLIDER);
+        if(list != null && list.size() > 0){
+            return Result.success(list);
+        }
+        List<ShopSlider> shopSliderList = indexService.getShopSlider();
+        redisTemplate.opsForValue().set(RedisConstant.SHOP_SLIDER,shopSliderList);
+        return Result.success(shopSliderList);
+    }
     @PostMapping("/filter")
     @Operation(summary = "商品筛选")
     public Result<List<Product>> filter(@RequestBody ProductFilterDTO productFilterDTO){
@@ -76,5 +93,14 @@ public class ProductController {
         }else {
             return Result.success(MessageConstant.ADD_TO_WISH_LIST_SUCCESS);
         }
+    }
+
+    //搜索
+    @GetMapping("/search")
+    @Operation(summary = "搜索商品")
+    public Result<List<Product>> search(String searchQuery){
+        log.info("搜索商品:{}", searchQuery);
+        List<Product> productList = productService.search(searchQuery);
+        return Result.success(productList);
     }
 }

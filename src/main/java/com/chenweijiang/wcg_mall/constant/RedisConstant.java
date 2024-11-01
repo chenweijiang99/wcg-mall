@@ -6,4 +6,6 @@ public class RedisConstant {
     public static final String BRAND_LIST = "brand_list";
     public static final String BLOG_LIST = "blog_list";
     public static final String OL_LIST = "ol_list";
+    public static final String SHOP_SLIDER = "shop_slider" ;
+    public static String INDEX_SLIDER = "index_slider";
 }

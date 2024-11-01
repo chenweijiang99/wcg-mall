@@ -117,4 +117,10 @@ public class ProductServiceImpl implements ProductService {
     public Product getProductById(Long productId) {
        return  productMapper.getProductById(productId);
     }
+
+    @Override
+    public List<Product> search(String searchQuery) {
+        searchQuery = "%" + searchQuery.replace("\"", "") + "%";
+        return productMapper.search(searchQuery);
+    }
 }

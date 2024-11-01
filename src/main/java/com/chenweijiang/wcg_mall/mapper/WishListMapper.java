@@ -2,6 +2,7 @@ package com.chenweijiang.wcg_mall.mapper;
 
 import com.chenweijiang.wcg_mall.pojo.vo.WishListVO;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -14,4 +15,6 @@ public interface WishListMapper {
 
     @Delete("delete from user_wish_list where user_id = #{userId} and product_id = #{productId}")
     int delete(Long productId, Long userId);
+    @Insert("insert into user_wish_list(user_id,product_id) values (#{userId},#{productId})")
+    int addToWishList(Long userId, Long productId);
 }

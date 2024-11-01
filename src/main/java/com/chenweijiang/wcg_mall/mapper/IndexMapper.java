@@ -1,7 +1,9 @@
 package com.chenweijiang.wcg_mall.mapper;
 
+import com.chenweijiang.wcg_mall.pojo.IndexSlider;
 import com.chenweijiang.wcg_mall.pojo.OfficialCollection;
 import com.chenweijiang.wcg_mall.pojo.Product;
+import com.chenweijiang.wcg_mall.pojo.ShopSlider;
 import com.chenweijiang.wcg_mall.pojo.vo.OfficialCollectionVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -30,4 +32,16 @@ public interface IndexMapper {
 
     @Select("select * from product where status = 1 order by create_time limit 6")
     List<Product> getNewProduct();
+    @Select("select * from index_slider")
+    List<IndexSlider> getIndexSlider();
+    @Delete("delete from index_slider where id = #{id}")
+    int deleteIndexSlider(Long id);
+    @Insert("insert into index_slider(url) values (#{url})")
+    int addIndexSlider(String url);
+    @Select("select * from shop_slider")
+    List<ShopSlider> getShopSlider();
+    @Delete("delete from shop_slider where id = #{id}")
+    int deleteShopSlider(Long id);
+    @Insert("insert into shop_slider(url) values (#{url})")
+    int addShopSlider(String url);
 }

@@ -2,6 +2,7 @@ package com.chenweijiang.wcg_mall.controller.user;
 
 import com.chenweijiang.wcg_mall.constant.RedisConstant;
 import com.chenweijiang.wcg_mall.pojo.Blog;
+import com.chenweijiang.wcg_mall.pojo.IndexSlider;
 import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.pojo.vo.OfficialCollectionVO;
 import com.chenweijiang.wcg_mall.result.Result;
@@ -36,6 +37,19 @@ public class IndexController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+
+    @GetMapping("/getIndexSlider")
+    @Operation(summary = "获取轮播图数据")
+    public Result<List<IndexSlider>> getIndexSlider(){
+        log.info("获取轮播图数据");
+        List<IndexSlider> list = (List<IndexSlider>) redisTemplate.opsForValue().get(RedisConstant.INDEX_SLIDER);
+        if(list != null && list.size() > 0){
+            return Result.success(list);
+        }
+        List<IndexSlider> indexSliderList = indexService.getIndexSlider();
+        redisTemplate.opsForValue().set(RedisConstant.INDEX_SLIDER,indexSliderList);
+        return Result.success(indexSliderList);
+    }
 
     @GetMapping("/getOL")
     @Operation(summary = "获取首页官方收藏数据")

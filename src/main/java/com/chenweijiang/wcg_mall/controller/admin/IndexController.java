@@ -1,18 +1,25 @@
 package com.chenweijiang.wcg_mall.controller.admin;
 
+import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.constant.RedisConstant;
+import com.chenweijiang.wcg_mall.pojo.IndexSlider;
 import com.chenweijiang.wcg_mall.pojo.OfficialCollection;
+import com.chenweijiang.wcg_mall.pojo.ShopSlider;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.IndexService;
+import com.chenweijiang.wcg_mall.utils.AliOssUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @RestController("adminIndexController")
 @Tag(name = "首页接口")
@@ -23,6 +30,58 @@ public class IndexController {
     private IndexService indexService;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private AliOssUtil aliOssUtil;
+
+    @GetMapping("/getShopSlider")
+    @Operation(summary = "获取商品页轮播图数据")
+    public Result<List<ShopSlider>> getShopSlider(){
+        log.info("获取商品页轮播图数据");
+        return Result.success(indexService.getShopSlider());
+    }
+
+    @DeleteMapping ("/deleteShopSlider")
+    @Operation(summary = "删除商品页轮播图")
+    public Result deleteShopSlider(Long id){
+        log.info("删除商品页轮播图{}",id);
+        indexService.deleteShopSlider(id);
+        cleanCache(RedisConstant.SHOP_SLIDER);
+        return Result.success();
+    }
+
+    @PostMapping("/addShopSlider")
+    @Operation(summary = "添加商品页轮播图")
+    public Result addShopSlider(String url){
+        log.info("添加商品页轮播图{}",url);
+        indexService.addShopSlider(url);
+        cleanCache(RedisConstant.SHOP_SLIDER);
+        return Result.success();
+    }
+
+    @GetMapping("/getIndexSlider")
+    @Operation(summary = "获取轮播图数据")
+    public Result<List<IndexSlider>> getIndexSlider(){
+        log.info("获取轮播图数据");
+        return Result.success(indexService.getIndexSlider());
+    }
+
+    @DeleteMapping ("/deleteIndexSlider")
+    @Operation(summary = "删除轮播图")
+    public Result deleteIndexSlider(Long id){
+        log.info("删除轮播图{}",id);
+        indexService.deleteIndexSlider(id);
+        cleanCache(RedisConstant.INDEX_SLIDER);
+        return Result.success();
+    }
+
+    @PostMapping("/addIndexSlider")
+    @Operation(summary = "添加轮播图")
+    public Result addIndexSlider(String url){
+        log.info("添加轮播图{}",url);
+        indexService.addIndexSlider(url);
+        cleanCache(RedisConstant.INDEX_SLIDER);
+        return Result.success();
+    }
     @GetMapping("/getOL")
     @Operation(summary = "获取官方收藏")
     public Result<List<OfficialCollection>> getOL(){
@@ -30,6 +89,8 @@ public class IndexController {
         List<OfficialCollection> officialCollectionList = indexService.getOL();
         return Result.success(officialCollectionList);
     }
+
+
 
     @PostMapping("/setAsOL")
     @Operation(summary = "设置为官方收藏")

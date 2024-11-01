@@ -28,4 +28,6 @@ public interface ProductService {
     void updateProductInventory(Long id, Integer productNumber);
 
     Product getProductById(Long productId);
+
+    List<Product> search(String searchQuery);
 }

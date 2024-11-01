@@ -37,6 +37,18 @@ public class OrderController {
     private ShoppingCartService shoppingCartService;
     @Autowired
     private ProductService productService;
+
+    //用户确认收货
+    @PutMapping("/confirmReceipt/{orderNumber}")
+    @Operation(summary = "用户确认收货")
+    public Result confirmReceipt(@PathVariable String orderNumber) {
+        log.info("用户确认收货{}",orderNumber);
+        Order order = orderService.getByOrderNumber(orderNumber);
+        order.setStatus(Order.COMPLETED);
+        orderService.update(order);
+        return Result.success();
+    }
+
     @GetMapping
     @Operation(summary = "获取订单数据")
     public Result<List<Order>> listByUserId() {
@@ -75,7 +87,7 @@ public class OrderController {
         Long userId = BaseContext.getCurrentId();
         User user = userService.getById(userId);
         order.setUserId(userId);
-        order.setOrderNumber(LocalDateTime.now().toString());
+        order.setOrderNumber(System.currentTimeMillis()+userId.toString());
         order.setStatus(Order.PENDING);
         order.setPayStatus(Order.UN_PAID);
         order.setEmail(user.getEmail());
@@ -125,6 +137,17 @@ public class OrderController {
                 .productLists(OrderDetailProductList)
                 .build();
         return Result.success(orderDetailVO);
+    }
+
+    //用户取消订单
+    @PutMapping("/cancelOrder/{orderNumber}")
+    @Operation(summary = "用户取消订单")
+    public Result cancelOrder(@PathVariable String orderNumber) {
+        log.info("用户取消订单{}",orderNumber);
+        Order order = orderService.getByOrderNumber(orderNumber);
+        order.setStatus(Order.CANCELED);
+        orderService.update(order);
+        return Result.success();
     }
 }
 

@@ -4,9 +4,12 @@ import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.exception.ProductNotFoundException;
 import com.chenweijiang.wcg_mall.mapper.ProductMapper;
 import com.chenweijiang.wcg_mall.mapper.ShoppingCartMapper;
+import com.chenweijiang.wcg_mall.mapper.WishListMapper;
 import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.pojo.ShoppingCart;
+import com.chenweijiang.wcg_mall.pojo.UserWishList;
 import com.chenweijiang.wcg_mall.pojo.vo.ShoppingCartVO;
+import com.chenweijiang.wcg_mall.pojo.vo.WishListVO;
 import com.chenweijiang.wcg_mall.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private ShoppingCartMapper shoppingCartMapper;
     @Autowired
     private ProductMapper productMapper;
+    @Autowired
+    private WishListMapper wishListMapper;
     @Override
     public List<ShoppingCartVO> listByUserId(Long userId) {
         return shoppingCartMapper.listByUserId(userId);
@@ -105,5 +110,18 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public void emptyShoppingCartData(Long userId) {
         shoppingCartMapper.deleteShoppingCartByUserId(userId);
+    }
+
+    @Override
+    public void addCarProductToWishList(Long userId, Long productId) {
+        List<WishListVO> listByUserId = wishListMapper.getListByUserId(userId);
+        listByUserId.forEach(wishListVO -> {
+            if(wishListVO.getProductId().equals(productId)){
+                throw new ProductNotFoundException(MessageConstant.PRODUCT_ALREADY_IN_WISHLIST);
+            }
+        });
+        if(wishListMapper.addToWishList(userId, productId) > 0){
+            shoppingCartMapper.deleteShoppingCartByUserIDAndProductID(userId,productId);
+        }
     }
 }

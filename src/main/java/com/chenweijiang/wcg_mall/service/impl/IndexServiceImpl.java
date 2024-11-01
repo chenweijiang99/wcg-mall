@@ -3,8 +3,10 @@ package com.chenweijiang.wcg_mall.service.impl;
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
 import com.chenweijiang.wcg_mall.exception.OfficialCollectionException;
 import com.chenweijiang.wcg_mall.mapper.IndexMapper;
+import com.chenweijiang.wcg_mall.pojo.IndexSlider;
 import com.chenweijiang.wcg_mall.pojo.OfficialCollection;
 import com.chenweijiang.wcg_mall.pojo.Product;
+import com.chenweijiang.wcg_mall.pojo.ShopSlider;
 import com.chenweijiang.wcg_mall.pojo.vo.OfficialCollectionVO;
 import com.chenweijiang.wcg_mall.service.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +54,35 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public List<Product> userGetNewProduct() {
         return indexMapper.getNewProduct();
+    }
+
+    @Override
+    public List<IndexSlider> getIndexSlider() {
+        return indexMapper.getIndexSlider();
+    }
+
+    @Override
+    public int deleteIndexSlider(Long id) {
+        return indexMapper.deleteIndexSlider(id);
+    }
+
+    @Override
+    public int addIndexSlider(String url) {
+        return indexMapper.addIndexSlider(url);
+    }
+
+    @Override
+    public List<ShopSlider> getShopSlider() {
+        return indexMapper.getShopSlider();
+    }
+
+    @Override
+    public int deleteShopSlider(Long id) {
+        return indexMapper.deleteShopSlider(id);
+    }
+
+    @Override
+    public int addShopSlider(String url) {
+        return indexMapper.addShopSlider(url);
     }
 }

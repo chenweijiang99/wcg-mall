@@ -100,4 +100,5 @@ public class MessageConstant {
     public static final String PRODUCT_INVENTORY_NOT_ENOUGH = "库存不足";
     public static final String OFFICIAL_COLLECTION_ALREADY_EXISTS = "该商品已经存在官方收藏";
     public static final String OFFICIAL_COLLECTION_NOT_EXISTS = "该商品不存在官方收藏";
+    public static final String PRODUCT_ALREADY_IN_WISHLIST = "该商品已经存在心愿单";
 }
