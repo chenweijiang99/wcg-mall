@@ -3,3 +3,11 @@
 访问  http://wcgmallcwj.online     查看前端，账户自己使用邮箱注册即可
 
 后台管理代码请移步主页
+部分效果如下
+![输入图片说明](images/image.png)
+![输入图片说明](images/image.png)
+![输入图片说明](images/image.png)
+![输入图片说明](images/image.png)
+![输入图片说明](images/image.png)
+![输入图片说明](images/image.png)
+![输入图片说明](images/image.png)
