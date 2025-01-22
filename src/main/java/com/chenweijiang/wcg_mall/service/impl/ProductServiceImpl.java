@@ -123,4 +123,5 @@ public class ProductServiceImpl implements ProductService {
         searchQuery = "%" + searchQuery.replace("\"", "") + "%";
         return productMapper.search(searchQuery);
     }
+
 }

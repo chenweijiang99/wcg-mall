@@ -12,6 +12,7 @@ import com.chenweijiang.wcg_mall.service.BlogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -40,11 +41,11 @@ public class BlogController {
     public Result<List<Blog>> list(){
         log.info("获取文章列表");
         List<Blog> list = (List<Blog>) redisTemplate.opsForValue().get(RedisConstant.BLOG_LIST);
-        if(list != null && list.size() > 0){
+        if(list != null && !list.isEmpty()){
             return Result.success(list);
         }
         List<Blog> blogList = blogService.userGetList();
-        if(blogList == null || blogList.size() == 0){
+        if(blogList == null || blogList.isEmpty()){
             return Result.error(MessageConstant.BLOG_LIST_NOT_FOUND);
         }
         redisTemplate.opsForValue().set(RedisConstant.BLOG_LIST,blogList);

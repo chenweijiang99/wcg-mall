@@ -29,4 +29,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     public List<AdminOrderDetailVO> getOrderDetail() {
         return orderDetailMapper.getOrderDetailList();
     }
+
+    @Override
+    public List<OrderDetail> getOrderDetailByOrderNumber(String orderNumber) {
+
+        return orderDetailMapper.getOrderDetalByOrderNumber(orderNumber);
+    }
 }

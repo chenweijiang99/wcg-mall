@@ -104,4 +104,5 @@ public class MessageConstant {
     public static final String PRODUCT_ALREADY_IN_WISHLIST = "该商品已经存在心愿单";
     public static final String SUCCESS_RESET_PASSWORD = "重置密码成功";
     public static final String CODE_CHECK_SUCCESS = "验证码验证成功";
+    public static final String SUCCESS_GET_CODE = "获取验证码成功";
 }

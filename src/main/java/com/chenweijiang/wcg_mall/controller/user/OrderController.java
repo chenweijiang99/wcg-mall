@@ -1,6 +1,7 @@
 package com.chenweijiang.wcg_mall.controller.user;
 
 import com.chenweijiang.wcg_mall.constant.MessageConstant;
+import com.chenweijiang.wcg_mall.constant.RedisConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
 import com.chenweijiang.wcg_mall.pojo.dto.OrderDTO;
 import com.chenweijiang.wcg_mall.pojo.Order;
@@ -16,6 +17,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -41,6 +44,10 @@ public class OrderController {
     private ShoppingCartService shoppingCartService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     //用户确认收货
     @PutMapping("/confirmReceipt/{orderNumber}")
@@ -80,7 +87,8 @@ public class OrderController {
     @PostMapping
     @Operation(summary = "生成订单")
     public Result<Order> createOrder(@RequestBody OrderDTO orderDTO) {
-
+        log.info("生成订单{}",orderDTO);
+        //创建订单
         Order order = Order.builder()
                 .consignee(orderDTO.getConsignee())
                 .consigneeAddress(orderDTO.getConsigneeAddress())
@@ -88,15 +96,16 @@ public class OrderController {
                 .amount(orderDTO.getAmount())
                 .payMethod(orderDTO.getPayMethod())
                 .build();
+        //获取用户数据
         Long userId = BaseContext.getCurrentId();
         User user = userService.getById(userId);
+        //填充用户信息到订单
         order.setUserId(userId);
         order.setOrderNumber(System.currentTimeMillis()+userId.toString());
         order.setStatus(Order.PENDING);
         order.setPayStatus(Order.UN_PAID);
         order.setEmail(user.getEmail());
         order.setOrderTime(LocalDateTime.now());
-        log.info("生成订单{}",order);
         //将购物车数据添加到订单详情
         List<ShoppingCartVO> cartVOS = shoppingCartService.listByUserId(userId);
         cartVOS.forEach(cartVO -> {
@@ -104,6 +113,9 @@ public class OrderController {
             if(product.getInventory() <= cartVO.getNumber()){
                 return ;
             }
+            product.setInventory(product.getInventory() - cartVO.getNumber());
+            productService.updateProduct(product);
+            redisTemplate.delete(RedisConstant.PRODUCT_LIST);
             OrderDetail orderDetail = OrderDetail.builder()
                     .orderNumber(order.getOrderNumber())
                     .productId(cartVO.getProductId())
@@ -146,12 +158,19 @@ public class OrderController {
     //用户取消订单
     @PutMapping("/cancelOrder/{orderNumber}")
     @Operation(summary = "用户取消订单")
-    public Result cancelOrder(@PathVariable String orderNumber) {
+    public Result<String> cancelOrder(@PathVariable String orderNumber) {
         log.info("用户取消订单{}",orderNumber);
         Order order = orderService.getByOrderNumber(orderNumber);
         order.setStatus(Order.CANCELED);
         orderService.update(order);
-        return Result.success();
+        List<OrderDetail> orderDetailList = orderDetailService.getOrderDetailByOrderNumber(orderNumber);
+        orderDetailList.forEach(orderDetail -> {
+            Product product = productService.getProductById(orderDetail.getProductId());
+            product.setInventory(product.getInventory() + orderDetail.getProductNumber());
+            productService.updateProduct(product);
+            redisTemplate.delete(RedisConstant.PRODUCT_LIST);
+        });
+        return Result.success(MessageConstant.SUCCESS);
     }
 }
 

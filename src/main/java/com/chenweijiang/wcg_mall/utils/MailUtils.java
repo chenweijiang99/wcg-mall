@@ -51,7 +51,7 @@ public class MailUtils  {
 		session.setDebug(true);
 		//  解决本地DNS未配置 ip->域名场景下，邮件发送太慢的问题
 		session.getProperties().setProperty("mail.smtp.localhost", "myComputer");
-		String text = MailConstant.RESET_MAIL + code+"\n";
+		String text = MailConstant.RESET_MAIL + code+"\n" + MailConstant.VALID_TIME;
 		String title = MailConstant.RESET_TITLE;
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom(MailConstant.FROM);

@@ -163,7 +163,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int resetPasswordByUserEmail(String email, String code) {
-        log.info("重置密码,邮箱{},验证码{}：", email, code);
         if(Objects.equals(stringRedisTemplate.opsForValue().get(RedisConstant.RESET_PWD + email), code)){
             String publicKey = keyPairsMapper.getPublicKey(userMapper.findUserByEmail(email).getId());
             try {

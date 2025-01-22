@@ -47,7 +47,7 @@ public class AlipayController {
     @GetMapping()
     @Operation(summary = "支付宝支付")
     public Result<String> alipayPay(String orderNumber) throws Exception {
-        log.info("支付宝支付{}",orderNumber);
+        log.info("订单支付{}",orderNumber);
         // 支付账号：  oworsb4854@sandbox.com    密码：111111
         Long userId = BaseContext.getCurrentId();
         Order order = orderService.getByOrderNumber(orderNumber);
@@ -63,8 +63,7 @@ public class AlipayController {
 
 
     /**
-     * 这里其实是支付宝的回调接口，这里只是测试用。。。。
-     * 因为没有进行内外穿透，所以这里只能用本地模拟
+     *
      * @param out_trade_no
      * @return
      * @throws Exception

@@ -47,7 +47,7 @@ public class ShoppingCartController {
     @DeleteMapping
     @Operation(summary = "删除购物车数据")
     public Result<String> deleteShoppingCart(Long productId){
-        log.info("删除购物车{}",productId);
+        log.info("删除购物车商品{}",productId);
         Long userId = BaseContext.getCurrentId();
         shoppingCartService.deleteShoppingCart(userId,productId);
         return Result.success(MessageConstant.SUCCESS);
@@ -57,7 +57,7 @@ public class ShoppingCartController {
     @DeleteMapping("/delete")
     @Operation(summary = "删除数据")
     public Result<String> deleteShoppingCartData(Long productId){
-        log.info("删除购物车{}",productId);
+        //log.info("删除购物车{}",productId);
         Long userId = BaseContext.getCurrentId();
         shoppingCartService.deleteShoppingCartData(userId,productId);
         return Result.success(MessageConstant.SUCCESS);

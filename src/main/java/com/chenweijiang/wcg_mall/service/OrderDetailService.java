@@ -12,4 +12,6 @@ public interface OrderDetailService {
     List<OrderDetailProductList> getByOrderNumber(String orderNumber);
 
     List<AdminOrderDetailVO> getOrderDetail();
+
+    List<OrderDetail> getOrderDetailByOrderNumber(String orderNumber);
 }

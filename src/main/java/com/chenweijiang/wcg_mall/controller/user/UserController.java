@@ -45,7 +45,7 @@ public class UserController {
     @GetMapping("/{id}")
     @Operation(summary = "根据id查询用户信息")
     public Result<User> getById(@PathVariable Long id){
-        log.info("根据id查询用户信息，id = {}", id);
+        log.info("根据id查询用户信息 {}", id);
         User user = userService.getById(id);
         return Result.success(user);
     }
@@ -53,7 +53,7 @@ public class UserController {
     @PostMapping("/login")
     @Operation(summary = "用户登录")
     public Result<String> login(String email,String password){
-        log.info("用户登录{}", email, password);
+        log.info("用户登录{},{}", email, password);
         User loginUser = userService.findUserByEmail(email);
         if(loginUser == null) {
             return Result.error(MessageConstant.ACCOUNT_NOT_FOUND);
@@ -111,10 +111,10 @@ public class UserController {
 
     @GetMapping("/getCode")
     @Operation(summary = "获取验证码")
-    public Result getCode(String email){
+    public Result<String> getCode(String email){
         log.info("获取验证码{}", email);
         userService.getCode(email);
-        return Result.success();
+        return Result.success(MessageConstant.SUCCESS_GET_CODE);
     }
     @GetMapping("/userInfo")
     @Operation(summary = "获取用户信息")
@@ -155,7 +155,7 @@ public class UserController {
             String url = aliOssUtil.upload(filename, file.getInputStream());
             return Result.success(url);
         } catch (IOException e) {
-            log.error("文件上传失败：{}", e);
+            log.error("文件上传失败", e);
         }
 
         return Result.error(MessageConstant.UPLOAD_FAILED);
@@ -194,15 +194,15 @@ public class UserController {
 
     @GetMapping("/getCodeByResetPwd")
     @Operation(summary = "获取重置密码的验证码")
-    public Result getCodeByResetPwd(String email){
+    public Result<String> getCodeByResetPwd(String email){
         log.info("获取重置密码的验证码{}", email);
         userService.getCodeByResetPwd(email);
-        return Result.success();
+        return Result.success(MessageConstant.SUCCESS_GET_CODE);
     }
     @PostMapping("/activateCodeByRestPwd")
     @Operation(summary = "验证重置密码的验证码")
     public Result<String> activateCodeByRestPwd(String email,String code){
-        log.info("验证重置密码的验证码{}", email);
+        log.info("验证重置密码的验证码{},{}", email,code);
         if(userService.activateCodeByRestPwd(email,code) == 1){
             return Result.success(MessageConstant.CODE_CHECK_SUCCESS);
         }
