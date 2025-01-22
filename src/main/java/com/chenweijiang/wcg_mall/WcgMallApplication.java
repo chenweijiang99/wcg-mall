@@ -16,7 +16,7 @@ public class WcgMallApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(WcgMallApplication.class, args);
-		System.out.println("接口调试路径：http://localhost:8080/doc.html#/home");
+		System.out.println("接口调试路径：http://localhost:1203/doc.html#/home");
 	}
 
 }

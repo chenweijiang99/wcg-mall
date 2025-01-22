@@ -5,16 +5,28 @@ import com.chenweijiang.wcg_mall.interceptor.UserJwtTokenInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration  // 声明该类是一个配置类
 @Slf4j
+//EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {  // 定义WebConfig类并实现WebMvcConfigurer接口
     @Autowired
     private UserJwtTokenInterceptor jwtTokenInterceptor;
     @Autowired
     private AdminJwtTokenInterceptor jwtAdminTokenInterceptor;
+
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        // 添加映射路径
+//        registry.addMapping("/**")
+//                .allowedOrigins("http://wcgmallcwj.online/")
+//                .allowCredentials(true)
+//                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+//                .allowedHeaders("*");
+//    }
 
     String [] excludePaths = new String[]{
             "/user/alipay/**",
