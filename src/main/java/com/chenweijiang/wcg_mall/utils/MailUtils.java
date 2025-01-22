@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Properties;
 
+/**
+ * 邮件工具类
+ * @author 枳枳
+ */
 @Component
 public class MailUtils  {
  	@Autowired

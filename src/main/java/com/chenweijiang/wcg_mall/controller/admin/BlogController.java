@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * 管理员博客相关接口
+ * @author 枳枳
+ */
+
 @RestController("adminBlogController")
 @RequestMapping("/admin/blog")
 @Tag(name = "管理员博客相关接口")

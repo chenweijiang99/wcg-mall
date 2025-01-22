@@ -5,6 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 支付宝支付参数
+ * @author 枳枳
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

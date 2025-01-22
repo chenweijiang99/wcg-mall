@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 用户商品接口
+ * @author 枳枳
+ */
 @RestController
 @RequestMapping("/user/product")
 @Slf4j

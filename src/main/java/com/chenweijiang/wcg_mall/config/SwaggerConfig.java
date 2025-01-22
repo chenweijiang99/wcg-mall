@@ -15,6 +15,11 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
+/**
+ * Swagger配置类
+ * @author 枳枳
+ */
+
 @Configuration
 @Slf4j
 public class SwaggerConfig extends WebMvcConfigurationSupport {
@@ -25,6 +30,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     @Bean
     public OpenAPI customOpenAPI() {
+        log.info("正在加载Swagger配置：{}", this);
         return new OpenAPI()
                 .info(new Info().title("文创购物商城API接口文档")
                         // 接口文档简介

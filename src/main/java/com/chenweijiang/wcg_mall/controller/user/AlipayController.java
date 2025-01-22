@@ -22,6 +22,10 @@ import java.util.List;
 
 import static java.lang.Thread.sleep;
 
+/**
+ * 用户支付宝相关接口
+ * @author 枳枳
+ */
 @RestController("userAlipayController")
 @Slf4j
 @Tag(name = "用户支付宝相关接口")

@@ -8,6 +8,10 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * RSA秘钥工具类
+ * @author 枳枳
+ */
 public class RSAEncryptionUtil {
     private static final String ALGORITHM = "RSA";
     private static final String PUBLIC_KEY = "publicKey";

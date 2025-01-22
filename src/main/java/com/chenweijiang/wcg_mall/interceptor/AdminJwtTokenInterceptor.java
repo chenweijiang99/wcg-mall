@@ -17,7 +17,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 
 /**
- * jwt令牌校验的拦截器
+ * jwt令牌校验的拦截器（管理端）
+ * @author 枳枳
  */
 @Component
 @Slf4j

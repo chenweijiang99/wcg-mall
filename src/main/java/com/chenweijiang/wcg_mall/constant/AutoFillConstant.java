@@ -2,6 +2,7 @@ package com.chenweijiang.wcg_mall.constant;
 
 /**
  * 公共字段自动填充相关常量
+ * @author 枳枳
  */
 public class AutoFillConstant {
     /**

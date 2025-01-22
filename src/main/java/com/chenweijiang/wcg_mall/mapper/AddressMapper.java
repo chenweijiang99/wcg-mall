@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
+
 @Mapper
 public interface AddressMapper {
     @Select("select * from address_book where user_id = #{userId} order by id")

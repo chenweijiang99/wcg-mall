@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * 管理员品牌相关接口
+ * @author 枳枳
+ */
 @RestController("adminBrandController")
 @Slf4j
 @RequestMapping("/admin/brand")

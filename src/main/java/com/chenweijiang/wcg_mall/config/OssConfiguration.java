@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 配置类，用于创建AliOssUtil对象
+ * @author 枳枳
  */
 @Configuration
 @Slf4j

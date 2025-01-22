@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 用户购物车接口
+ * @author 枳枳
+ */
 @RestController
 @RequestMapping("/user/shoppingCart")
 @Slf4j

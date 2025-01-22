@@ -11,6 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * 支付宝支付工具类
+ * @author 枳枳
+ */
 @Component
 @Slf4j
 public class AlipayUtil {

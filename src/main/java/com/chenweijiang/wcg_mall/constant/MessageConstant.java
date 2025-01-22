@@ -2,6 +2,7 @@ package com.chenweijiang.wcg_mall.constant;
 
 /**
  * 信息提示常量类
+ * @author 枳枳
  */
 public class MessageConstant {
 

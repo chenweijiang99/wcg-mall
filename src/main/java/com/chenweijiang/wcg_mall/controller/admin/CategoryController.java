@@ -15,10 +15,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * 管理员分类相关接口
+ * @author 枳枳
+ */
 @RestController("adminCategoryController")
 @Slf4j
 @RequestMapping("/admin/category")
-@Tag(name = "管理分类相关接口")
+@Tag(name = "管理员分类相关接口")
 public class CategoryController {
 
     @Autowired

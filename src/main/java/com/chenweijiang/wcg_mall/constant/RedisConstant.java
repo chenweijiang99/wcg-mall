@@ -1,5 +1,9 @@
 package com.chenweijiang.wcg_mall.constant;
 
+/**
+ * Redis常量
+ * @author 枳枳
+ */
 public class RedisConstant {
     public static final String PRODUCT_LIST = "product_list";
     public static final String CATEGORY_LIST = "category_list";

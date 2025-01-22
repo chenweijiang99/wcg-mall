@@ -2,6 +2,7 @@ package com.chenweijiang.wcg_mall.constant;
 
 /**
  * 状态常量，启用或者禁用
+ * @author 枳枳
  */
 public class StatusConstant {
 

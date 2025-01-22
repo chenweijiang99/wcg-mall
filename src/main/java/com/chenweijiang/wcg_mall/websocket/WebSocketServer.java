@@ -14,7 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * WebSocket服务
+ * WebSocket服务类
+ * @author 枳枳
  */
 @Component
 @ServerEndpoint("/ws/{sid}")

@@ -25,6 +25,10 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 管理员接口
+ * @author 枳枳
+ */
 @RestController("adminUserController")
 @Slf4j
 @RequestMapping("/admin/user")

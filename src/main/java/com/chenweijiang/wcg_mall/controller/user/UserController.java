@@ -25,6 +25,10 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 用户接口
+ * @author 枳枳
+ */
 @RestController
 @RequestMapping("/user/user")
 @Tag(name = "用户相关接口")

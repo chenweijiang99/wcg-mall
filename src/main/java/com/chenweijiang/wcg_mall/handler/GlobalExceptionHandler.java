@@ -11,6 +11,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
  * 全局异常处理器，处理项目中抛出的业务异常
+ * @author 枳枳
  */
 @ControllerAdvice(basePackages = {"com.chenweijiang.wcg_mall.controller"})
 @Slf4j

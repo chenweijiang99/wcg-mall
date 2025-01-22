@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * 用户分类相关接口
+ * @author 枳枳
+ */
 @RestController
 @RequestMapping("/user/category")
 @Tag(name = "用户分类相关接口")

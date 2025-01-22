@@ -22,6 +22,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 用户首页接口
+ * @author 枳枳
+ */
 @RestController
 @Tag(name = "首页接口")
 @RequestMapping("/user/index")

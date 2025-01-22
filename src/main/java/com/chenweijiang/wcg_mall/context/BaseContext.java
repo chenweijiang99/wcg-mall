@@ -1,5 +1,10 @@
 package com.chenweijiang.wcg_mall.context;
 
+/**
+ * 上下文
+ * @author 枳枳
+ */
+
 public class BaseContext {
 
     public static ThreadLocal<Long> threadLocal = new ThreadLocal<>();

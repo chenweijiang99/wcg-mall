@@ -4,6 +4,10 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+/**
+ * 微信配置类（未使用）
+ * @author 枳枳
+ */
 @Component
 @ConfigurationProperties(prefix = "mall.wechat")
 @Data

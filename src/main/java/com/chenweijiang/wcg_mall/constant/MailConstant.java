@@ -1,5 +1,9 @@
 package com.chenweijiang.wcg_mall.constant;
 
+/**
+ * 邮件常量
+ * @author 枳枳
+ */
 public class MailConstant {
     public static final String FROM = "1774532899@qq.com";
     public static final String ACTIVATE_TITLE = "欢迎注册WCG商城";

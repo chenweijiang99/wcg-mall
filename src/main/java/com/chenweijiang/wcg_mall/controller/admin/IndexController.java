@@ -21,8 +21,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * 管理员首页相关接口
+ * @author 枳枳
+ */
 @RestController("adminIndexController")
-@Tag(name = "首页接口")
+@Tag(name = "管理员首页接口")
 @RequestMapping("/admin/index")
 @Slf4j
 public class IndexController {

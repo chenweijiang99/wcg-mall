@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 用户心愿单接口
+ * @author 枳枳
+ */
 @RestController
 @RequestMapping("/user/wishList")
 @Tag(name = "心愿单相关接口")

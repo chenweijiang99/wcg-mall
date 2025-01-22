@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * 管理员商品相关接口
+ * @author 枳枳
+ */
 @RestController("adminProductController")
 @Slf4j
 @RequestMapping("/admin/product")

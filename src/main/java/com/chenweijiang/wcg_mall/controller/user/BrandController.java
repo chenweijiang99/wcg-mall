@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * 用户品牌相关接口
+ * @author 枳枳
+ */
 @RestController
 @RequestMapping("/user/brand")
 @Slf4j

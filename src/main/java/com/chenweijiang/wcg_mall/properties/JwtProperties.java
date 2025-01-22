@@ -4,6 +4,10 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+/**
+ * JWT配置类
+ * @author 枳枳
+ */
 @Component
 @ConfigurationProperties(prefix = "mall.jwt")
 @Data
