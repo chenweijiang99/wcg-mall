@@ -104,7 +104,7 @@ public class UserController {
     public Result<String> activateCode(String email,String code){
         log.info("验证激活码{},{}", email,code);
         if(userService.activateCode(email,code) == 1){
-            return Result.success(MessageConstant.ACCOUNT_ACTIVE_SUCCESS);
+            return Result.success(MessageConstant.CODE_CHECK_SUCCESS);
         }
         return Result.error(MessageConstant.CODE_OUT_OF_TIME);
     }
@@ -180,5 +180,32 @@ public class UserController {
             return Result.success(MessageConstant.SUCCESS_EDIT_PASSWORD);
         }
         return Result.error(MessageConstant.PASSWORD_ERROR);
+    }
+
+    @PostMapping("/resetPassword")
+    @Operation(summary = "重置密码")
+    public Result<String> resetPassword(String email,String code){
+        log.info("重置密码{}", email);
+        if(userService.resetPasswordByUserEmail(email,code) == 0){
+            return Result.error(MessageConstant.CODE_OUT_OF_TIME);
+        }
+        return Result.success(MessageConstant.SUCCESS_RESET_PASSWORD);
+    }
+
+    @GetMapping("/getCodeByResetPwd")
+    @Operation(summary = "获取重置密码的验证码")
+    public Result getCodeByResetPwd(String email){
+        log.info("获取重置密码的验证码{}", email);
+        userService.getCodeByResetPwd(email);
+        return Result.success();
+    }
+    @PostMapping("/activateCodeByRestPwd")
+    @Operation(summary = "验证重置密码的验证码")
+    public Result<String> activateCodeByRestPwd(String email,String code){
+        log.info("验证重置密码的验证码{}", email);
+        if(userService.activateCodeByRestPwd(email,code) == 1){
+            return Result.success(MessageConstant.CODE_CHECK_SUCCESS);
+        }
+        return Result.error(MessageConstant.CODE_OUT_OF_TIME);
     }
 }

@@ -29,4 +29,10 @@ public interface UserService {
     void deleteById(Long id);
 
     void resetPassword(Long id);
+
+    int resetPasswordByUserEmail(String email,String code);
+
+    void getCodeByResetPwd(String email);
+
+    int activateCodeByRestPwd(String email, String code);
 }

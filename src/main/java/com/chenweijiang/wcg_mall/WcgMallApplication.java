@@ -16,6 +16,11 @@ public class WcgMallApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(WcgMallApplication.class, args);
+		System.out.println(" __      __                  _ _                                               __      _ _      \n" +
+				" \\ \\    / /_ __ _ _ __  __ _| | |  _ _ _  _ _ _  ___  ____  _ __ __ ___ ______/ _|_  _| | |_  _ \n" +
+				"  \\ \\/\\/ / _/ _` | '  \\/ _` | | | | '_| || | ' \\(_-< (_-< || / _/ _/ -_|_-<_-<  _| || | | | || |\n" +
+				"   \\_/\\_/\\__\\__, |_|_|_\\__,_|_|_| |_|  \\_,_|_||_/__/ /__/\\_,_\\__\\__\\___/__/__/_|  \\_,_|_|_|\\_, |\n" +
+				"            |___/                                                                          |__/ ");
 		System.out.println("接口调试路径：http://localhost:1203/doc.html#/home");
 	}
 

@@ -102,4 +102,6 @@ public class MessageConstant {
     public static final String OFFICIAL_COLLECTION_ALREADY_EXISTS = "该商品已经存在官方收藏";
     public static final String OFFICIAL_COLLECTION_NOT_EXISTS = "该商品不存在官方收藏";
     public static final String PRODUCT_ALREADY_IN_WISHLIST = "该商品已经存在心愿单";
+    public static final String SUCCESS_RESET_PASSWORD = "重置密码成功";
+    public static final String CODE_CHECK_SUCCESS = "验证码验证成功";
 }

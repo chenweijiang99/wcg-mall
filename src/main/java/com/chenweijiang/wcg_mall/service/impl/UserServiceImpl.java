@@ -1,15 +1,20 @@
 package com.chenweijiang.wcg_mall.service.impl;
 
+import com.chenweijiang.wcg_mall.constant.RedisConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
+import com.chenweijiang.wcg_mall.exception.CodeException;
 import com.chenweijiang.wcg_mall.mapper.KeyPairsMapper;
 import com.chenweijiang.wcg_mall.mapper.UserMapper;
 import com.chenweijiang.wcg_mall.pojo.KeyPairs;
 import com.chenweijiang.wcg_mall.pojo.User;
 import com.chenweijiang.wcg_mall.pojo.dto.UserRegisterDTO;
+import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.UserService;
 import com.chenweijiang.wcg_mall.utils.MailUtils;
 import com.chenweijiang.wcg_mall.utils.RSAEncryptionUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -17,9 +22,11 @@ import org.springframework.stereotype.Service;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -30,6 +37,9 @@ public class UserServiceImpl implements UserService {
     private MailUtils mailUtils;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @Override
     public User getById(Long id) {
          User  user =userMapper.getById(id);
@@ -149,5 +159,44 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public int resetPasswordByUserEmail(String email, String code) {
+        log.info("重置密码,邮箱{},验证码{}：", email, code);
+        if(Objects.equals(stringRedisTemplate.opsForValue().get(RedisConstant.RESET_PWD + email), code)){
+            String publicKey = keyPairsMapper.getPublicKey(userMapper.findUserByEmail(email).getId());
+            try {
+                String RSAPassword = RSAEncryptionUtil.encryptData(User.DEFAULT_PASSWORD, publicKey);
+                userMapper.updateUserPassword(RSAPassword, userMapper.findUserByEmail(email).getId());
+                log.info("删除Redis中的REST_PWD");
+                stringRedisTemplate.delete(RedisConstant.RESET_PWD+email);
+                return 1;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+            return 0;
+        }
+
+    }
+
+    @Override
+    public void getCodeByResetPwd(String email) {
+        String code = String.valueOf(1000+ new Random().nextInt(9000));
+        ValueOperations<String,String> operations = stringRedisTemplate.opsForValue();
+        operations.set(RedisConstant.RESET_PWD+email,code,5, TimeUnit.MINUTES);
+        mailUtils.sendResetPwdMail(code,email);
+    }
+
+    @Override
+    public int activateCodeByRestPwd(String email, String code) {
+        ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
+        String activateCode = operations.get(RedisConstant.RESET_PWD+email);
+        if(activateCode == null || !activateCode.equals(code)) {
+            return 0;
+        }
+
+        return 1;
     }
 }

@@ -41,14 +41,21 @@ public class MailUtils  {
 		javaMailSender.send(message);
 	}
 
-	public void sendResetPwdMail(String to){
-		String text = "这是一封重置邮件,激活请点击以下链接：\n" +
-				"http://localhost:8080/user/user/resetPwd"+to+"\nz" +
-				"重置密码。";
-		String titile = "重置密码";
+	public void sendResetPwdMail(String code,String to){
+		// 解决本地DNS未配置 ip->域名场景下，邮件发送太慢的问题
+		System.getProperties().setProperty("mail.mime.address.usecanonicalhostname", "false");
+		// 获取 MimeMessage
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		Session session = mimeMessage.getSession();
+		// 设置 日志打印控制器
+		session.setDebug(true);
+		//  解决本地DNS未配置 ip->域名场景下，邮件发送太慢的问题
+		session.getProperties().setProperty("mail.smtp.localhost", "myComputer");
+		String text = MailConstant.RESET_MAIL + code+"\n";
+		String title = MailConstant.RESET_TITLE;
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom(MailConstant.FROM);
-		message.setSubject(titile);
+		message.setSubject(title);
 		message.setTo(to);
 		message.setText(text);
 		javaMailSender.send(message);

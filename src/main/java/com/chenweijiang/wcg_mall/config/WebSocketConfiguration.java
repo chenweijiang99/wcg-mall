@@ -15,7 +15,7 @@ public class WebSocketConfiguration {
 
     @Bean
     public ServerEndpointExporter serverEndpointExporter() {
-        log.info("加载WebSocket配置：{}",this);
+        log.info("正在加载WebSocket配置：{}",this);
         return new ServerEndpointExporter();
     }
 
