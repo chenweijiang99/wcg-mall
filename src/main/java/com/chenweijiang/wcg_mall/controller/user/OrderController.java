@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -107,11 +108,10 @@ public class OrderController {
         order.setEmail(user.getEmail());
         order.setOrderTime(LocalDateTime.now());
         //将购物车数据添加到订单详情
-        List<ShoppingCartVO> cartVOS = shoppingCartService.listByUserId(userId);
-        cartVOS.forEach(cartVO -> {
+        orderDTO.getShoppingCartList().forEach(cartVO -> {
             Product product = productService.getProductById(cartVO.getProductId());
             if(product.getInventory() <= cartVO.getNumber()){
-                return ;
+                throw new RuntimeException("库存不足");
             }
             product.setInventory(product.getInventory() - cartVO.getNumber());
             productService.updateProduct(product);
@@ -122,9 +122,10 @@ public class OrderController {
                     .productNumber(cartVO.getNumber())
                     .build();
             orderDetailService.add(orderDetail);
+            //删除购物车数据
+            shoppingCartService.deleteShoppingCartByUserIdAndProductId(userId, cartVO.getProductId());
         });
-        //清空购物车数据
-        shoppingCartService.emptyShoppingCartData(userId);
+
         //生成订单
         orderService.save(order);
 

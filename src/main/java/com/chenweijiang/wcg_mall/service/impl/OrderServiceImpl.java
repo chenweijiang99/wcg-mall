@@ -37,7 +37,10 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.getOrderList();
     }
 
-
+    @Override
+    public List<Order>  getTimeoutOrder() {
+        return  orderMapper.getTimeoutOrder();
+    }
 
 
 }

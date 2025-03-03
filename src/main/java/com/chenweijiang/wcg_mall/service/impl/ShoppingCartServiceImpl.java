@@ -124,4 +124,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             shoppingCartMapper.deleteShoppingCartByUserIDAndProductID(userId,productId);
         }
     }
+
+    @Override
+    public void deleteShoppingCartByUserIdAndProductId(Long userId, Long productId) {
+        shoppingCartMapper.deleteShoppingCartByUserIDAndProductID(userId,productId);
+    }
 }

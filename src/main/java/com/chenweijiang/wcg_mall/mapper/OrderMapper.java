@@ -22,5 +22,6 @@ public interface OrderMapper {
     List<Order> getOrderList();
     @Update("update `order` set status = 3 where order_number = #{orderNumber}")
     void updateOrderShipping(String orderNumber);
-
+    @Select("select * from `order` where `order_time` < NOW() - INTERVAL 5 MINUTE AND status = 1")
+    List<Order> getTimeoutOrder();
 }
