@@ -8,6 +8,7 @@ import com.chenweijiang.wcg_mall.service.ShoppingCartService;
 import com.chenweijiang.wcg_mall.service.WishListService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +23,13 @@ import java.util.List;
 @RequestMapping("/user/wishList")
 @Tag(name = "心愿单相关接口")
 @Slf4j
+@RequiredArgsConstructor
 public class WishListController {
 
-    @Autowired
-    private WishListService wishListService;
-    @Autowired
-    private ShoppingCartService shoppingCartService;
+
+    private final WishListService wishListService;
+
+    private final ShoppingCartService shoppingCartService;
 
     @GetMapping
     @Operation(summary = "获取心愿单")

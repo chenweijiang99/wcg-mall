@@ -3,16 +3,17 @@ package com.chenweijiang.wcg_mall.service.impl;
 import com.chenweijiang.wcg_mall.mapper.BrandMapper;
 import com.chenweijiang.wcg_mall.pojo.ProductBrand;
 import com.chenweijiang.wcg_mall.service.BrandService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService {
 
-    @Autowired
-    private BrandMapper brandMapper;
+    private final BrandMapper brandMapper;
 
     @Override
     public List<ProductBrand> list() {

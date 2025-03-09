@@ -2,6 +2,7 @@ package com.chenweijiang.wcg_mall.config;
 
 import com.chenweijiang.wcg_mall.interceptor.AdminJwtTokenInterceptor;
 import com.chenweijiang.wcg_mall.interceptor.UserJwtTokenInterceptor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -16,12 +17,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration  // 声明该类是一个配置类
 @Slf4j
+@RequiredArgsConstructor
 //EnableWebMvc
-public class WebConfig implements WebMvcConfigurer {  // 定义WebConfig类并实现WebMvcConfigurer接口
-    @Autowired
-    private UserJwtTokenInterceptor jwtTokenInterceptor;
-    @Autowired
-    private AdminJwtTokenInterceptor jwtAdminTokenInterceptor;
+public class  WebConfig implements WebMvcConfigurer {  // 定义WebConfig类并实现WebMvcConfigurer接口
+
+    private final UserJwtTokenInterceptor jwtTokenInterceptor;
+
+    private final AdminJwtTokenInterceptor jwtAdminTokenInterceptor;
 
     String [] excludePaths = new String[]{
             "/user/alipay/**",

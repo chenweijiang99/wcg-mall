@@ -15,6 +15,7 @@ import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -33,22 +34,22 @@ import java.util.List;
 @RequestMapping("/user/order")
 @Slf4j
 @Tag(name = "用户订单相关接口")
+@RequiredArgsConstructor
 public class OrderController {
 
-    @Autowired
-    private OrderService orderService;
-    @Autowired
-    private OrderDetailService orderDetailService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private ShoppingCartService shoppingCartService;
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-    @Autowired
-    private RedisTemplate redisTemplate;
+    private final OrderService orderService;
+    
+    private final OrderDetailService orderDetailService;
+    
+    private final UserService userService;
+    
+    private final ShoppingCartService shoppingCartService;
+    
+    private final ProductService productService;
+    
+    private final StringRedisTemplate stringRedisTemplate;
+    
+    private final RedisTemplate redisTemplate;
 
     //用户确认收货
     @PutMapping("/confirmReceipt/{orderNumber}")

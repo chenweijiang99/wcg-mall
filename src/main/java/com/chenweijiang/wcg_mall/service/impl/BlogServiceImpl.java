@@ -6,15 +6,17 @@ import com.chenweijiang.wcg_mall.pojo.Comments;
 import com.chenweijiang.wcg_mall.pojo.vo.BlogDetailVO;
 import com.chenweijiang.wcg_mall.pojo.vo.CommentsVO;
 import com.chenweijiang.wcg_mall.service.BlogService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class BlogServiceImpl implements BlogService {
-    @Autowired
-    private BlogMapper blogMapper;
+   
+    private final BlogMapper blogMapper;
 
     @Override
     public void addBlog(Blog blog) {

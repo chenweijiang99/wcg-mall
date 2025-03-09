@@ -32,7 +32,7 @@ public class ScheduleTaskUtil   {
     @Autowired
     private RedisTemplate redisTemplate;
     // 定时5秒执行一次
-    @Scheduled(cron="*/10 * * * * ?")
+    @Scheduled(cron="0 * * * * ?")
     public void task() {
         log.info("定时取消超时订单");
         List<Order> orderList =orderService.getTimeoutOrder();

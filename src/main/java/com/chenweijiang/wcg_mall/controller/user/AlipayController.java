@@ -13,6 +13,7 @@ import com.chenweijiang.wcg_mall.utils.AlipayUtil;
 import com.chenweijiang.wcg_mall.websocket.WebSocketServer;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,20 +31,15 @@ import static java.lang.Thread.sleep;
 @Slf4j
 @Tag(name = "用户支付宝相关接口")
 @RequestMapping("/user/alipay")
+@RequiredArgsConstructor // Lombok注解，生成构造函数
 public class AlipayController {
 
-    @Autowired
-    private AlipayUtil alipayUtil;
-    @Autowired
-    private OrderService orderService;
-    @Autowired
-    private OrderDetailService orderDetailService;
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private WebSocketServer webSocketServer;
-    @Autowired
-    private ShoppingCartService shoppingCartService;
+    private final AlipayUtil alipayUtil;
+    private final OrderService orderService;
+    private final OrderDetailService orderDetailService;
+    private final ProductService productService;
+    private final WebSocketServer webSocketServer;
+    private final ShoppingCartService shoppingCartService;
     @GetMapping()
     @Operation(summary = "支付宝支付")
     public Result<String> alipayPay(String orderNumber) throws Exception {
@@ -93,8 +89,5 @@ public class AlipayController {
         return Result.success();
     }
 
-//    @Scheduled(cron = "0/5 * * * * ?")
-//    public void sendMessageToClient() {
-//        webSocketServer.sendToAllClient("这是来自服务端的消息：" + DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now()));
-//    }
+
 }

@@ -3,15 +3,17 @@ package com.chenweijiang.wcg_mall.service.impl;
 import com.chenweijiang.wcg_mall.mapper.AddressMapper;
 import com.chenweijiang.wcg_mall.pojo.AddressBook;
 import com.chenweijiang.wcg_mall.service.AddressService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AddressServiceImpl implements AddressService {
-    @Autowired
-    private AddressMapper addressMapper;
+   
+    private final AddressMapper addressMapper;
     @Override
     public List<AddressBook> listByUserId(Long userId) {
         return addressMapper.listByUserId(userId);

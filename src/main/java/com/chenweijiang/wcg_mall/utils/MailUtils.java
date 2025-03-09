@@ -4,6 +4,7 @@ import com.chenweijiang.wcg_mall.constant.MailConstant;
 import com.sun.mail.util.MailSSLSocketFactory;
 import jakarta.mail.Session;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,9 +17,10 @@ import java.util.Properties;
  * @author 枳枳
  */
 @Component
+@RequiredArgsConstructor
 public class MailUtils  {
- 	@Autowired
-	private JavaMailSender javaMailSender;
+
+	private final JavaMailSender javaMailSender;
 
 
 	public void sendAcactivateMail(String code,String to){

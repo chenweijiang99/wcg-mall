@@ -7,6 +7,7 @@ import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,12 +24,13 @@ import java.util.Set;
 @Slf4j
 @RequestMapping("/admin/product")
 @Tag(name = "管理商品相关接口")
+@RequiredArgsConstructor
 public class ProductController {
 
-    @Autowired
-    ProductService productService;
-    @Autowired
-    private RedisTemplate redisTemplate;
+    
+    private  final ProductService productService;
+    
+    private final RedisTemplate redisTemplate;
 
     @PostMapping("/addProduct")
     @Operation(summary = "添加商品")

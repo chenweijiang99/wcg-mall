@@ -7,6 +7,7 @@ import com.chenweijiang.wcg_mall.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -22,12 +23,13 @@ import org.springframework.web.servlet.HandlerInterceptor;
  */
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class AdminJwtTokenInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-    @Autowired
-    private JwtProperties jwtProperties;
+
+    private final StringRedisTemplate stringRedisTemplate;
+
+    private final JwtProperties jwtProperties;
     /**
      * 校验jwt
      *

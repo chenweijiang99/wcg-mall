@@ -7,6 +7,7 @@ import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,12 +24,13 @@ import java.util.Set;
 @Slf4j
 @RequestMapping("/admin/category")
 @Tag(name = "管理员分类相关接口")
+@RequiredArgsConstructor
 public class CategoryController {
 
-    @Autowired
-    private CategoryService categoryService;
-    @Autowired
-    private RedisTemplate redisTemplate;
+
+    private final CategoryService categoryService;
+
+    private final RedisTemplate redisTemplate;
 
     @GetMapping
     @Operation(summary = "分类列表")

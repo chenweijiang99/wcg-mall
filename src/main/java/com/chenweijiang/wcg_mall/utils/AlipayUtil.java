@@ -7,6 +7,7 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.response.AlipayTradePagePayResponse;
 import com.chenweijiang.wcg_mall.properties.AlipayProperties;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,12 +18,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class AlipayUtil {
-    @Autowired
-    private AlipayProperties alipayProperties;
+
+    private final AlipayProperties alipayProperties;
 
     public String pay(Alipay alipay) throws AlipayApiException{
-        log.info("支付宝支付配置：{}",alipayProperties.toString());
+        log.info("调用支付宝支付接口：{}",alipayProperties.toString());
         AlipayClient alipayClient = new DefaultAlipayClient(
                 alipayProperties.getGatewayUrl(),
                 alipayProperties.getAppId(),
@@ -48,11 +50,8 @@ public class AlipayUtil {
         bizContent.put("product_code", "FAST_INSTANT_TRADE_PAY");
         bizContent.put("qr_pay_mode",4);
         alipayTradePagePayRequest.setBizContent(bizContent.toJSONString());
-//        alipayTradePagePayRequest.setBizContent(JSON.toJSONString(alipay));
-//        AlipayTradePagePayResponse response = alipayClient.pageExecute(alipayTradePagePayRequest,"GET");
         AlipayTradePagePayResponse response = alipayClient.pageExecute(alipayTradePagePayRequest,"POST");
         String pageRedirectionData = response.getBody();
-        //System.out.println(pageRedirectionData);
         return pageRedirectionData;
     }
 }

@@ -9,15 +9,17 @@ import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.pojo.ShopSlider;
 import com.chenweijiang.wcg_mall.pojo.vo.OfficialCollectionVO;
 import com.chenweijiang.wcg_mall.service.IndexService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class IndexServiceImpl implements IndexService {
-    @Autowired
-    private IndexMapper indexMapper;
+
+    private final IndexMapper indexMapper;
 
     @Override
     public void setProductAsOfficialCollection(Long id) {

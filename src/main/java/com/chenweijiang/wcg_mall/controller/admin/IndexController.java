@@ -10,6 +10,7 @@ import com.chenweijiang.wcg_mall.service.IndexService;
 import com.chenweijiang.wcg_mall.utils.AliOssUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -29,13 +30,14 @@ import java.util.UUID;
 @Tag(name = "管理员首页接口")
 @RequestMapping("/admin/index")
 @Slf4j
+@RequiredArgsConstructor
 public class IndexController {
-    @Autowired
-    private IndexService indexService;
-    @Autowired
-    private RedisTemplate redisTemplate;
-    @Autowired
-    private AliOssUtil aliOssUtil;
+    
+    private final IndexService indexService;
+    
+    private final RedisTemplate redisTemplate;
+    
+    private final AliOssUtil aliOssUtil;
 
     @GetMapping("/getShopSlider")
     @Operation(summary = "获取商品页轮播图数据")

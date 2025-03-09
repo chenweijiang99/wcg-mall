@@ -3,15 +3,17 @@ package com.chenweijiang.wcg_mall.service.impl;
 import com.chenweijiang.wcg_mall.mapper.OrderMapper;
 import com.chenweijiang.wcg_mall.pojo.Order;
 import com.chenweijiang.wcg_mall.service.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
-    @Autowired
-    private OrderMapper orderMapper;
+
+    private final OrderMapper orderMapper;
     @Override
     public List<Order> list(Long userId) {
         return orderMapper.listByUserId(userId);

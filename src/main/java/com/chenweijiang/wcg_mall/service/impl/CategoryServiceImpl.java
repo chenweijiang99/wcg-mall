@@ -3,16 +3,18 @@ package com.chenweijiang.wcg_mall.service.impl;
 import com.chenweijiang.wcg_mall.mapper.CategoryMapper;
 import com.chenweijiang.wcg_mall.pojo.ProductCategory;
 import com.chenweijiang.wcg_mall.service.CategoryService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
-    private CategoryMapper categoryMapper;
+
+    private final CategoryMapper categoryMapper;
 
     @Override
     public List<ProductCategory> list() {

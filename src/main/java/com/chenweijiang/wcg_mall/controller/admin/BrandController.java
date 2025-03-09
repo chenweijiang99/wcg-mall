@@ -7,6 +7,7 @@ import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.BrandService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,11 +24,12 @@ import java.util.Set;
 @Slf4j
 @RequestMapping("/admin/brand")
 @Tag(name = "管理品牌相关接口")
+@RequiredArgsConstructor
 public class BrandController {
-    @Autowired
-    private BrandService brandService;
-    @Autowired
-    private RedisTemplate redisTemplate;
+
+    private final BrandService brandService;
+
+    private final RedisTemplate redisTemplate;
     @GetMapping
     @Operation(summary = "品牌列表")
     public Result<List<ProductBrand>> list() {

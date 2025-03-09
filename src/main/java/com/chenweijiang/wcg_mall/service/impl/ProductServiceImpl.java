@@ -11,17 +11,19 @@ import com.chenweijiang.wcg_mall.pojo.dto.ProductDetailDTO;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductFilterDTO;
 import com.chenweijiang.wcg_mall.pojo.vo.WishListVO;
 import com.chenweijiang.wcg_mall.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    @Autowired
-    private ProductMapper productMapper;
-    @Autowired
-    private WishListMapper wishListMapper;
+
+    private final ProductMapper productMapper;
+
+    private final WishListMapper wishListMapper;
     @Override
     public List<Product> filter(ProductFilterDTO productFilterDTO) {
         List<Product> productList = productMapper.filter(productFilterDTO);

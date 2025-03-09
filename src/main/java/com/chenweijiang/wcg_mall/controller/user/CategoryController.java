@@ -7,6 +7,7 @@ import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -24,14 +25,11 @@ import java.util.List;
 @RequestMapping("/user/category")
 @Tag(name = "用户分类相关接口")
 @Slf4j
+@RequiredArgsConstructor // Lombok注解，生成构造函数
 public class CategoryController {
 
-
-    @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private RedisTemplate redisTemplate;
+    private final CategoryService categoryService;
+    private final RedisTemplate redisTemplate;
     @GetMapping
     @Operation(summary = "获取分类列表")
     public Result<List<ProductCategory>> list(){

@@ -7,6 +7,7 @@ import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,11 +23,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 @Configuration
 @Slf4j
+@RequiredArgsConstructor
 public class SwaggerConfig extends WebMvcConfigurationSupport {
-    @Autowired  // 自动装配LoginInterceptor实例
-    private UserJwtTokenInterceptor jwtTokenInterceptor;  // 声明一个名为loginInterceptor的LoginInterceptor类型的私有变量
-    @Autowired
-    private AdminJwtTokenInterceptor jwtAdminTokenInterceptor;
+
+    private final UserJwtTokenInterceptor jwtTokenInterceptor;
+    private final AdminJwtTokenInterceptor jwtAdminTokenInterceptor;
 
     @Bean
     public OpenAPI customOpenAPI() {

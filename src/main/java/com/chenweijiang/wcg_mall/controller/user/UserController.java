@@ -12,6 +12,7 @@ import com.chenweijiang.wcg_mall.utils.AliOssUtil;
 import com.chenweijiang.wcg_mall.utils.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -33,15 +34,14 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/user/user")
 @Tag(name = "用户相关接口")
 @Slf4j
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-    @Autowired
-    private AliOssUtil aliOssUtil;
-    @Autowired
-    JwtProperties jwtProperties;
+    private final UserService userService;
+    private final JwtProperties jwtProperties;
+    private final StringRedisTemplate stringRedisTemplate;
+    private final AliOssUtil aliOssUtil;
+
+
     @GetMapping("/{id}")
     @Operation(summary = "根据id查询用户信息")
     public Result<User> getById(@PathVariable Long id){

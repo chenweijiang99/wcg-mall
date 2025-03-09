@@ -13,6 +13,7 @@ import com.chenweijiang.wcg_mall.service.IndexService;
 import com.chenweijiang.wcg_mall.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -28,13 +29,14 @@ import java.util.List;
 @RequestMapping("/user/product")
 @Slf4j
 @Tag(name = "商品相关接口")
+@RequiredArgsConstructor
 public class ProductController {
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private RedisTemplate redisTemplate;
-    @Autowired
-    private IndexService indexService;
+    
+    private  final  ProductService productService;
+    
+    private final RedisTemplate redisTemplate;
+    
+    private final IndexService indexService;
 
     @GetMapping("/getShopSlider")
     @Operation(summary = "获取轮播图数据")

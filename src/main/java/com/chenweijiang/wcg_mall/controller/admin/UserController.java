@@ -11,6 +11,7 @@ import com.chenweijiang.wcg_mall.utils.AliOssUtil;
 import com.chenweijiang.wcg_mall.utils.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -33,15 +34,16 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @RequestMapping("/admin/user")
 @Tag(name = "管理员相关接口")
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-    @Autowired
-    private JwtProperties jwtProperties;
-    @Autowired
-    private AliOssUtil aliOssUtil;
+   
+    private final UserService userService;
+   
+    private final StringRedisTemplate stringRedisTemplate;
+   
+    private final JwtProperties jwtProperties;
+   
+    private final AliOssUtil aliOssUtil;
 
 
     @GetMapping

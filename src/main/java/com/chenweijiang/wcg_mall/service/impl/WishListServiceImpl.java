@@ -3,16 +3,18 @@ package com.chenweijiang.wcg_mall.service.impl;
 import com.chenweijiang.wcg_mall.mapper.WishListMapper;
 import com.chenweijiang.wcg_mall.pojo.vo.WishListVO;
 import com.chenweijiang.wcg_mall.service.WishListService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class WishListServiceImpl implements WishListService {
 
-    @Autowired
-    private WishListMapper wishListMapper;
+
+    private final WishListMapper wishListMapper;
 
     @Override
     public List<WishListVO> getListByUserId(Long userId) {

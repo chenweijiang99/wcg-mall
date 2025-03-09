@@ -11,19 +11,21 @@ import com.chenweijiang.wcg_mall.pojo.UserWishList;
 import com.chenweijiang.wcg_mall.pojo.vo.ShoppingCartVO;
 import com.chenweijiang.wcg_mall.pojo.vo.WishListVO;
 import com.chenweijiang.wcg_mall.service.ShoppingCartService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ShoppingCartServiceImpl implements ShoppingCartService {
-    @Autowired
-    private ShoppingCartMapper shoppingCartMapper;
-    @Autowired
-    private ProductMapper productMapper;
-    @Autowired
-    private WishListMapper wishListMapper;
+    
+    private final ShoppingCartMapper shoppingCartMapper;
+    
+    private final ProductMapper productMapper;
+    
+    private final WishListMapper wishListMapper;
     @Override
     public List<ShoppingCartVO> listByUserId(Long userId) {
         return shoppingCartMapper.listByUserId(userId);

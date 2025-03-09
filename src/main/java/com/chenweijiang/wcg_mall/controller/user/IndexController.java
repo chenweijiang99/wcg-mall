@@ -11,6 +11,7 @@ import com.chenweijiang.wcg_mall.service.IndexService;
 import com.chenweijiang.wcg_mall.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -30,16 +31,13 @@ import java.util.stream.Collectors;
 @Tag(name = "首页接口")
 @RequestMapping("/user/index")
 @Slf4j
+@RequiredArgsConstructor // Lombok注解，生成构造函数
 public class IndexController {
 
-    @Autowired
-    private IndexService indexService;
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private BlogService blogService;
-    @Autowired
-    private RedisTemplate redisTemplate;
+    private final IndexService indexService;
+    private final ProductService productService;
+    private final BlogService blogService;
+    private final RedisTemplate redisTemplate;
 
 
     @GetMapping("/getIndexSlider")

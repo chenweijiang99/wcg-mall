@@ -7,6 +7,7 @@ import com.chenweijiang.wcg_mall.service.OrderDetailService;
 import com.chenweijiang.wcg_mall.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,11 +25,12 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/admin/order")
 @Tag(name = "管理订单相关接口")
+@RequiredArgsConstructor
 public class OrderController {
-    @Autowired
-    private OrderService orderService;
-    @Autowired
-    private OrderDetailService orderDetailService;
+    
+    private final OrderService orderService;
+    
+    private final OrderDetailService orderDetailService;
 
     @GetMapping
     @Operation(summary = "订单列表")

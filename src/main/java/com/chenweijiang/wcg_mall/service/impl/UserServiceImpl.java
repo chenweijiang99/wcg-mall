@@ -12,6 +12,7 @@ import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.UserService;
 import com.chenweijiang.wcg_mall.utils.MailUtils;
 import com.chenweijiang.wcg_mall.utils.RSAEncryptionUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -28,17 +29,18 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserMapper userMapper;
-    @Autowired
-    private KeyPairsMapper keyPairsMapper;
-    @Autowired
-    private MailUtils mailUtils;
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-    @Autowired
-    private RedisTemplate redisTemplate;
+    
+    private final UserMapper userMapper;
+    
+    private final KeyPairsMapper keyPairsMapper;
+    
+    private final MailUtils mailUtils;
+    
+    private final StringRedisTemplate stringRedisTemplate;
+    
+    private final RedisTemplate redisTemplate;
 
     @Override
     public User getById(Long id) {
