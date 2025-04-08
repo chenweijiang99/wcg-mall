@@ -5,7 +5,7 @@ package com.chenweijiang.wcg_mall.constant;
  * @author 枳枳
  */
 public class MailConstant {
-    public static final String FROM = "（文创购 WCG MAll）1774532899@qq.com";
+    public static final String FROM = "1774532899@qq.com";
     public static final String ACTIVATE_TITLE = "欢迎注册WCG商城";
     public static final String RESET_TITLE = "重置密码";
     public static final String ACTIVATE_MAIL = "这是一封激活邮件,验证码为：\n";

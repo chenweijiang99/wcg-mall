@@ -5,6 +5,8 @@ import com.chenweijiang.wcg_mall.enumeration.OperationType;
 import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductDetailDTO;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductFilterDTO;
+import com.chenweijiang.wcg_mall.pojo.dto.ProductPageDTO;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -51,4 +53,9 @@ public interface ProductMapper {
     void updateProductInventory(Long id, Integer productNumber);
     @Select("SELECT * FROM product WHERE name LIKE #{searchQuery}")
     List<Product> search(String searchQuery);
+
+    List<Product> usergetListPage(String searchQuery);
+
+//    @Select("select * from product where status = 1")
+    List<Product> selectAll(ProductPageDTO productPageDTO);
 }

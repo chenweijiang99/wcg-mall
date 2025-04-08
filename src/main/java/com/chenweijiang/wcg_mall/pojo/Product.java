@@ -37,4 +37,11 @@ public class Product implements Serializable {
     private String descriptionImage;
     private String label;
     private Integer status;
+
+    //非数据库字段
+    private String[] searchNames;
+    private Integer[] category;
+    private Integer minPrice;
+    private Integer maxPrice;
+    private Integer[] brand;
 }

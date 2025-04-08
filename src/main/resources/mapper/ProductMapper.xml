@@ -49,6 +49,49 @@
         and p.price between #{minPrice} and #{maxPrice} and p.status = 1 order by id
     </select>
     <select id="list" resultType="com.chenweijiang.wcg_mall.pojo.Product">
-        select * from product order by id
+        select * from product
+    </select>
+    <select id="usergetListPage" resultType="com.chenweijiang.wcg_mall.pojo.Product">
+        select * from product
+        <where>
+            <if test="searchQuery != null and searchQuery != ''">
+                name like #{searchQuery}
+            </if>
+        </where>
+    </select>
+    <select id="selectAll" resultType="com.chenweijiang.wcg_mall.pojo.Product">
+        select p.* from product as p
+        left join product_category as pc on p.category_id = pc.id
+        left join product_brand as pb on p.brand_id = pb.id
+        <where>
+<!--            <if test="name != null and name != ''">-->
+<!--                and p.name like concat('%',#{name},'%')-->
+<!--            </if>-->
+
+            <if test="searchNames != null and searchNames.length > 0">
+                <foreach collection="searchNames" item="item">
+                    or p.name like concat('%',#{item},'%')
+                </foreach>
+            </if>
+            <if test="category != null and category.length > 0">
+                and pc.id in
+                <foreach collection="category" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="brand != null and brand.length > 0 ">
+                and pb.id in
+                <foreach collection="brand" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="maxPrice != 0" >
+                and p.price between #{minPrice} and #{maxPrice}
+            </if>
+
+        and p.status = 1
+        order by p.id
+        </where>
+
     </select>
 </mapper>

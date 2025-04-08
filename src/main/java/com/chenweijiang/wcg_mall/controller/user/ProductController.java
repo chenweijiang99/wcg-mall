@@ -8,9 +8,12 @@ import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.pojo.ShopSlider;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductDetailDTO;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductFilterDTO;
+import com.chenweijiang.wcg_mall.pojo.dto.ProductPageDTO;
+import com.chenweijiang.wcg_mall.result.PageResult;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.IndexService;
 import com.chenweijiang.wcg_mall.service.ProductService;
+import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -74,6 +77,40 @@ public class ProductController {
         }
         redisTemplate.opsForValue().set(RedisConstant.PRODUCT_LIST,productList);
         return Result.success(productList);
+    }
+
+//    @GetMapping("/page")
+//    @Operation(summary = "商品列表")
+//    public Result<PageInfo<Product>> userGetListPage(
+//                        String name,
+//                        Integer[] category,
+//                        Integer minPrice,
+//                        Integer maxPrice,
+//                        Integer[] brand,
+//                        @RequestParam(defaultValue = "1") Integer pageNum,
+//                        @RequestParam(defaultValue = "8") Integer pageSize) {
+//        log.info("获取商品列表分页");
+//        Product product = Product.builder()
+//                .name(name)
+//                .category(category)
+//                .minPrice(minPrice)
+//                .maxPrice(maxPrice)
+//                .brand(brand)
+//                .status(1)
+//                .build();
+//        PageInfo<Product> pageResult = productService.selectPage(pageNum, pageSize,product);
+//        return Result.success(pageResult);
+//    }
+
+    @PostMapping("/page")
+    @Operation(summary = "商品列表")
+    public Result<PageInfo<Product>> userGetListPage(
+            @RequestBody ProductPageDTO productPageDTO,
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            @RequestParam(defaultValue = "8") Integer pageSize) {
+        log.info("获取商品列表分页");
+        PageInfo<Product> pageResult = productService.selectPage(pageNum, pageSize,productPageDTO);
+        return Result.success(pageResult);
     }
 
     @GetMapping("/getProductDetail")

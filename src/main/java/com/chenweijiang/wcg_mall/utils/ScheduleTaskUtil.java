@@ -31,8 +31,8 @@ public class ScheduleTaskUtil   {
     private ProductService productService;
     @Autowired
     private RedisTemplate redisTemplate;
-    // 定时5秒执行一次
-    @Scheduled(cron="0 * * * * ?")
+    // 定时15分钟执行一次
+    @Scheduled(cron="0 0/5 * * * ?")
     public void task() {
         log.info("定时取消超时订单");
         List<Order> orderList =orderService.getTimeoutOrder();

@@ -1,6 +1,5 @@
 package com.chenweijiang.wcg_mall.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.chenweijiang.wcg_mall.pojo.User;
 import org.apache.ibatis.annotations.*;
 

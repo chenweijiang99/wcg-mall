@@ -9,8 +9,13 @@ import com.chenweijiang.wcg_mall.mapper.WishListMapper;
 import com.chenweijiang.wcg_mall.pojo.Product;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductDetailDTO;
 import com.chenweijiang.wcg_mall.pojo.dto.ProductFilterDTO;
+import com.chenweijiang.wcg_mall.pojo.dto.ProductPageDTO;
 import com.chenweijiang.wcg_mall.pojo.vo.WishListVO;
+import com.chenweijiang.wcg_mall.result.PageResult;
 import com.chenweijiang.wcg_mall.service.ProductService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -125,5 +130,24 @@ public class ProductServiceImpl implements ProductService {
         searchQuery = "%" + searchQuery.replace("\"", "") + "%";
         return productMapper.search(searchQuery);
     }
+
+    @Override
+    public PageResult<Product> userGetListPage(Integer pageNum, Integer pageSize, String searchQuery) {
+        PageResult<Product> pageResult = new PageResult<>();
+        PageHelper.startPage(pageNum, pageSize);
+        List<Product> productList = productMapper.usergetListPage(searchQuery);
+        Page<Product> page = (Page<Product>) productList;
+        pageResult.setRecords(page.getResult());
+        pageResult.setTotal(page.getTotal());
+        return pageResult;
+    }
+
+    @Override
+    public PageInfo<Product> selectPage(Integer pageNum, Integer pageSize, ProductPageDTO productPageDTO) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Product> productList = productMapper.selectAll(productPageDTO);
+        return PageInfo.of(productList);
+    }
+
 
 }

@@ -11,12 +11,12 @@ spring:
   #数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://47.108.57.173:3306/wcg_mall
-#    username: wcg_mall
-#    password: Jtp86wXHwrETsmMG
-    url: jdbc:mysql://localhost:3306/wcg_mall
-    username: root
-    password: root
+    url: jdbc:mysql://47.108.57.173:3306/wcg_mall
+    username: wcg_mall
+    password: Jtp86wXHwrETsmMG
+#    url: jdbc:mysql://localhost:3306/wcg_mall
+#    username: root
+#    password: root
   data:
     #redis配置
     redis:
@@ -27,7 +27,7 @@ spring:
     host: smtp.qq.com
     port: 465
     username: 1774532899@qq.com
-    password: matlgqstvuzzbjgg
+    password: tdiptzrkxqnfdehb
     default-encoding: utf-8
     properties:
       mail:
@@ -45,8 +45,16 @@ spring:
 #Mybatis映射配置
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.chenweijiang.wcg_mall.pojo
   configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
+# 分页
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
 #测试文档配置
 springdoc:
   swagger-ui:
