@@ -3,9 +3,13 @@ package com.chenweijiang.wcg_mall.service.impl;
 import com.chenweijiang.wcg_mall.mapper.BlogMapper;
 import com.chenweijiang.wcg_mall.pojo.Blog;
 import com.chenweijiang.wcg_mall.pojo.Comments;
+import com.chenweijiang.wcg_mall.pojo.Product;
+import com.chenweijiang.wcg_mall.pojo.dto.BlogPageDTO;
 import com.chenweijiang.wcg_mall.pojo.vo.BlogDetailVO;
 import com.chenweijiang.wcg_mall.pojo.vo.CommentsVO;
 import com.chenweijiang.wcg_mall.service.BlogService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -86,5 +90,12 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<BlogDetailVO> getBlogList() {
         return blogMapper.getBlogDetailList();
+    }
+
+    @Override
+    public PageInfo<Blog> selectPage(Integer pageNum, Integer pageSize, BlogPageDTO blogPageDTO) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Blog> blogList = blogMapper.selectAll(blogPageDTO);
+        return PageInfo.of(blogList);
     }
 }

@@ -54,6 +54,27 @@
         from blog as b,`user` as u
         where b.create_user = u.id
     </select>
+    <select id="selectAll" resultType="com.chenweijiang.wcg_mall.pojo.Blog">
+        select b.* from blog as b
+        left join user as u on b.create_user = u.id
+        <where>
+            <if test="searchTitles != null and searchTitles.length > 0">
+                <foreach collection="searchTitles" item="item">
+                    or b.title like concat('%',#{item},'%')
+                </foreach>
+            </if>
+            <if test="authorNames != null and authorNames.length > 0">
+                <foreach collection="authorNames" item="item">
+                    or u.nick_name like concat('%',#{item},'%')
+                </foreach>
+            </if>
+        </where>
+
+
+
+        order by create_time desc
+
+    </select>
 
 
 </mapper>

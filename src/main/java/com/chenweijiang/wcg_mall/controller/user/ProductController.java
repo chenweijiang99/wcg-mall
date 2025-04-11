@@ -103,7 +103,7 @@ public class ProductController {
 //    }
 
     @PostMapping("/page")
-    @Operation(summary = "商品列表")
+    @Operation(summary = "分页获取商品列表")
     public Result<PageInfo<Product>> userGetListPage(
             @RequestBody ProductPageDTO productPageDTO,
             @RequestParam(defaultValue = "1") Integer pageNum,

@@ -11,12 +11,12 @@ spring:
   #数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.108.57.173:3306/wcg_mall
-    username: wcg_mall
-    password: Jtp86wXHwrETsmMG
-#    url: jdbc:mysql://localhost:3306/wcg_mall
-#    username: root
-#    password: root
+#    url: jdbc:mysql://47.108.57.173:3306/wcg_mall
+#    username: wcg_mall
+#    password: Jtp86wXHwrETsmMG
+    url: jdbc:mysql://localhost:3306/wcg_mall
+    username: root
+    password: root
   data:
     #redis配置
     redis:

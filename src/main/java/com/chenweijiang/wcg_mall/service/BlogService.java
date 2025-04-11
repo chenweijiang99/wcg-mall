@@ -2,8 +2,10 @@ package com.chenweijiang.wcg_mall.service;
 
 import com.chenweijiang.wcg_mall.pojo.Blog;
 import com.chenweijiang.wcg_mall.pojo.Comments;
+import com.chenweijiang.wcg_mall.pojo.dto.BlogPageDTO;
 import com.chenweijiang.wcg_mall.pojo.vo.BlogDetailVO;
 import com.chenweijiang.wcg_mall.pojo.vo.CommentsVO;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -35,4 +37,6 @@ public interface BlogService {
     List<Blog> getHotBlogWithComment();
 
     List<BlogDetailVO> getBlogList();
+
+    PageInfo<Blog> selectPage(Integer pageNum, Integer pageSize, BlogPageDTO blogPageDTO);
 }

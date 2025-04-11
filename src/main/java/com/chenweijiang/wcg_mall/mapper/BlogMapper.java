@@ -4,6 +4,7 @@ import com.chenweijiang.wcg_mall.annotation.AutoFill;
 import com.chenweijiang.wcg_mall.enumeration.OperationType;
 import com.chenweijiang.wcg_mall.pojo.Blog;
 import com.chenweijiang.wcg_mall.pojo.Comments;
+import com.chenweijiang.wcg_mall.pojo.dto.BlogPageDTO;
 import com.chenweijiang.wcg_mall.pojo.vo.BlogDetailVO;
 import com.chenweijiang.wcg_mall.pojo.vo.CommentsVO;
 import org.apache.ibatis.annotations.Delete;
@@ -57,4 +58,6 @@ public interface BlogMapper {
     List<Blog> getHotBlogWithComment();
 
     List<BlogDetailVO> getBlogDetailList();
+
+    List<Blog> selectAll(BlogPageDTO blogPageDTO);
 }

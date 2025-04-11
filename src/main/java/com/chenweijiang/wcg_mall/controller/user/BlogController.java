@@ -5,10 +5,14 @@ import com.chenweijiang.wcg_mall.constant.RedisConstant;
 import com.chenweijiang.wcg_mall.context.BaseContext;
 import com.chenweijiang.wcg_mall.pojo.Blog;
 import com.chenweijiang.wcg_mall.pojo.Comments;
+import com.chenweijiang.wcg_mall.pojo.Product;
+import com.chenweijiang.wcg_mall.pojo.dto.BlogPageDTO;
+import com.chenweijiang.wcg_mall.pojo.dto.ProductPageDTO;
 import com.chenweijiang.wcg_mall.pojo.vo.BlogDetailVO;
 import com.chenweijiang.wcg_mall.pojo.vo.CommentsVO;
 import com.chenweijiang.wcg_mall.result.Result;
 import com.chenweijiang.wcg_mall.service.BlogService;
+import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +54,18 @@ public class BlogController {
         }
         redisTemplate.opsForValue().set(RedisConstant.BLOG_LIST,blogList);
         return Result.success(blogList);
+    }
+
+    @PostMapping("/page")
+    @Operation(summary = "分页获取博客列表")
+    public Result<PageInfo<Blog>> userGetListPage(
+            @RequestBody BlogPageDTO blogPageDTO,
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            @RequestParam(defaultValue = "5") Integer pageSize
+    ){
+        log.info("分页获取博客列表");
+        PageInfo<Blog> pageResult = blogService.selectPage(pageNum, pageSize,blogPageDTO);
+        return Result.success(pageResult);
     }
 
     @GetMapping("/getHotBlog")
