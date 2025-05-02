@@ -28,11 +28,7 @@ public interface BlogService {
 
     BlogDetailVO getBlogDetail(Long id);
 
-    void addComments(Comments comments);
 
-    List<CommentsVO> getComments(Long blogId);
-
-    void deleteComments(Long blogId,Long id);
 
     List<Blog> getHotBlogWithComment();
 

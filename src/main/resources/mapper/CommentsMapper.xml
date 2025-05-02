@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenweijiang.wcg_mall.mapper.CommentsMapper">
+    <insert id="addComments" parameterType="com.chenweijiang.wcg_mall.pojo.Comments" useGeneratedKeys="true" keyProperty="id">
+        insert into comments
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="pid != null">pid,</if>
+            <if test="fid != null">fid,</if>
+            <if test="module != null">module,</if>
+            <if test="rootId != null">root_id,</if>
+            <if test="createUser != null">create_User,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="comment != null">comment,</if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="pid != null">#{pid},</if>
+            <if test="fid != null">#{fid},</if>
+            <if test="module != null">#{module},</if>
+            <if test="rootId != null">#{rootId},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="comment != null">#{comment},</if>
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.chenweijiang.wcg_mall.pojo.Comments">
+        update comments
+        <set>
+            <if test="comment != null">
+                comment = #{comment},
+            </if>
+            <if test="createUser != null">
+                create_user = #{ createUser},
+            </if>
+            <if test="pid != null">
+                pid = #{pid},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="fid != null">
+                fid = #{fid},
+            </if>
+            <if test="module != null">
+                module = #{module},
+            </if>
+            <if test="rootId != null">
+                root_id = #{rootId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+
+    <select id="selectRoot" resultType="com.chenweijiang.wcg_mall.pojo.Comments"
+            parameterType="com.chenweijiang.wcg_mall.pojo.Comments">
+        select comments.*, user.username as userName, user.avatar as userAvatar from comments
+                                                                                    left join user on comments.create_user = user.id
+        where comments.fid = #{fid} and comments.module = #{module} and comments.pid is null
+        order by comments.id desc
+
+    </select>
+    <select id="selectByRootId" resultType="com.chenweijiang.wcg_mall.pojo.Comments"
+            parameterType="java.lang.Long">
+        select comments.*, user.username as userName, user.avatar as userAvatar, u2.username as parentUserName from comments
+                                                                                                               left join user on comments.create_user = user.id
+                                                                                                               left join comments c2
+                                                                                                                         on comments.pid = c2.id
+                                                                                                               left join user u2
+                                                                                                                         on c2.create_user = u2.id
+        where comments.root_id = #{rootId} and comments.pid is not null
+        order by comments.id desc
+
+    </select>
+</mapper>

@@ -157,33 +157,7 @@ public class BlogController {
         return Result.success();
     }
 
-    @GetMapping("/getComments")
-    @Operation(summary = "获取评论")
-    public Result<List<CommentsVO>> getComments(Long blogId){
-        log.info("获取评论{}",blogId);
-        List<CommentsVO> commentsList = blogService.getComments(blogId);
-        return Result.success(commentsList);
-    }
-    @PostMapping("/addComments")
-    @Operation(summary = "发表评论")
-    public Result<String> addComments(Long blogId,String content){
-        log.info("发表评论{}",content);
-        Comments comments = Comments.builder()
-                .blogId(blogId)
-                .comment(content)
-                .createUser(BaseContext.getCurrentId())
-                .createTime(LocalDateTime.now())
-                .build();
-        blogService.addComments(comments);
-        return Result.success(MessageConstant.SUCCESS);
-    }
-    @DeleteMapping("/deleteComments")
-    @Operation(summary = "删除评论")
-    public Result<String> deleteComments(Long blogId,Long id){
-        log.info("删除评论{}",id);
-        blogService.deleteComments(blogId,id);
-        return Result.success(MessageConstant.SUCCESS);
-    }
+
     /**
      * 删除缓存
      * @param pattern

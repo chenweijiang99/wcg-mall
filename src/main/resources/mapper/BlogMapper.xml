@@ -75,6 +75,14 @@
         order by create_time desc
 
     </select>
+    <select id="getHotBlogWithComment" resultType="com.chenweijiang.wcg_mall.pojo.Blog">
+        SELECT c.fid, COUNT(c.fid) AS COUNT, b.*
+        FROM comments as c
+        JOIN blog as b ON c.fid = b.id and c.module = 'blog'
+        GROUP BY c.fid
+        ORDER BY count DESC
+        LIMIT 3
+    </select>
 
 
 </mapper>

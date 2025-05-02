@@ -138,12 +138,10 @@
 		</dependency>
 
 		<dependency>
-		<groupId>com.alipay.sdk</groupId>
-		<artifactId>alipay-sdk-java</artifactId>
-		<version>4.22.113.ALL</version>
+			<groupId>com.alipay.sdk</groupId>
+			<artifactId>alipay-sdk-java</artifactId>
+			<version>4.35.79.ALL</version>
 		</dependency>
-
-
 
 		<!--jaxb依赖-->
 		<dependency>
@@ -174,6 +172,18 @@
 			<groupId>com.github.whvcse</groupId>
 			<artifactId>easy-captcha</artifactId>
 			<version>1.6.2</version>
+		</dependency>
+
+		<!-- dotenv 支持 -->
+		<dependency>
+			<groupId>io.github.cdimascio</groupId>
+			<artifactId>dotenv-java</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-all</artifactId>
+			<version>5.8.25</version>
 		</dependency>
 
 

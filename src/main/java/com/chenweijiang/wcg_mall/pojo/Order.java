@@ -24,6 +24,7 @@ public class Order{
     public static final Integer DELIVERED = 3;
     public static final Integer COMPLETED = 4;
     public static final Integer CANCELED = 5;
+    public static final Integer REFUNDED = 6;
 
     /**
      * 支付状态 0未支付 1已支付 2退款

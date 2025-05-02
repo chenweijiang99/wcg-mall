@@ -10,24 +10,21 @@ spring:
     include: alipay
   #数据库配置
   datasource:
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://47.108.57.173:3306/wcg_mall
-#    username: wcg_mall
-#    password: Jtp86wXHwrETsmMG
-    url: jdbc:mysql://localhost:3306/wcg_mall
-    username: root
-    password: root
   data:
     #redis配置
     redis:
-      host: localhost
-      port: 6379
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
 #邮件服务配置
   mail:
-    host: smtp.qq.com
-    port: 465
-    username: 1774532899@qq.com
-    password: tdiptzrkxqnfdehb
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     default-encoding: utf-8
     properties:
       mail:
@@ -47,7 +44,8 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.chenweijiang.wcg_mall.pojo
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: com.chenweijiang.wcg_mall.utils.SimpleMybatisLogger
     map-underscore-to-camel-case: true
 # 分页
 pagehelper:
@@ -74,32 +72,33 @@ springdoc:
 mall:
   #阿里云oss配置
   alioss:
-    endpoint: oss-cn-chengdu.aliyuncs.com
-    access-key-id: LTAI5tQgLr4j7p69APt1LxKU
-    access-key-secret: 1sALpOS7hbNyAEWJCXvIZlh2JiFdP5
-    bucket-name: web-framework-cwj
+    endpoint: ${OSS_ENDPOINT}
+    access-key-id: ${OSS_ACCESS_KEY_ID}
+    access-key-secret: ${OSS_ACCESS_KEY_SECRET}
+    bucket-name: ${OSS_BUCKET_NAME}
   #jwt配置
   jwt:
     #管理端jwt配置
-    admin-secret-key: cwg.mall.admin
-    admin-ttl: 7200000
+    admin-secret-key: ${ADMIN_JWT_SECRET}
+    admin-ttl: ${ADMIN_JWT_TTL}
     admin-token-name: Authorization
     #用户端jwt配置
-    user-secret-key: cwg.mall.user
-    user-ttl: 7200000
+    user-secret-key: ${USER_JWT_SECRET}
+    user-ttl: ${USER_JWT_TTL}
     user-token-name: Authorization
   #支付配置
   alipay:
-    app-id: 9021000134670858
-    private-key: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCpUrYLj3UN8Iobq9p1t4QQNWlZSRy3oYCiFiVEV9624CWYNVZpKelPeNisjW5G6HavpYWayWdLUNIE4/HP2X/5HmV+em1rQ39I2kQiNKZklv8Bz3W8/hXGChfwoc8LMBD+/2rKAcqS+c7N5agpORLUM8mTlK1zrtY4kzP4gLsBucembWgfs2jrZmy9+AfiIsw8Rx4ZQSyrLvEuOEjHFcraXMH64gUZf+Mp6RjZtm36CtMqnY8o0sPVzfLXC9gRWgTDB5o5uQT/JD6cLCJeyy4kwJnWGfvz1OmM/45XeQ3QkHboqTU55dl45nqUcvgJPP4Yy6JBBT+cwXsB22hqjZ0LAgMBAAECggEATOGGURdxIcQvIUNVrQ+HgkiOLgE5bdOB8Za2kyKGuGhsCYFmW9ew3OnVD/wjr0SL51LzqAV8xkDLK3dIa4SpS7bWhKgYGJUMLUsVlqZrSs8YuHy3S/nebw5UMml19fF8NhxJI7HOhg+xK+H0CculVf6xrzXZz+X51LRZ66KfxrcTsLbf96yoNoeB0HuJIHs0yxzvPRyhSxte1dJd+j+PI55SVtm7RDw17SunGW1LWrVW3okHz/9uGLqA0IO3p0mRyBnwQ2u1tQ0bo5wW4pB+K4DJ18h9aN3nG1d21dQ1mMOXZGxdDLN7o3VPPNOe2/ZbfWXitUwg9brpvvPt4j/CWQKBgQDbbyViUYUTXLUx4YtTEMcmI+uUKeWeFfQ8JaEZSw8gtCr8Du/4g2zX1rBVNhEN8Ofz2DDH+uItFwnmi+z5MRJeu1yz6XginRVQEKGEs4+zvPqVirWMwlZr1KyE/Ha6oPZDmGFT2DgeZ/mfXQwCeiyq2S0liC2/qXED6pS4DlMSzwKBgQDFid/BwDROQHesO1AaygrmBXwh8y2zC3anSvpy5qoXxG8y9G+ikBu/xSWCIpsfShMOFsxaxcfuH+oezGKMkivRM+XpyTiA/YZpxvKYqAL1ZxpSyJSgdbI2cSElaEzkael3oUn1UG8A0eQv5Q4pXHex9hPHorLztIw8IIKM1AmRBQKBgHSITh4slLN3pHJdCRSP8HL82HrS1TJjDlVy1l8MUXhYtgsuE5qykPb++J4IHH5+1W/V+/H39m1jsspQvQSJXuwYLF8POdGIAm2Gp4BFq6cUUS9hfpDGFAcn5oapXJQ4LxAuuGFCjmr3ZMWRMHOQVnBU7XjlHQaQAYjG5zvnv45ZAoGAD4gsuM5FDpYREtDDFqgmPTnXLdAyGq7fEH5bvOcYHrBKUgZYNL8B/40fyuCvs8EeSHBQdx6v/rAxt2Q4p3bizRs4i65PrAzDIdQLxScIvITz0+iDjy5R6efxREC0Mw2E1uwupYRChhz6xS1MdMIZgzunCH5pdbIPiLbBrRMLAYUCgYArSucS3i0fm+DPLXltKLRDC7d7OnpOYYQIfJ+KTyCDBPi/vxYhBzQ9i7gGnwYl8IU/+k+ZCS/d3NqAh7u0WwegJd9yNt97Xrryi3tFUJ//4dt0XHKQKK5yKQvIE7ETIAJbwhzidfVdXPRvg6DwsiYYGv3FGZdVN+7I6FrbnyAemw==
-    alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhk3QT5QWc+ayTFtKzi2tS/+TQSgMwhujK/1AU2PRWNHhsbsfDkGMy9uOoMD74Hvy5a1KnfyBEZZ/0rrUx7wjd23UuHFAUZ0mkTvswmcb3kJpyJBjgzRrmV578yVXKXIokGzE3Ly15GzAImVl88E0NC1REZqJ2ohWO0UDAY17+NOeW5zIn53pvB3HuTFy8MYHKBCXiIG+H3xJyJ8mBXTOCH6xhZL4iJGFGNWj0Y+WK4ADeJ/eRwhYM5wTRezlvd1bq6xQqmwYV0hjn/7nJs1ZChUTR0BjOisqvAvGx8iwKE0LBjWm02qq5XF78qRjMMFmRKCTu9R2pRzLpdFcppTgHwIDAQAB
+    app-id: ${ALIPAY_APP_ID}
+    private-key: ${ALIPAY_PRIVATE_KEY}
+    alipay-public-key: ${ALIPAY_PUBLIC_KEY}
     #notify-url的地址必须为外网可以访问的地址
-    notify-url:  http://47.108.57.173:1203/user/alipay/success
+    notify-url:  ${ALIPAY_NOTIFY_URL}
     #支付宝回调地址
     #return-url: http://localhost:5173/purchaseNotif
     charset: utf-8
     sign-type: RSA2
     #支付宝网关
     gateway-url: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+
     format: json
 

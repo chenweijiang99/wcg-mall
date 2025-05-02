@@ -5,9 +5,85 @@
 
 
     <insert id="save">
-        insert into `order` ( order_number,status,user_id, consignee, consignee_address,consignee_phone, email , pay_method, pay_status, amount, order_time)
-            values (#{orderNumber},#{status},#{userId},#{consignee},#{consigneeAddress},#{consigneePhone},#{email},#{payMethod},#{payStatus},#{amount},#{orderTime})
+    insert into `order`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="orderNumber != null">
+        order_number,
+        </if>
+        <if test="status != null">
+        status,
+        </if>
+        <if test="userId != null">
+        user_id,
+        </if>
+        <if test="consignee != null">
+        consignee,
+        </if>
+        <if test="consigneeAddress != null">
+        consignee_address,
+        </if>
+        <if test="consigneePhone != null">
+        consignee_phone,
+        </if>
+        <if test="email != null">
+        email,
+        </if>
+        <if test="payMethod != null">
+        pay_method,
+        </if>
+        <if test="payStatus != null">
+        pay_status,
+        </if>
+        <if test="amount != null">
+        amount,
+        </if>
+        <if test="orderTime != null">
+        order_time,
+        </if>
+        <if test="checkoutTime != null">
+        checkout_time,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="orderNumber != null">
+        #{orderNumber},
+        </if>
+        <if test="status != null">
+        #{status},
+        </if>
+        <if test="userId != null">
+        #{userId},
+        </if>
+        <if test="consignee != null">
+        #{consignee},
+        </if>
+        <if test="consigneeAddress != null">
+        #{consigneeAddress},
+        </if>
+        <if test="consigneePhone != null">
+        #{consigneePhone},
+        </if>
+        <if test="email != null">
+        #{email},
+        </if>
+        <if test="payMethod != null">
+        #{payMethod},
+        </if>
+        <if test="payStatus != null">
+        #{payStatus},
+        </if>
+        <if test="amount != null">
+        #{amount},
+        </if>
+        <if test="orderTime != null">
+        #{orderTime},
+        </if>
+        <if test="checkoutTime != null">
+        #{checkoutTime},
+        </if>
+    </trim>
     </insert>
+
     <update id="update">
         update `order`
         <set>
@@ -32,6 +108,7 @@
             <if test="payStatus != null">
                 pay_status= #{payStatus},
             </if>
+
             <if test="amount != null">
             amount = #{amount},
             </if>

@@ -28,7 +28,9 @@ public interface ProductService {
 
     int addToWishList(Long userId, Long id);
 
-    void updateProductInventory(Long id, Integer productNumber);
+    void decreaseProductInventory(Long id, Integer productNumber);
+
+    void increaseProductInventory(Long id, Integer productNumber);
 
     Product getProductById(Long productId);
 

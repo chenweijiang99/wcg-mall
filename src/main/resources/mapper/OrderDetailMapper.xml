@@ -5,7 +5,7 @@
 
 
     <select id="getByOrderNumber" resultType="com.chenweijiang.wcg_mall.pojo.vo.OrderDetailProductList">
-        select od.id as id,p.name as productName ,od.product_number as productNumber ,
+        select p.id as id,p.name as productName ,od.product_number as productNumber ,
                p.price as productPrice,p.image as productImage
         from order_detail as od,product as p
         where od.product_id = p.id and od.order_number = #{orderNumber}

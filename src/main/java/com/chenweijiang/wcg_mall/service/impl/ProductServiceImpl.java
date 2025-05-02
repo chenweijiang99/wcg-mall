@@ -116,8 +116,26 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateProductInventory(Long id, Integer productNumber) {
-        productMapper.updateProductInventory(id, productNumber);
+    public void decreaseProductInventory(Long id, Integer productNumber) {
+        Product product = productMapper.getProductById(id);
+        if(product == null){
+            throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_FOUND);
+        }
+        if(product.getInventory() < productNumber || product.getInventory() <= 0 )  {
+            throw new ProductNotFoundException(MessageConstant.PRODUCT_INVENTORY_NOT_ENOUGH);
+        }
+        product.setInventory(product.getInventory() - productNumber);
+        productMapper.updateProduct(product);
+    }
+
+    @Override
+    public void increaseProductInventory(Long id, Integer productNumber) {
+        Product product = productMapper.getProductById(id);
+        if(product == null){
+            throw new ProductNotFoundException(MessageConstant.PRODUCT_NOT_FOUND);
+        }
+        product.setInventory(product.getInventory() + productNumber);
+        productMapper.updateProduct(product);
     }
 
     @Override
