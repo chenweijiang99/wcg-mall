@@ -163,7 +163,3 @@ java -jar target/wcg_mall.jar
 ```
 http://localhost:8080/swagger-ui.html
 ```
-
-## 📄 License
-
-该项目采用 MIT License，请查看 [LICENSE](LICENSE) 文件了解详细信息。
