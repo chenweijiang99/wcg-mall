@@ -4,10 +4,13 @@
 
 一个基于Spring Boot的电商系统，包含用户管理、商品管理、订单处理、购物车、心愿单、博客、评论、支付及WebSocket实时通信等模块。
 
+项目链接  http://wcgmallcwj.online:88/login
+
+账户：1774532899@qq.com  123456  
+
 ## 🧰 技术栈
 
 - **后端**: Spring Boot, MyBatis Plus, Redis, MySQL, Swagger UI
-- **前端**: 可配合任意前端框架使用（如Vue/React）
 - **安全**: JWT鉴权、RSA加密、支付宝支付
 - **其他**: OSS文件上传、邮件激活与重置、定时任务、缓存（Redis）
 
@@ -66,7 +69,7 @@
 
 ## 🚀 快速开始
 
-### �0. 环境准备
+### 0. 环境准备
 
 - Java 8+
 - Maven 3.x
