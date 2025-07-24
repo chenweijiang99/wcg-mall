@@ -164,5 +164,5 @@ java -jar target/wcg_mall.jar
 接口文档可通过Swagger UI访问：
 
 ```
-http://localhost:8080/swagger-ui.html
+http://localhost:1203/swagger-ui.html
 ```
