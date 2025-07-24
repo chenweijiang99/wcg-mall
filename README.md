@@ -1,22 +1,15 @@
-文创购物商城，采用SpringBoot3 + MybatisPlus + Redis + Vue3 + ElementPlus，前后端分离系统实现支付宝沙盒付款功能，文件上传到阿里巴巴对象存储服务等。自己部署时请更改邮箱服务、阿里云OSS、支付宝支付、百度地图等为自己的。
-
-访问  http://wcgmallcwj.online:88     查看效果，账户自己使用邮箱注册即可
-
-前端代码：https://gitee.com/CWJ991203/vue-wcg-mall-user
-
-后台管理代码：https://gitee.com/CWJ991203/vue-wcg-mall-admin
-
-部分效果如下
-
-![输入图片说明](images/1.jpg)
-![输入图片说明](images/2.jpg)
-![输入图片说明](images/3.jpg)
-![输入图片说明](images/4.jpg)
-![输入图片说明](images/5.jpg)
 
 # WCG Mall
 
-一个基于 Java 的电商商城系统，支持商品浏览、下单、购物车管理、用户注册登录等核心功能，适合作为学习项目或基础电商平台开发的起点。
+一个基于 Java 的商城系统，支持商品浏览、下单、购物车管理、用户注册登录、博客等核心功能，适合作为学习项目或基础电商平台开发的起点。
+
+访问  http://wcgmallcwj.online:88 查看效果
+
+账户：1774532899@qq.com   123456
+
+用户端代码：https://gitee.com/CWJ991203/vue-wcg-mall-user
+
+后台管理代码：https://gitee.com/CWJ991203/vue-wcg-mall-admin
 
 ## 🧰 技术栈
 
@@ -66,16 +59,13 @@ wcg_mall/
 │   │   └── webapp/        // 前端页面（如果使用 JSP/HTML）
 ├── pom.xml                // Maven 项目配置
 └── README.md
-📝 TODO
-✅ 商品浏览
 
-✅ 用户登录注册
+部分效果如下
 
-⬜ 支付集成
-
-⬜ 商品评论系统
-
-⬜ 后台管理页面
-
+![输入图片说明](images/1.jpg)
+![输入图片说明](images/2.jpg)
+![输入图片说明](images/3.jpg)
+![输入图片说明](images/4.jpg)
+![输入图片说明](images/5.jpg)
 🤝 贡献
 欢迎提交 Issue 或 Pull Request 来改进项目！
