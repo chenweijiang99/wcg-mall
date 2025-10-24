@@ -10,7 +10,7 @@
 
 该仓库是java后端代码，配套的前端位于：
 https://github.com/chenweijiang99/vue-wcg-mall-user （用户端）
-https://gitee.com/CWJ991203/vue-wcg-mall-admin (管理端)
+https://github.com/chenweijiang99/vue-wcg-mall-admin (管理端)
 
 ## 🧰 技术栈
 
