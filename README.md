@@ -4,7 +4,7 @@
 
 一个基于Spring Boot的电商系统，包含用户管理、商品管理、订单处理、购物车、心愿单、博客、评论、支付及WebSocket实时通信等模块。
 
-项目链接  [http://117.72.179.87:83/login](http://mall.wcgmallcwj.online/login)
+项目链接  http://mall.wcgmallcwj.online/login
 
 账户：1774532899@qq.com  123456  
 
