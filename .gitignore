@@ -13,3 +13,4 @@ wcg_mall/.mvn
 wcg_mall/mvnw
 wcg_mall/mvnw.cmd
 wcg_mall/target
+wcg_mall/src/main/resources/application-dev.yml

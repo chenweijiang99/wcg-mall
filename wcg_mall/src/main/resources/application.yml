@@ -1,0 +1,113 @@
+server:
+  #服务运行端口
+  port: 1203
+spring:
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+  profiles:
+    include: alipay
+  #数据库配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/wcg_mall?characterEncoding=UTF-8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai&tinyInt1isBit=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    #redis配置
+    redis:
+      host: localhost
+      port: 6379
+#邮件服务配置
+  mail:
+    host: smtp.qq.com
+    port: 465
+    username:
+    password:
+    default-encoding: utf-8
+    properties:
+      mail:
+        debug: true
+        smtp:
+          timeout: 10000
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+#Mybatis映射配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.chenweijiang.wcg_mall.pojo
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: com.chenweijiang.wcg_mall.utils.SimpleMybatisLogger
+    map-underscore-to-camel-case: true
+# 分页
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+#测试文档配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 管理端
+      packages-to-scan:
+        - com.chenweijiang.wcg_mall.controller.admin
+    - group: 用户端
+      packages-to-scan:
+        - com.chenweijiang.wcg_mall.controller.user
+
+mall:
+  #阿里云oss配置
+  alioss:
+    endpoint: 
+    access-key-id: 
+    access-key-secret: 
+    bucket-name: 
+  #jwt配置
+  jwt:
+    #管理端jwt配置
+    admin-secret-key: cwg.mall.admin
+    admin-ttl: 7200000
+    admin-token-name: Authorization
+    #用户端jwt配置
+    user-secret-key: cwg.mall.user
+    user-ttl: 7200000
+    user-token-name: Authorization
+  #支付配置
+  alipay:
+    app-id: 
+    private-key: 
+    alipay-public-key: 
+    #notify-url的地址必须为外网可以访问的地址
+    notify-url:  http://localhost:1203/user/alipay/notify
+    #支付宝回调地址
+    return-url: http://localhost:6379/purchaseNotif
+    charset: utf-8
+    sign-type: RSA2
+    #支付宝网关
+    gateway-url: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+
+    format: json
+
+#==============================聚合登录配置信息===================================
+juhe:
+  id: 
+  key: 
+  login-url: https://cn.apihz.cn/api/user/jhdl.php
+  check-login-url: https://cn.apihz.cn/api/user/jhdlq.php
+  return-url: http://117.72.179.87:1203/user/user/juhe/checkLogin/
+front:
+  url: http://localhost:6379/index
