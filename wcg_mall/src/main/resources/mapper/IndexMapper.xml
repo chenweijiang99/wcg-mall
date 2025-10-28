@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenweijiang.wcg_mall.mapper.IndexMapper">
+
+
+    <update id="updateIndexData">
+        update index_data
+        <set>
+            <if test="carouselImage != null ">
+                carousel_images = #{carouselImage},
+            </if>
+            <if test="newProductImage != null ">
+                new_product_images = #{newProductImage},
+            </if>
+            <if test="discountProductImage != null ">
+                discount_product_images = #{discountProductImage},
+            </if>
+            <if test="officialCollection != null ">
+                official_collection = #{officialCollection},
+            </if>
+            <if test="newBlog != null ">
+                new_blog = #{newBlog},
+            </if>
+        </set>
+            where id = #{id}
+    </update>
+</mapper>

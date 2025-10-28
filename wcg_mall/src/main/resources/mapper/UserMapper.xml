@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenweijiang.wcg_mall.mapper.UserMapper">
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        insert into user(social_id,type,username,nick_name, password,avatar,status,state)
+        values(#{socialId},#{type},#{username},#{nickName}, #{password},#{avatar},#{status},#{state})
+    </insert>
+
+
+    <insert id="saveUser" useGeneratedKeys="true" keyProperty="id">
+        insert into user(type,nick_name,email, password) values(#{type},#{nickName},#{email}, #{password})
+    </insert>
+    <update id="updateUser">
+        update user
+        <set>
+            <if test="username!=null">
+                username = #{username},
+            </if>
+            <if test="phone!=null">
+                phone = #{phone},
+            </if>
+            <if test="avatar!=null">
+                avatar = #{avatar},
+            </if>
+            <if test="email !=null">
+                email = #{email},
+            </if>
+            <if test="nickName!=null">
+                nick_name = #{nickName}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenweijiang.wcg_mall.mapper.ProductMapper">
+    <insert id="addProduct">
+        insert into product (create_time,update_time,create_user,update_user,name, category_id,brand_id,price, inventory, image,detail_images, description,description_image,label,status)
+        values (#{createTime},#{updateTime},#{createUser},#{updateUser},#{name},#{categoryId},#{brandId},#{price},#{inventory},#{image},#{detailImages},#{description},#{descriptionImage},#{label},#{status})
+    </insert>
+
+
+    <update id="updateProduct">
+        update product
+       <set>
+            <if test="name != null and name != ''"> name=#{name},</if>
+            <if test="categoryId != null"> category_id=#{categoryId},</if>
+            <if test="brandId != null"> brand_id=#{brandId},</if>
+            <if test="price != null"> price=#{price},</if>
+           <if test="inventory != null" > inventory=#{inventory},</if>
+            <if test="image != null and image != ''" > image=#{image},</if>
+            <if test="detailImages != null and detailImages != ''"> detail_images=#{detailImages},</if>
+            <if test="description != null and description != ''"> description=#{description},</if>
+            <if test="descriptionImage != null and descriptionImage != ''"> description_image=#{descriptionImage},</if>
+            <if test="label != null and label != ''"> label=#{label},</if>
+            <if test="status != null"> status=#{status},</if>
+            update_time=#{updateTime},update_user=#{updateUser}
+       </set>
+        where id=#{id}
+    </update>
+    <select id="userGetList" resultType="com.chenweijiang.wcg_mall.pojo.Product">
+        select * from product where status = 1 order by id
+    </select>
+
+
+    <select id="filter" resultType="com.chenweijiang.wcg_mall.pojo.Product">
+        select p.*,pc.name as categoryName,pb.name as brandName from product as p,product_category as pc,product_brand as pb
+        where p.category_id = pc.id and p.brand_id = pb.id
+            <if test="category != null and category.length > 0">
+                and pc.name in
+                <foreach collection="category" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="brand != null and brand.length > 0 ">
+                and pb.name in
+                <foreach collection="brand" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        and p.price between #{minPrice} and #{maxPrice} and p.status = 1 order by id
+    </select>
+    <select id="list" resultType="com.chenweijiang.wcg_mall.pojo.Product">
+        select * from product
+    </select>
+    <select id="usergetListPage" resultType="com.chenweijiang.wcg_mall.pojo.Product">
+        select * from product
+        <where>
+            <if test="searchQuery != null and searchQuery != ''">
+                name like #{searchQuery}
+            </if>
+        </where>
+    </select>
+    <select id="selectAll" resultType="com.chenweijiang.wcg_mall.pojo.Product">
+        select p.* from product as p
+        left join product_category as pc on p.category_id = pc.id
+        left join product_brand as pb on p.brand_id = pb.id
+        <where>
+<!--            <if test="name != null and name != ''">-->
+<!--                and p.name like concat('%',#{name},'%')-->
+<!--            </if>-->
+
+            <if test="searchNames != null and searchNames.length > 0">
+                <foreach collection="searchNames" item="item">
+                    or p.name like concat('%',#{item},'%')
+                </foreach>
+            </if>
+            <if test="category != null and category.length > 0">
+                and pc.id in
+                <foreach collection="category" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="brand != null and brand.length > 0 ">
+                and pb.id in
+                <foreach collection="brand" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="maxPrice != 0" >
+                and p.price between #{minPrice} and #{maxPrice}
+            </if>
+
+        and p.status = 1
+        order by p.id
+        </where>
+
+    </select>
+</mapper>

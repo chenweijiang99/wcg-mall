@@ -1,0 +1,15 @@
+vue-wcg-mall-user/dist
+vue-wcg-mall-user/.vscode
+vue-wcg-mall-user/node_modules
+
+
+vue-wcg-mall-admin/dist
+vue-wcg-mall-admin/.vscode
+vue-wcg-mall-admin/node_modules
+
+
+wcg_mall/.idea
+wcg_mall/.mvn
+wcg_mall/mvnw
+wcg_mall/mvnw.cmd
+wcg_mall/target

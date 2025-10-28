@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenweijiang.wcg_mall.mapper.BlogMapper">
+
+
+    <update id="updateBlog">
+        update blog
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser},
+            </if>
+        </set>
+            where id = #{id}
+    </update>
+    <select id="getLatestBlog" resultType="com.chenweijiang.wcg_mall.pojo.Blog">
+        select * from blog order by create_time desc limit 3
+    </select>
+    <select id="getBlogDetail" resultType="com.chenweijiang.wcg_mall.pojo.vo.BlogDetailVO">
+        select b.id as id,
+               b.create_time as createTime,
+               b.update_time as updateTime,
+               b.update_user as updateUser,
+               b.create_user as createUser,
+               b.title as title,
+               b.content as content,
+               b.image as image,
+               u.username as author
+        from blog as b,`user` as u
+        where b.id = #{id} and b.create_user = u.id
+    </select>
+    <select id="getBlogDetailList" resultType="com.chenweijiang.wcg_mall.pojo.vo.BlogDetailVO">
+        select b.id as id,
+               b.create_time as createTime,
+               b.update_time as updateTime,
+               b.update_user as updateUser,
+               b.create_user as createUser,
+               b.title as title,
+               b.content as content,
+               b.image as image,
+               u.username as author
+        from blog as b,`user` as u
+        where b.create_user = u.id
+    </select>
+    <select id="selectAll" resultType="com.chenweijiang.wcg_mall.pojo.Blog">
+        select b.* from blog as b
+        left join user as u on b.create_user = u.id
+        <where>
+            <if test="searchTitles != null and searchTitles.length > 0">
+                <foreach collection="searchTitles" item="item">
+                    or b.title like concat('%',#{item},'%')
+                </foreach>
+            </if>
+            <if test="authorNames != null and authorNames.length > 0">
+                <foreach collection="authorNames" item="item">
+                    or u.nick_name like concat('%',#{item},'%')
+                </foreach>
+            </if>
+        </where>
+
+
+
+        order by create_time desc
+
+    </select>
+    <select id="getHotBlogWithComment" resultType="com.chenweijiang.wcg_mall.pojo.Blog">
+        SELECT c.fid, COUNT(c.fid) AS COUNT, b.*
+        FROM comments as c
+        JOIN blog as b ON c.fid = b.id and c.module = 'blog'
+        GROUP BY c.fid
+        ORDER BY count DESC
+        LIMIT 3
+    </select>
+
+
+</mapper>
