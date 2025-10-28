@@ -9,15 +9,16 @@
 ## 📷 系统截图
 
 ### 用户端截图
-![首页](https://img-blog.csdnimg.cn/direct/a1c1c9e4b6c14c10829b04390c8000e1.png)
-![商品列表](https://img-blog.csdnimg.cn/direct/82d4ffc3ff59453aae38f51c76a3d1e2.png)
-![购物车](https://img-blog.csdnimg.cn/direct/84aa350e8c634208a4d4a01685ad5fca.png)
-![博客](https://img-blog.csdnimg.cn/direct/6f99dd71c1e342e2a2b29ee64d94566e.png)
+![登录](run-images/user-login.png)
+![首页](run-images/user-index.jpeg)
+![商品](run-images/user-shop.jpeg)
+
+
+
 
 ### 管理端截图
-![管理后台](https://img-blog.csdnimg.cn/direct/7275c6dc405d496a9ad72c7a47b4c792.png)
-![商品管理](https://img-blog.csdnimg.cn/direct/5a8be3f7612c47669c0413a97bb1c2e6.png)
-![订单管理](https://img-blog.csdnimg.cn/direct/3b4e3c25d30d4112a58a622f8097d9b3.png)
+![登录](run-images/admin-login.png)
+![首页](run-images/admin-index.png)
 
 ## 📖 项目简介
 
