@@ -205,9 +205,9 @@ MIT License
 ## 📧 联系我们
 
 如有问题或建议，请联系：
-- 邮箱：chenweijiang@example.com
-- GitHub：[chenweijiang](https://github.com/chenweijiang)
-
+- 邮箱：1774532899@qq.com
 ---
 
 感谢您使用WCG Mall电商系统！如果您觉得这个项目有帮助，请给我们Star支持！⭐
+![输入图片说明](run-images/qiuqiule.png)
+
