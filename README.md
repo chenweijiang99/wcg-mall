@@ -1,10 +1,25 @@
 # WCG Mall 电商系统
+## 🎯 项目演示
+### 演示账户
+项目链接  http://mall.wcgmallcwj.online/login
+- **用户端**：
+  - 邮箱：1774532899@qq.com
+  - 密码：123456
+
+## 📷 系统截图
+
+### 用户端截图
+![首页](https://img-blog.csdnimg.cn/direct/a1c1c9e4b6c14c10829b04390c8000e1.png)
+![商品列表](https://img-blog.csdnimg.cn/direct/82d4ffc3ff59453aae38f51c76a3d1e2.png)
+![购物车](https://img-blog.csdnimg.cn/direct/84aa350e8c634208a4d4a01685ad5fca.png)
+![博客](https://img-blog.csdnimg.cn/direct/6f99dd71c1e342e2a2b29ee64d94566e.png)
+
+### 管理端截图
+![管理后台](https://img-blog.csdnimg.cn/direct/7275c6dc405d496a9ad72c7a47b4c792.png)
+![商品管理](https://img-blog.csdnimg.cn/direct/5a8be3f7612c47669c0413a97bb1c2e6.png)
+![订单管理](https://img-blog.csdnimg.cn/direct/3b4e3c25d30d4112a58a622f8097d9b3.png)
 
 ## 📖 项目简介
-
-项目链接  http://mall.wcgmallcwj.online/login
-
-账户：1774532899@qq.com  123456  
 
 WCG Mall是一个功能完善的全栈电商系统，采用前后端分离架构，包含三个主要组件：
 - **后端服务**：基于Spring Boot的RESTful API服务
@@ -125,12 +140,10 @@ spring.datasource.password=your_password
 
 #### 3. 启动后端服务
 
-```bash
-cd wcg_mall
-mvn spring-boot:run
-# 或使用已打包的jar
-java -jar target/wcg_mall-0.0.1-SNAPSHOT.jar
-```
+运行后端项目：
+
+WcgMallApplication.java
+
 
 #### 4. 启动用户端
 
@@ -162,60 +175,12 @@ npm run dev
 5. **用户体验**：响应式设计、动画效果、实时反馈
 6. **完整的文档**：Swagger UI接口文档，便于调试和扩展
 
-## 🎯 项目演示
-
-### 演示账户
-- **用户端**：
-  - 邮箱：1774532899@qq.com
-  - 密码：123456
-
-- **管理端**：
-  - 用户名：admin
-  - 密码：123456
-
-## 📷 系统截图
-
-### 用户端截图
-![首页](https://img-blog.csdnimg.cn/direct/a1c1c9e4b6c14c10829b04390c8000e1.png)
-![商品列表](https://img-blog.csdnimg.cn/direct/82d4ffc3ff59453aae38f51c76a3d1e2.png)
-![购物车](https://img-blog.csdnimg.cn/direct/84aa350e8c634208a4d4a01685ad5fca.png)
-![博客](https://img-blog.csdnimg.cn/direct/6f99dd71c1e342e2a2b29ee64d94566e.png)
-
-### 管理端截图
-![管理后台](https://img-blog.csdnimg.cn/direct/7275c6dc405d496a9ad72c7a47b4c792.png)
-![商品管理](https://img-blog.csdnimg.cn/direct/5a8be3f7612c47669c0413a97bb1c2e6.png)
-![订单管理](https://img-blog.csdnimg.cn/direct/3b4e3c25d30d4112a58a622f8097d9b3.png)
-
 ## 📝 开发指南
 
 ### API文档
 后端API已集成Swagger UI，启动服务后可通过以下地址访问：
 http://localhost:1203/doc.html
 
-### 构建部署
-
-#### 后端构建
-```bash
-cd wcg_mall
-mvn clean package -DskipTests
-```
-
-#### 前端构建
-```bash
-# 用户端构建
-cd vue-wcg-mall-user
-npm run build
-
-# 管理端构建
-cd vue-wcg-mall-admin
-npm run build
-```
-
-## 🛡️ 安全说明
-- 生产环境请修改默认密码
-- 确保JWT密钥和数据库密码安全
-- 建议配置HTTPS
-- 定期备份数据库
 
 ## 🔮 未来规划
 
