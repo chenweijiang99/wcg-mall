@@ -19,7 +19,7 @@
 ![首页](run-images/admin-index.png)
 
 
-更多截图在run-images目录下，或者访问http://mall.wcgmallcwj.online/ 查看运行效果
+更多截图在run-images目录下，或者访问https://wcgmall-web.wcgmallcwj.online/ 查看运行效果
 
 
 ## 📖 项目简介
