@@ -1,7 +1,7 @@
 # WCG Mall 电商系统
 ## 🎯 项目演示
 ### 演示账户
-项目链接  http://mall.wcgmallcwj.online/login
+项目链接  https://wcgmall-web.wcgmallcwj.online/login
 - **用户端**：
   - 邮箱：1774532899@qq.com
   - 密码：123456
