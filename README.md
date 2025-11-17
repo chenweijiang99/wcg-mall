@@ -1,4 +1,5 @@
 # WCG Mall 电商系统
+这个项目是之前写的，写得很乱，前端后端都很乱，不过功能是没什么大问题，精力有限，现在正在缓慢的重构
 ## 🎯 项目演示
 ### 演示账户
 项目链接  https://wcgmall-web.wcgmallcwj.online/login
