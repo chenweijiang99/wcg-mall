@@ -3,7 +3,7 @@
 
 这个项目相对来说比较简单，适合快速上手
 
-这个项目有一个重构的版本：https://gitee.com/CWJ991203/wcgmall-plus/ 仓库内有预览链接
+这个项目有一个重构的版本：https://github.com/chenweijiang99/wcgmall-plus/ 仓库内有预览链接
 
 重构的版本前端使用：vue3+ts+TailwindCSS
 
