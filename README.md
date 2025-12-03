@@ -1,5 +1,13 @@
 # WCG Mall 电商系统
-这个项目是之前写的，写得很乱，前端后端都很乱，不过功能是没什么大问题，精力有限，现在正在缓慢的重构
+这项目是以前写的项目，前后端都写得很乱，布局采用的还是bootstrap 前端采用bootstrap+vue3+js+ElementPlus构建
+
+这个项目相对来说比较简单，适合快速上手
+
+这个项目有一个重构的版本：https://gitee.com/CWJ991203/wcgmall-plus/ 仓库内有预览链接
+
+重构的版本前端使用：vue3+ts+TailwindCSS
+
+后端：SpringBoot3.x + Satoken + mysql + redis
 
 接毕设定制、网站定制
 ## 🎯 项目演示
